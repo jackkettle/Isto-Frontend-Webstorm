@@ -10,7 +10,9 @@ Tags: bootsrap, whithe, blue
 
 @primary-color: #00708c;
 @dark-color: #28364f;
-@light-color: #6aceec;
+@light-color: #6aceed;
+
+
 
 /*-------------------------------------------------------------------*/
 /* Base */
@@ -24,6 +26,7 @@ body {
     line-height: 1.6em;
     background-color: #ddd;
 }
+
 
 h1,
 h2,
@@ -1371,6 +1374,14 @@ img.alignright + p {
     color: #fff;
 }
 
+#header a:hover {
+    text-decoration: none;
+    opacity: .7;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+}
+
 #header .container {
     position: relative;
 }
@@ -1380,17 +1391,26 @@ img.alignright + p {
     display: inline-block;
 }
 
+#header-title img{
+    width: 40%;
+    height: 40%;
+    margin: 20px 0 10px 0;
+}
+
 #header-title h1 {
     font-family: 'Abel', sans-serif;
     text-transform: lowercase;
-    word-spacing: -10px;
-    margin: 20px 0 10px 0;
-    font-size: 3.2em;
+
+    margin: 0px 0 10px 0;
+    font-size: 2.8em;
     color: #fff;
 }
 
 #header-title h1 span {
     color: @light-color;
+    word-spacing: -10px;
+    text-transform: uppercase;
+
 }
 
 #header-title p {
@@ -1532,6 +1552,16 @@ a.social-icon:hover {
 
 .navbar-mind .navbar-brand span {
     color: @light-color;
+}
+
+.navbar-brand h1 {
+    margin-top: 0;
+    font-size: 1em;
+    color: #fff;
+}
+
+.navbar-brand span {
+    text-transform: uppercase;
 }
 
 .navbar-mind {

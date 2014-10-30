@@ -13,7 +13,7 @@
     <link href="vendor/css/animate.min.css" rel="stylesheet" media="screen">
     <link href="vendor/css/lightbox.css" rel="stylesheet" media="screen">
 
-    <link href="css/style.css" rel="stylesheet" media="screen" title="default">
+    <link href="css/main.css" rel="stylesheet" media="screen" title="default">
     <link href="css/width-full.css" rel="stylesheet" media="screen" title="default">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -30,8 +30,8 @@
 <header id="header" class="hidden-xs">
     <div class="container">
         <div id="header-title">
-            <h1 class="animated fadeInDown"><a href="index.html">IS <span>T</span>O</a></h1>
-            <p class="animated fadeInLeft"><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</p>
+            <a href="index.html"> <img src="img/isto-logo-white.png" alt=""/></a>
+            <h1 class="animated fadeInDown"><a href="index.html"><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</a></h1>
         </div>
 
         <div id="social-header" class="hidden-xs">
@@ -44,14 +44,6 @@
             <a href="#" class="social-icon soc-github animated fadeInDown animation-delay-7"><i class="fa fa-github"></i></a>
         </div>
 
-        <div id="search-header" class="hidden-xs animated bounceInRight">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                            </span>
-            </div><!-- /input-group -->
-        </div>
     </div> <!-- container -->
 </header> <!-- header -->
 
@@ -59,13 +51,15 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand visible-xs" href="index.html">Open <span>Mind</span></a>
+            <a class="navbar-brand visible-xs" href="index.html"><h1 class="animated fadeInDown"><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</h1>
+            </a>
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-mind-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <i class="fa fa-bars fa-inverse"></i>
+                <i class="fa fa-bars fa-inverse fa-3x"></i>
             </button>
         </div>
+
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-mind-collapse">
@@ -729,6 +723,9 @@
 <script src="js/syntax/shCore.js"></script>
 <script src="js/syntax/shBrushXml.js"></script>
 <script src="js/syntax/shBrushJScript.js"></script>
+
+<script src="http://localhost:35729/livereload.js"></script>
+
 
 <script type="text/javascript">
     SyntaxHighlighter.all()
