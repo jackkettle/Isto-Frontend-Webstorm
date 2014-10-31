@@ -7,15 +7,19 @@ module.exports = function (grunt) {
 
         // Automatically run a task when a file changes
         watch: {
-            options: {
-                livereload: true
-            },
             styles: {
                 files: ["**/*.less"],
-                tasks: "less"
+                tasks: "less",
+                options: {
+                    livereload: true
+                }
+
             },
-            markup: {
-                files: ["**/*", "*"]
+            html: {
+                files: ['**/*.htm','**/*.html'],
+                options: {
+                    livereload: true
+                }
             }
         },
 
@@ -38,5 +42,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-less");
 
     // The dev task will be used during development
-    grunt.registerTask("default", ["less:compile", "watch:styles", "watch:markup"]);
+    grunt.registerTask("default", ["watch"]);
 };
