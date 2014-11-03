@@ -1338,7 +1338,7 @@ a.social-icon:hover {
 /* Carousel Mind */
 /*-------------------------------------------------------------------*/
 .carousel-mind {
-  background-image: url(../img/back.jpg);
+  background-image: url(../img/back2.jpg);
   background-size: cover;
 }
 .carousel-mind-back-2 {
@@ -2591,4 +2591,13 @@ hr {
 .icon-box.icon-box-danger h5,
 .icon-box.icon-box-danger h6 {
   color: #bf0000;
+}
+#twitter-widget-0 {
+  width: 100% !important;
+  min-height: 720px;
+  height: 100% !important;
+  margin-bottom: 40px !important;
+}
+#twitter-widget-0.timeline {
+  border-radius: 0 !important;
 }
