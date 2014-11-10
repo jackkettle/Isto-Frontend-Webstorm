@@ -798,7 +798,9 @@ a.list-group-item.active:focus {
 
 .thumbnail {
     border-radius: 0;
-    background-color: transparent;
+    border: 1px solid @dark-color;
+    background-color: @primary-color;
+    margin-top: 40px;
 }
 
 a.thumbnail:hover,
@@ -1534,6 +1536,10 @@ a.social-icon:hover {
     background-color: #000;
 }
 
+.soc-mail {
+    background-color: #00A600;
+}
+
 
 
 
@@ -2095,8 +2101,17 @@ a.social-icon:hover {
     text-decoration: none;
 }
 
+#footer-widget-white a{
+    color: #fff;
+    text-decoration: none;
+}
+
 #footer-widgets a:hover {
     color: #fff;
+}
+
+footer-widget h4 {
+    margin: 0px;
 }
 
 
@@ -3279,5 +3294,9 @@ hr {
 }
 
 #twitter-widget-0.timeline {
+    border-radius: 0 !important;
+}
+
+.timeline {
     border-radius: 0 !important;
 }

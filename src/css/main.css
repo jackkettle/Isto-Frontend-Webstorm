@@ -609,7 +609,9 @@ a.list-group-item.active:focus {
 /* thumbnail */
 .thumbnail {
   border-radius: 0;
-  background-color: transparent;
+  border: 1px solid #28364f;
+  background-color: #00708c;
+  margin-top: 40px;
 }
 a.thumbnail:hover,
 a.thumbnail:focus,
@@ -1208,6 +1210,9 @@ a.social-icon:hover {
 .soc-github {
   background-color: #000;
 }
+.soc-mail {
+  background-color: #00A600;
+}
 /*-------------------------------------------------------------------*/
 /* Navbar */
 /*-------------------------------------------------------------------*/
@@ -1652,8 +1657,15 @@ a.social-icon:hover {
   color: #6aceed;
   text-decoration: none;
 }
+#footer-widget-white a {
+  color: #fff;
+  text-decoration: none;
+}
 #footer-widgets a:hover {
   color: #fff;
+}
+footer-widget h4 {
+  margin: 0px;
 }
 #footer {
   background-color: #333;
@@ -2599,5 +2611,8 @@ hr {
   margin-bottom: 40px !important;
 }
 #twitter-widget-0.timeline {
+  border-radius: 0 !important;
+}
+.timeline {
   border-radius: 0 !important;
 }
