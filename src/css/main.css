@@ -2616,3 +2616,7 @@ hr {
 .timeline {
   border-radius: 0 !important;
 }
+#main-view {
+  min-height: 1000px;
+  min-width: 100%;
+}

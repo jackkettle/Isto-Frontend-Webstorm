@@ -12,18 +12,34 @@ angular
 
             // route for the home page
             .when('/', {
-                templateUrl : 'partials/home.html'
+                templateUrl : 'partials/index.html'
             })
 
-            // route for the about page
-            .when('/about', {
-                templateUrl : 'partials/404.html'
+            .when('/competition', {
+                templateUrl : 'partials/competition.html'
             })
 
-            // route for the contact page
+            .when('/sponsor', {
+                templateUrl : 'partials/sponser.html'
+            })
+
+            .when('/photo', {
+                templateUrl : 'partials/photo.html'
+            })
+
+            .when('/history', {
+                templateUrl : 'partials/history.html'
+            })
+
             .when('/contact', {
-                templateUrl : 'partials/home.html'
+                templateUrl : 'partials/contact.html'
+            })
+
+            .otherwise({
+                redirectTo: 'partials/404.html'
             });
+
+
     })
 
     // create the controller and inject Angular's $scope

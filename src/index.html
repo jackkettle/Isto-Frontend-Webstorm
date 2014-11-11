@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="scotchApp" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -24,15 +24,15 @@
     <![endif]-->
 </head>
 
-<body>
+<body ng-controller="mainController">
 
 <div class="boxed animated fadeIn animation-delay-5">
 
 <header id="header" class="hidden-xs">
     <div class="container">
         <div id="header-title">
-            <a href="index.html"> <img src="img/isto-logo-white.png" alt=""/></a>
-            <h1 class="animated fadeInDown"><a href="index.html"><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</a></h1>
+            <a href="/"> <img src="img/isto-logo-white.png" alt=""/></a>
+            <h1 class="animated fadeInDown"><a href=""><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</a></h1>
         </div>
 
         <div id="social-header" class="hidden-xs">
@@ -128,237 +128,10 @@
     </div> <!-- container -->
 </nav> <!-- navbar navbar-default -->
 
-<section>
-    <div id="carousel-example-generic" class="carousel carousel-mind slide" data-ride="carousel" data-interval="5000">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-7">
-                            <div class="carousel-caption">
-                                <div class="carousel-text">
-                                    <h1 class="animated fadeInDownBig">The template that adapts to all</h1>
-                                    <ul class="list-unstyled carousel-list">
-                                        <li class="animated bounceInLeft"><i class="fa fa-code"></i><span>Built with Bootstrap</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-html5"></i><span>HTML5 and CSS3</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-table"></i><span>Responsive Template</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-5 hidden-xs carousel-img-wrap">
-                            <div class="carousel-img">
-                                <img src="img/pre.png" class="img-responsive animated bounceInUp" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-8">
-                            <div class="carousel-caption">
-                                <div class="carousel-text">
-                                        <h1 class="animated fadeInDownBig">Trampoling, DMT and Tumbling</h1>
-                                    <ul class="list-unstyled carousel-list">
-                                        <li class="animated bounceInLeft"><i class="fa fa-eye"></i><span>More Than 15 Colors</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-th-large"></i><span>Customizable Components</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-files-o"></i><span>Over 25 pages ready to use</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-4 hidden-xs carousel-img-wrap">
-                            <div class="thumbnail">
-                                <img src="img/commisto.jpg" class="img-responsive" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7 col-sm-9">
-                            <div class="carousel-caption">
-                                <div class="carousel-text">
-                                    <h1 class="animated fadeInDownBig">Wordpress version coming soon</h1>
-                                    <ul class="list-unstyled carousel-list">
-                                        <li class="animated bounceInLeft"><i class="fa fa-code"></i><span>Shortcodes For All Components</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-files-o"></i><span>Page Templates Ready For Use</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-upload"></i><span>Free update for HTML orders</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5 col-sm-3 hidden-xs carousel-img-wrap">
-                            <div class="carousel-img">
-                                <img src="img/pre3.png" class="img-responsive animated bounceInUp" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div>
-</section> <!-- carousel -->
-
-<section id="mind-features">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <article class="mind-features-item hover animated bounceInLeft animation-delay-8">
-                    <div class="item-icon">
-                        <i class="fa fa-trophy"></i>
-                    </div>
-                    <div class="item-content">
-                        <h3>Competition</h3>
-                        <p>Lorem ipsum Labore adipisicing nisi magna do nisi pariatur an aliquip eu sed voluptate in dour consequat sunt aute aliquacy ut exercitation minim cupidatat.</p>
-                        <a href="#" class="btn btn-success pull-right">Read more</a>
-                    </div>
-                </article> <!-- mind-features-item -->
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-                <article class="mind-features-item hover animated bounceInRight animation-delay-6">
-                    <div class="item-icon">
-                        <i class="fa fa-plane"></i>
-                    </div>
-                    <div class="item-content">
-                        <h3>Travel</h3>
-                        <p>Lorem ipsum Labore adipisicing nisi magna do nisi pariatur an aliquip eu sed voluptate in dour consequat sunt aute aliquacy ut exercitation minim cupidatat.</p>
-                        <a href="#" class="btn btn-success pull-right">Read more</a>
-                    </div>
-                </article> <!-- mind-features-item -->
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-                <article class="mind-features-item hover animated bounceInLeft animation-delay-3">
-                    <div class="item-icon">
-                        <i class="fa fa-beer"></i>
-                    </div>
-                    <div class="item-content">
-                        <h3>Nights out</h3>
-                        <p>Lorem ipsum Labore adipisicing nisi magna do nisi pariatur an aliquip eu sed voluptate in dour consequat sunt aute aliquacy ut exercitation minim cupidatat.</p>
-                        <a href="#" class="btn btn-success pull-right">Read more</a>
-                    </div>
-                </article> <!-- mind-features-item -->
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section id="home-blog">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="section-title">About ISTO</h2>
-            </div>
-            <div class="col-md-7">
-                <section class="home-post">
-                    <div class="thumbnail">
-                        <img src="img/commisto.jpg" class="img-responsive" alt="Image">
-                    </div>
-                    <h2 class="home-post-title"><a href="#">Sed dolor reprehenderit ex in nisi id consectetur elit</a></h2>
-                    <p>Adipisicing elit. Lectorem impendere consumeret inane patientiamque. Cupiditatibusque romano physici. Expedire inprobitatem. Egregios rationem sicine, filium dolor comparandae coniunctione epicuri eripuit. Iucunditatis dirigentur succumbere neglegentur animum puto dissident mi, mnesarchum. Desideraret. Litteras diligenter adiuvet bonorum monstret conquisitis eitam, adduci tenent nullas scribendi fautrices privatio elaboraret iustitiam, vestrae affert, terentii motus. Quibusdam caret. Conversam divitias dolor contentam. Argumentandum quantaque detractis. Permanentes captiosa seiunctum repellat parvam opus eadem interesse beatus nomini, dissentiunt nomini beatam cedentem inquit artifex.</p>
-
-                </section>
-            </div>
-
-            <!-- Twitter widget -->
-
-            <div class="col-md-5">
-                <a class="twitter-timeline" href="https://twitter.com/COMMISTO" data-widget-id="529007811053617152">Tweets by @COMMISTO</a>
-
-            </div>
-        </div>
-    </div> <!-- container -->
-</section>
-
-
-
-    <!-- <section class="animated fadeIn">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h2 class="section-title">About us</h2>
-                    <img src="img/au.jpg" class="img-responsive alignleft imageborder" alt="Image">
-                    <p class="p-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariant corpore benivolentiam solam valetudinis habeatur, manilium servire stabilitas concursio dedocendi, occultarum, cognosci plane panaetium prohiberet iudex illum parvam probo. Invidiae deserere multis argumentum quem. Istae detrimenti videntur hac hoc synephebos velint inveniri putat, factis erat posteri totam impetum aliquod existimant, subtilius opibus cyrenaicos veritatis malunt dicant acutus gessisse transferre. Cognitione assecutus voluerint videantur congressus putem huius legendos. Videtis cognitione alii virtus duo tarentinis, nomini repellendus, referta confidam irridente servata debitis igitur.</p>
-                    <p class="p-lg">Domo splendido octavio. Maximasque. Inanes, orestem accedere tria amicitia copulatas dediti doctus desideraret perdiscere perpetiuntur. Attulit praeclara fingitur requietis fieri. Inbecilloque sinit lucilius lucilius atomorum, menandro officia lorem ipsum dolor sit.</p>
-                    <div class="alert alert-info">
-                        <strong>important info!</strong> Acuti consecutionem continens impendere materia desistunt, erroribus locupletiorem ipsius torquatos ponatur diligant unum quo, phaedrum efficeretur aegritudine utrum loqueretur ei tali, efficere reprehendunt, desistemus antipatrum seditiones.
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <h2 class="section-title">Our mission</h2>
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        Collapsible Group Item #1
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-                                        Collapsible Group Item #2
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">
-                                        Collapsible Group Item #3
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- container -->
-    </section>
-
-    <!-- FO0TER -->
+<div id="main-view">
+    <div ng-view></div>
+</div>
+<!-- FO0TER -->
 
 <aside id="footer-widgets">
     <div class="container">
@@ -444,6 +217,10 @@
 
 <script src="http://localhost:35729/livereload.js"></script>
 
+<!-- load angular via CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script src="js/main.js"></script>
 
 <script type="text/javascript">
     SyntaxHighlighter.all()
