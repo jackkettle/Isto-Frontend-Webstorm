@@ -1,94 +1,25 @@
-<section>
-    <div id="carousel-example-generic" class="carousel carousel-mind slide" data-ride="carousel" data-interval="5000">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
+    <!--
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-7">
-                            <div class="carousel-caption">
-                                <div class="carousel-text">
-                                    <h1 class="animated fadeInDownBig">The template that adapts to all</h1>
-                                    <ul class="list-unstyled carousel-list">
-                                        <li class="animated bounceInLeft"><i class="fa fa-code"></i><span>Built with Bootstrap</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-html5"></i><span>HTML5 and CSS3</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-table"></i><span>Responsive Template</span></li>
-                                    </ul>
-                                </div>
-                            </div>
+<section>
+        <div class="carousel" ng-controller="carouselDemoCtrl">
+            <div class="carousel-background">
+                <carousel interval="myInterval">
+                    <slide ng-repeat="slide in slides" active="slide.active">
+                        <img ng-src="{{slide.image}}" style="margin:auto;" class="carousel-img">
+                        <div class="carousel-caption">
+                            <h4>Slide {{$index}}</h4>
+                            <p>{{slide.text}}</p>
                         </div>
-                        <div class="col-md-6 col-sm-5 hidden-xs carousel-img-wrap">
-                            <div class="carousel-img">
-                                <img src="img/pre.png" class="img-responsive animated bounceInUp" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-8">
-                            <div class="carousel-caption">
-                                <div class="carousel-text">
-                                    <h1 class="animated fadeInDownBig">Trampoling, DMT and Tumbling</h1>
-                                    <ul class="list-unstyled carousel-list">
-                                        <li class="animated bounceInLeft"><i class="fa fa-eye"></i><span>More Than 15 Colors</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-th-large"></i><span>Customizable Components</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-files-o"></i><span>Over 25 pages ready to use</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-4 hidden-xs carousel-img-wrap">
-                            <div class="thumbnail">
-                                <img src="img/commisto.jpg" class="img-responsive" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7 col-sm-9">
-                            <div class="carousel-caption">
-                                <div class="carousel-text">
-                                    <h1 class="animated fadeInDownBig">Wordpress version coming soon</h1>
-                                    <ul class="list-unstyled carousel-list">
-                                        <li class="animated bounceInLeft"><i class="fa fa-code"></i><span>Shortcodes For All Components</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-files-o"></i><span>Page Templates Ready For Use</span></li>
-                                        <li class="animated bounceInLeft"><i class="fa fa-upload"></i><span>Free update for HTML orders</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5 col-sm-3 hidden-xs carousel-img-wrap">
-                            <div class="carousel-img">
-                                <img src="img/pre3.png" class="img-responsive animated bounceInUp" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </slide>
+                </carousel>
             </div>
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div>
 </section> <!-- carousel -->
+
+
+<section>
+    <img ng-src="img/misc/hall_bg.png" class="background-img">
+</section>
 
 <section id="mind-features">
     <div class="container">
@@ -144,8 +75,8 @@
             </div>
             <div class="col-md-7">
                 <section class="home-post">
-                    <div class="thumbnail">
-                        <img src="img/commisto.jpg" class="img-responsive" alt="Image">
+                    <div class="content-image">
+                        <img src="img/misc/commisto.jpg" class="img-responsive" alt="Image">
                     </div>
                     <h2 class="home-post-title"><a href="#">Sed dolor reprehenderit ex in nisi id consectetur elit</a></h2>
                     <p>Adipisicing elit. Lectorem impendere consumeret inane patientiamque. Cupiditatibusque romano physici. Expedire inprobitatem. Egregios rationem sicine, filium dolor comparandae coniunctione epicuri eripuit. Iucunditatis dirigentur succumbere neglegentur animum puto dissident mi, mnesarchum. Desideraret. Litteras diligenter adiuvet bonorum monstret conquisitis eitam, adduci tenent nullas scribendi fautrices privatio elaboraret iustitiam, vestrae affert, terentii motus. Quibusdam caret. Conversam divitias dolor contentam. Argumentandum quantaque detractis. Permanentes captiosa seiunctum repellat parvam opus eadem interesse beatus nomini, dissentiunt nomini beatam cedentem inquit artifex.</p>
@@ -162,3 +93,6 @@
         </div>
     </div> <!-- container -->
 </section>
+
+<!-- Twitter script: placed here due to problem with ng-view -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

@@ -1,0 +1,94 @@
+<section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">The CommISTO</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li class="active">CommISTO</li>
+            </ol>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div ng-repeat="member in committee">
+                <section>
+                    <div class="panel panel-default  animated fadeInDown animation-delay-8">
+                        <div class="panel-body profile-panel">
+                            <h3 class="section-title">{{ member.name }}<small class="pull-right">{{ member.member_type }}</small><div class="clearfix"></div></h3>
+                            <div class="clearfix"></div>
+                            <div class="col-md-5">
+                                <img src="{{ member.img_src}}" alt="" class="imageborder img-responsive">
+                            </div>
+                            <div class="col-md-7">
+                                <dl class="dl-horizontal profile-facts">
+                                    <dt>Name</dt>
+                                    <dd>{{ member.name }}</dd>
+
+                                    <dt>Club</dt>
+                                    <dd>{{ member.club }}</dd>
+
+                                    <dt>What I do in college</dt>
+                                    <dd>{{ member.college }}</dd>
+                                    <hr/>
+                                    <dt>Competitive level</dt>
+                                    <dd>{{ member.level }}</dd>
+
+                                    <dt>Committee experience</dt>
+                                    <dd>
+                                        <ul class="list-unstyled">
+                                            <li class="last-list-item" ng-repeat="point in member.committee_experience">{{ point }}</li>
+                                        </ul>
+                                    </dd>
+
+                                    <dt>Qualifications</dt>
+                                    <dd>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="fact in member.qualification">{{ fact }}</li>
+                                        </ul>
+                                    </dd>
+
+                                    <hr/>
+                                    <dt>Favourite move</dt>
+                                    <dd>{{ member.favourite_move }}</dd>
+
+                                    <dt>Best ISTO memory</dt>
+                                    <dd>{{ member.isto_memory }}</dd>
+
+                                    <dt>Two fun facts</dt>
+                                    <dd>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="fact in member.fun_facts">{{ fact }}</li>
+                                        </ul>
+                                    </dd>
+                                    <hr/>
+                                    <dt>Best Quote</dt>
+                                    <dd>
+                                        <i class="fa fa-quote-left"></i>
+                                        {{ member.best_quoate }}
+                                        <i class="fa fa-quote-right"></i>
+                                    </dd>
+
+                                    <dt>Medals / Achievements</dt>
+                                    <dd>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="fact in member.medals">{{ fact }}</li>
+                                        </ul>
+                                    </dd>
+
+                                    <dt>Favourite CommISTO Member</dt>
+                                    <dd>{{ member.favourite_member }}</dd>
+
+
+
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div> <!-- container -->
+</section>
+

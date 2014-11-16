@@ -5,7 +5,6 @@
 module.exports = function (grunt) {
     grunt.initConfig({
 
-        // Automatically run a task when a file changes
         watch: {
             styles: {
                 files: ["**/*.less"],
@@ -16,7 +15,7 @@ module.exports = function (grunt) {
 
             },
             html: {
-                files: ['**/*.htm','**/*.html'],
+                files: ['**/*.htm','**/*.html','**/*.js'],
                 options: {
                     livereload: true
                 }

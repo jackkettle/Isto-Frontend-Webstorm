@@ -78,6 +78,12 @@ iframe {
 .margin-bottom-20 {
   margin-bottom: 20px;
 }
+.margin-top-20 {
+  margin-top: 30px;
+}
+.margin-right-20 {
+  margin-right: 30px;
+}
 .three_cols {
   overflow: hidden;
 }
@@ -1343,11 +1349,11 @@ a.social-icon:hover {
 /* Carousel Mind */
 /*-------------------------------------------------------------------*/
 .carousel-mind {
-  background-image: url(../img/back2.jpg);
+  background-image: url(../img/misc/back2.jpg);
   background-size: cover;
 }
 .carousel-mind-back-2 {
-  background-image: url(../img/back2.jpg);
+  background-image: url(../img/misc/back2.jpg);
   background-size: cover;
 }
 .carousel-mind .carousel-caption {
@@ -2115,7 +2121,7 @@ hr {
 /* Coming Soon 2 */
 /*-------------------------------------------------------------------*/
 .coming2 {
-  background-image: url(../img/coming.jpg);
+  background-image: url(../img/misc/coming.jpg);
   background-size: auto !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -2386,7 +2392,7 @@ hr {
   padding: 30px 0;
   background-color: #000;
   color: #fff;
-  background-image: url(../img/back_home.jpg);
+  background-image: url(../img/misc/back_home.jpg);
   background-size: cover;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
@@ -2619,4 +2625,34 @@ hr {
 #main-view {
   min-height: 1000px;
   min-width: 100%;
+}
+.dl-horizontal dt {
+  white-space: normal;
+  margin-bottom: 3px;
+}
+.image-profile {
+  width: 300px;
+}
+.gallery-panel {
+  padding: 20px;
+  margin-top: 20px;
+}
+.carousel-background img {
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+}
+.carousel-background {
+  background-color: #dddddd;
+  border-bottom: 1px solid #bbb;
+}
+.background-img {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 30px;
+}
+.content-image {
+  border-radius: 0;
+  border: 1px solid #28364f;
+  padding: 5px;
+  background-color: #00708c;
 }

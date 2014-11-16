@@ -1,0 +1,57 @@
+<section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">Our Sponsors</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li class="active">Sponsor</li>
+            </ol>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="jumbotron animated fadeInDown animation-delay-8">
+                <div>
+                    <h1  class="page-header">ISTO is made possible by our Sponsors!</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget velit mollis, rhoncus quam tristique, sagittis mi. Nunc sed fringilla sem. Mauris id turpis luctus, porttitor lacus nec, tincidunt diam. Quisque eget tempus sem, vitae cursus quam. Ut blandit sagittis lorem, pellentesque luctus est mollis in. Mauris nec elementum urna. Ut sagittis accumsan ligula, eu euismod ipsum blandit at. In non venenatis arcu. Nam metus justo, blandit id leo in, feugiat dapibus libero. Phasellus cursus blandit tortor, in ullamcorper ligula viverra eget. Duis vulputate in neque sed aliquet. Aenean pulvinar tincidunt sem vitae pharetra. Suspendisse scelerisque nulla a dolor pretium commodo quis nec purus. Sed mattis consequat urna condimentum porta. Phasellus ipsum nunc, convallis eget sagittis sit amet, tempus placerat tellus. Nam vel mollis metus. </p>
+                </div>
+
+                <aside class="col-md-12 well  well-sm">
+                    <div class="col-md-10">
+                        <h3><strong>Interested becoming a sponsor?</strong></h3>
+                        <p>We would be delighted to hear from you. Contact us at <a href="mailto:info@isto.ie">info@isto.ie</a> for more info.</p>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-right margin-top-20 margin-right-20">
+                            <i class="fa fa-bullhorn fa-2x"></i>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="sponsor in sponsors">
+                <section>
+                    <div class="panel panel-default  animated fadeInDown animation-delay-8">
+                        <div class="panel-body profile-panel">
+                            <h3 class="section-title">{{ sponsor.name }}<small class="pull-right">Random sponsor</small><div class="clearfix"></div></h3>
+                            <div class="clearfix"></div>
+                            <div class="col-md-7">
+                                <h3><span>Website:</span> <a href="{{ sponsor.website }}">{{ sponsor.website }} </a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget velit mollis, rhoncus quam tristique, sagittis mi. Nunc sed fringilla sem. Mauris id turpis luctus, porttitor lacus nec, tincidunt diam. Quisque eget tempus sem, vitae cursus quam. Ut blandit sagittis lorem, pellentesque luctus est mollis in. Mauris nec elementum urna. Ut sagittis accumsan ligula, eu euismod ipsum blandit at. In non venenatis arcu. Nam metus justo, blandit id leo in, feugiat dapibus libero. Phasellus cursus blandit tortor, in ullamcorper ligula viverra eget. Duis vulputate in neque sed aliquet. Aenean pulvinar tincidunt sem vitae pharetra. Suspendisse scelerisque nulla a dolor pretium commodo quis nec purus. Sed mattis consequat urna condimentum porta. Phasellus ipsum nunc, convallis eget sagittis sit amet, tempus placerat tellus. Nam vel mollis metus. </p>
+                            </div>
+                            <div class="col-md-5">
+                                <img src="{{sponsor.img_src}}" alt="" class="alignright imageborder img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div> <!-- container -->
+</section>
+
