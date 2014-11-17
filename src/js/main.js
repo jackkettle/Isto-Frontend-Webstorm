@@ -13,22 +13,11 @@ angular
         $scope.mail     = 'mailto:info@isto.ie';
     })
 
-    .controller('carouselDemoCtrl', function ($scope) {
-        $scope.myInterval = 5000;
-        var slides = $scope.slides = [
-            {
-                image: "img/carousel/bg_1.jpg",
-                text: ""
-            },
-            {
-                image: "img/carousel/bg_1.jpg",
-                text: ""
-            },
-            {
-                image: "img/carousel/bg_1.jpg",
-                text: ""
-            }
-        ];
+    .controller('historyController', function ($scope, $http) {
+        $http.get('json/history.json')
+            .then(function(res){
+                $scope.history = res.data;
+            });
     })
 
 
@@ -106,7 +95,8 @@ angular
             })
 
             .when('/history', {
-                templateUrl : 'partials/history.html'
+                templateUrl : 'partials/history.html',
+                controller  : 'historyController'
             })
 
             .when('/contact', {
