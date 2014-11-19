@@ -116,7 +116,7 @@
       "DCU Treasurer 13/14"
     ],
     "favourite_move": "1 and 3, rudi ballout",
-    "isto_memory": "My first ISTO 2010, pre drinking in our hotel room in Cork with the rest of DCU. Was the start of something beautiful.",
+    "isto_memory": "My first ISTO 2010, getting ready to go out in our hotel room in Cork with the rest of DCU. Was the start of something beautiful.",
     "fun_facts": [
       "My full name spells out my first name. Jack Andrew Christopher Kettle",
       "I can cook any meal with a microwave"
@@ -199,6 +199,35 @@
   },
 
   {
+    "name": "James Downey",
+    "member_type": "Ordinary member",
+    "club": "University Of Limerick",
+    "college": "Industrial Biochemistry",
+    "level": "Elite",
+    "committee_experience": [
+      "Treasurer past two years of UL trampolining club",
+      "Exce member of clubs and societies this year"
+    ],
+    "favourite_move": "Straight barani",
+    "isto_memory": "Dressed as pikachu in a park in belfast passing by a random stranger and saying “I’ll thunderbolt ya”",
+    "fun_facts": [
+      "My shoulders are double jointed",
+      "I can touch my head with my feet"
+    ],
+    "best_quoate": "I'll thunderbolt ya",
+    "medals": [
+      "Elite: 3rd Intervarsities 2014",
+      "Elite: 2nd ISTO 2014",
+      "3rd level 4 tumbling ISTO 2014"
+    ],
+    "favourite_member": "Shannen Minter :D",
+    "qualification": [
+      "GI - Trampoline Coaching Level 1"
+    ],
+    "img_src": "img/profiles/james.jpg"
+  },
+
+  {
     "name": "Sinéad Ahern",
     "member_type": "Ordinary member",
     "club": "DCU (Just graduated)",
@@ -228,36 +257,7 @@
       "Level 1 WAG Judge",
       "Level 1 Trampolining Judge"
     ],
-    "img_src": "img/profiles/sinead_3.jpg"
-  },
-
-  {
-    "name": "James Downey",
-    "member_type": "Ordinary member",
-    "club": "University Of Limerick",
-    "college": "Industrial Biochemistry",
-    "level": "Elite",
-    "committee_experience": [
-      "Treasurer past two years of UL trampolining club",
-      "Exce member of clubs and societies this year"
-    ],
-    "favourite_move": "Straight barani",
-    "isto_memory": "Dressed as pikachu in a park in belfast passing by a random stranger and saying “I’ll thunderbolt ya”",
-    "fun_facts": [
-      "My shoulders are double jointed",
-      "I can touch my head with my feet"
-    ],
-    "best_quoate": "I'll thunderbolt ya",
-    "medals": [
-      "Elite: 3rd Intervarsities 2014",
-      "Elite: 2nd ISTO 2014",
-      "3rd level 4 tumbling ISTO 2014"
-    ],
-    "favourite_member": "Shannen Minter :D",
-    "qualification": [
-      "GI - Trampoline Coaching Level 1"
-    ],
-    "img_src": "img/profiles/james.jpg"
+    "img_src": "img/profiles/sinead_4.jpg"
   }
 
 

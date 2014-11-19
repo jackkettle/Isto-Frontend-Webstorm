@@ -3294,6 +3294,7 @@ hr {
     color: #bf0000;
 }
 
+/* Custom Isto Styles */
 
 #twitter-widget-0 {
     width: 100% !important;
@@ -3329,22 +3330,10 @@ hr {
     margin-top: 20px;
 }
 
-.carousel-background img{
-    border-left: 1px solid #333;
-    border-right: 1px solid #333;
-}
-
-.carousel-background{
-    background-color: #dddddd;
-    border-bottom: 1px solid #bbb;
-}
-
 .background-img{
     width: 100%;
     height: 400px;
     margin-bottom: 30px;
-
-
 }
 
 .content-image {
@@ -3352,4 +3341,45 @@ hr {
     border: 1px solid @dark-color;
     padding: 5px;
     background-color: @primary-color;
+}
+
+.background-img{
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+}
+
+.container-background-img{
+    border-top: 1px solid @dark-color;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .background-img{
+        width: 100%;
+        height: 275px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .background-img{
+        width: 100%;
+        height: 320px;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .background-img{
+        width: 100%;
+        height: 360px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .background-img{
+        width: 100%;
+        height: 400px;
+    }
 }

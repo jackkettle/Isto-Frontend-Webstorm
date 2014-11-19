@@ -2,6 +2,11 @@
 
 // create the module and name it scotchApp
 // also include ngRoute for all our routing needs
+
+var commistoJson = "json/commisto.json";
+var sponsorJson = "json/sponsor.json";
+var photoJson = "json/photos.json";
+
 angular
 
     .module('istoApp', ['ngRoute', 'ui.bootstrap'])
@@ -13,41 +18,22 @@ angular
         $scope.mail     = 'mailto:info@isto.ie';
     })
 
-    .controller('carouselDemoCtrl', function ($scope) {
-        $scope.myInterval = 5000;
-        var slides = $scope.slides = [
-            {
-                image: "img/carousel/bg_1.jpg",
-                text: ""
-            },
-            {
-                image: "img/carousel/bg_1.jpg",
-                text: ""
-            },
-            {
-                image: "img/carousel/bg_1.jpg",
-                text: ""
-            }
-        ];
-    })
-
-
     .controller('commistoController', function($scope, $http) {
-        $http.get('json/commisto.json')
+        $http.get(commistoJson)
             .then(function(res){
                 $scope.committee = res.data;
             });
     })
 
     .controller('sponsorController', function($scope, $http) {
-        $http.get('json/sponsor.json')
+        $http.get(sponsorJson)
             .then(function(res){
                 $scope.sponsors = res.data;
             });
     })
 
     .controller('photoController', function($scope, $http, $modal) {
-        $http.get('json/photos.json')
+        $http.get(photoJson)
             .then(function(res){
                 $scope.albums = res.data;
             });
@@ -73,7 +59,6 @@ angular
     .controller('navController', function($scope, $location) {
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
-            console.log($location.path());
         };
     })
 
@@ -81,7 +66,6 @@ angular
     .config(function($routeProvider) {
         $routeProvider
 
-            // route for the home page
             .when('/', {
                 templateUrl : 'partials/index.html'
             })
@@ -118,9 +102,3 @@ angular
             });
 
     })
-
-    // create the controller and inject Angular's $scope
-    .controller('mainController', function($scope) {
-        // create a message to display in our view
-        $scope.message = 'Everyone come and see how good I look!';
-    });
