@@ -18,6 +18,13 @@ angular
         $scope.mail     = 'mailto:info@isto.ie';
     })
 
+    .controller('historyController', function ($scope, $http) {
+        $http.get('json/history.json')
+            .then(function(res){
+                $scope.history = res.data;
+            });
+    })
+    
     .controller('commistoController', function($scope, $http) {
         $http.get(commistoJson)
             .then(function(res){
@@ -90,7 +97,8 @@ angular
             })
 
             .when('/history', {
-                templateUrl : 'partials/history.html'
+                templateUrl : 'partials/history.html',
+                controller  : 'historyController'
             })
 
             .when('/contact', {
