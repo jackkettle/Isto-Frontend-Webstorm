@@ -6,6 +6,7 @@
 var commistoJson = "json/commisto.json";
 var sponsorJson = "json/sponsor.json";
 var photoJson = "json/photos.json";
+var historyJson = "json/history.json";
 
 angular
 
@@ -19,7 +20,7 @@ angular
     })
 
     .controller('historyController', function ($scope, $http) {
-        $http.get('json/history.json')
+        $http.get(historyJson)
             .then(function(res){
                 $scope.history = res.data;
             });
