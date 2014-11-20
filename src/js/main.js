@@ -7,15 +7,16 @@ var commistoJson = "json/commisto.json";
 var sponsorJson = "json/sponsor.json";
 var photoJson = "json/photos.json";
 var historyJson = "json/history.json";
+var routinesJson = "json/routines.json";
 
 angular
-
     .module('istoApp', ['ngRoute', 'ui.bootstrap'])
 
     .controller('socialController', function($scope) {
         $scope.twitter  = 'https://twitter.com/COMMISTO';
         $scope.facebook = 'https://www.facebook.com/pages/Irish-Student-Trampoline-Open/139153787666';
         $scope.google   = 'https://plus.google.com/u/0/114618181369690971121/posts';
+        $scope.youtube  = 'https://www.youtube.com/user/isto2012/';
         $scope.mail     = 'mailto:info@isto.ie';
     })
 
@@ -47,7 +48,6 @@ angular
             });
 
         $scope.open = function (image) {
-
             var modalInstance = $modal.open({
                 templateUrl: 'myModalContent.html',
                 controller: 'modalInstanceController',
@@ -70,6 +70,45 @@ angular
         };
     })
 
+    .controller('defaultCompetitionController', function($scope) {
+       $scope.tab = "info";
+
+    })
+
+    .controller('competitionController', function($scope, $routeParams, $http) {
+        $scope.params = $routeParams;
+        if($scope.params.id == 'info'){
+            $scope.tab1 = true;
+        }
+        if($scope.params.id == 'routines'){
+            $scope.tab2 = true;
+        }
+        if($scope.params.id == 'schedule'){
+            $scope.tab3 = true;
+        }
+        if($scope.params.id == 'tariff'){
+            $scope.tab4 = true;
+        }
+
+        // load in routines json
+        $http.get(routinesJson)
+            .then(function(res){
+                $scope.routineData = res.data;
+            });
+
+        $scope.getTotalTariff = function( $scope ){
+            console.log($scope);
+            var total = 0;
+            for(var i = 0; i < $scope.length; i++){
+                total += $scope[i].tariff;
+            }
+
+            total = Math.round( total * 10) / 10;
+            return total;
+        }
+
+    })
+
     // configure our routes
     .config(function($routeProvider) {
         $routeProvider
@@ -79,7 +118,13 @@ angular
             })
 
             .when('/competition', {
-                templateUrl : 'partials/competition.html'
+                templateUrl : 'partials/competition.html',
+                controller  : 'defaultCompetitionController'
+            })
+
+            .when('/competition/:id', {
+                templateUrl : 'partials/competition.html',
+                controller  : 'competitionController'
             })
 
             .when('/sponsor', {
@@ -102,8 +147,8 @@ angular
                 controller  : 'historyController'
             })
 
-            .when('/contact', {
-                templateUrl : 'partials/contact.html'
+            .when('/results', {
+                templateUrl : 'partials/results.html'
             })
 
             .otherwise({
