@@ -1,0 +1,190 @@
+{
+  "trampolining" : {
+    "levels": [
+      {
+        "level": "Novice",
+        "routines": [
+          {
+            "moves": [
+              {"name": "Full twist jump", "tariff": 0.2},
+              {"name": "Straddle jump", "tariff": 0},
+              {"name": "½ twist to seat", "tariff": 0.1},
+              {"name": "½ twist to seat", "tariff": 0.1},
+              {"name": "½ twist to feet", "tariff": 0.1},
+              {"name": "Tuck jump ", "tariff": 0},
+              {"name": "½ twist jump ", "tariff": 0.1},
+              {"name": "Pike jump ", "tariff": 0},
+              {"name": "Front landing", "tariff": 0.1},
+              {"name": "To feet ", "tariff": 0.1}
+            ]
+          },
+          {
+            "moves": [
+              {"name": "Back drop ", "tariff": 0.1},
+              {"name": "½ twist to feet ", "tariff": 0.2},
+              {"name": "Straddle jump ", "tariff": 0},
+              {"name": "½ twist jump ", "tariff": 0.1},
+              {"name": "Seat landing ", "tariff": 0},
+              {"name": "½ twist to seat ", "tariff": 0.1},
+              {"name": "½ twist to feet ", "tariff": 0.1},
+              {"name": "Tuck jump ", "tariff": 0},
+              {"name": "Pike jump ", "tariff": 0},
+              {"name": "Full twist jump ", "tariff": 0.2}
+            ]
+          }
+        ],
+        "rules": [
+          "Maximum S/S rotation permitted is 270 degrees ",
+          "Maximum Tariff is 1.1"
+        ]
+      },
+      {
+        "level": "Intermediate",
+        "routines": [
+          {
+            "moves": [
+              {"name": "Full twist jump ", "tariff": 0.2},
+              {"name": "Straddle jump ", "tariff": 0},
+              {"name": "Back s/s (T) ", "tariff": 0.5},
+              {"name": "Seat landing ", "tariff": 0},
+              {"name": "½ twist to seat ", "tariff": 0.1},
+              {"name": "½ twist to feet ", "tariff": 0.1},
+              {"name": "Pike jump ", "tariff": 0},
+              {"name": "½ twist jump ", "tariff": 0.1},
+              {"name": "Front landing ", "tariff": 0.1},
+              {"name": "To feet ", "tariff": 0.1}
+            ]
+          },
+          {
+            "moves": [
+              {"name": "Full twist jump ", "tariff": 0.2},
+              {"name": "Pike jump ", "tariff": 0},
+              {"name": "Back drop ", "tariff": 0.1},
+              {"name": "½ twist to feet ", "tariff": 0.2},
+              {"name": "Seat landing ", "tariff": 0},
+              {"name": "½ twist to seat ", "tariff": 0.1},
+              {"name": "To feet ", "tariff": 0},
+              {"name": "Tuck jump ", "tariff": 0},
+              {"name": "Front s/s (T) ", "tariff": 0.5},
+              {"name": "½ twist jump ", "tariff": 0.1}
+            ]
+          }
+        ],
+        "rules": [
+          "Maximum S/S rotation permitted is 360 degrees (back s/s to seat is permitted)",
+          "Maximum of two S/S",
+          "No S/S may be linked",
+          "Maximum Tariff is 1.9"
+        ]
+      },
+      {
+        "level": "Inter-advanced",
+        "routines": [
+          {
+            "moves": [
+              {"name": "Back s/s (S) ", "tariff": 0.6},
+              {"name": "Straddle jump ", "tariff": 0},
+              {"name": "Back s/s (T) ", "tariff": 0.5},
+              {"name": "Seat landing ", "tariff": 0},
+              {"name": "½ twist to feet ", "tariff": 0.1},
+              {"name": "Pike jump ", "tariff": 0},
+              {"name": "Back drop ", "tariff": 0.1},
+              {"name": "½ twist to feet ", "tariff": 0.2},
+              {"name": "Tuck jump ", "tariff": 0},
+              {"name": "Barani (free) ", "tariff": 0.6}
+            ]
+
+          },
+          {
+            "moves": [
+              {"name": "Back s/s (T) ", "tariff": 0.5},
+              {"name": "Tuck jump ", "tariff": 0},
+              {"name": "Barani (free) ", "tariff": 0.6},
+              {"name": "Seat landing ", "tariff": 0},
+              {"name": "½ twist to seat ", "tariff": 0.1},
+              {"name": "½ twist to feet ", "tariff": 0.1},
+              {"name": "Straddle jump ", "tariff": 0},
+              {"name": "Full twist jump ", "tariff": 0.2},
+              {"name": "Pike jump ", "tariff": 0},
+              {"name": "Front s/s (P) ", "tariff": 0.6}
+            ]
+          }
+        ],
+        "rules": [
+          "Maximum S/S rotation permitted is 360 degrees (back s/s to seat is permitted)",
+          "Maximum of four S/S",
+          "Maximum twist of 180 degrees allowed during S/S",
+          "No more than two S/S may be linked",
+          "Maximum Tariff is 2.9"
+        ]
+      },
+      {
+        "level": "Advanced",
+        "routines": [
+          {
+            "moves": [
+              {"name": "Back s/s (S)", "tariff": 0.6},
+              {"name": "Straddle jump", "tariff": 0},
+              {"name": "Back s/s (T)", "tariff": 0.5},
+              {"name": "Barani (T)", "tariff": 0.6},
+              {"name": "½ twist to seat", "tariff": 0.1},
+              {"name": "½ twist to feet", "tariff": 0.1},
+              {"name": "Pike jump", "tariff": 0},
+              {"name": "Barani (P)", "tariff": 0.6},
+              {"name": "Tuck jump", "tariff": 0},
+              {"name": "Front s/s (T)", "tariff": 0.5}
+            ]
+          },
+          {
+            "moves": [
+              {"name": "Back s/s (P)", "tariff": 0.6},
+              {"name": "Tuck jump", "tariff": 0},
+              {"name": "Barani (free)", "tariff": 0.6},
+              {"name": "Straddle jump", "tariff": 0},
+              {"name": "Back s/s (S)", "tariff": 0.6},
+              {"name": "Back s/s (T) to seat", "tariff": 0.5},
+              {"name": "½ twist to seat", "tariff": 0.1},
+              {"name": "To feet", "tariff": 0},
+              {"name": "Pike jump", "tariff": 0},
+              {"name": "Front s/s (P)", "tariff": 0.6}
+            ]
+          }
+        ],
+        "rules": [
+          "Maximum S/S rotation permitted is 360 degrees (back s/s to seat is permitted)",
+          "Maximum of six S/S",
+          "Maximum twist of 180 degrees allowed during S/S",
+          "No more than three S/S may be linked",
+          "Maximum Tariff is 4.0"
+        ]
+      },
+      {
+        "level": "Elite",
+        "rules": [
+          "6 Skills of at least 360 degrees of rotation",
+          "One skill of at least 270 degrees rotation landing on either front or back",
+          "One skill from front or back of at least 450 degrees of rotation",
+          "Minimum set routine tariff 4.1",
+          "Maximum tariff for both routines 5.2"
+        ]
+      },
+      {
+        "level": "Elite-pro",
+        "rules": [
+          "9 Skills of at least 270 degrees of rotation",
+          "One skill of at least 270 degrees rotation landing on either front or back",
+          "One skill from front or back of at least 450 degrees of rotation",
+          "One skill of at least 720 degrees of rotation OR one skill of at least 360 degrees of rotation and 540 degrees of twist.",
+          "Minimum set routine tariff 5.2  ",
+          "No voluntary routine restrictions "
+        ]
+      }
+    ]
+  },
+  "tumbling": {
+
+  },
+  "dmt": {
+
+  }
+}
