@@ -680,6 +680,9 @@ a.thumbnail.active {
 .table > thead > tr > th {
   border-bottom: 2px solid #00708c;
 }
+.table > tfoot > tr > td {
+  border-top: 2px solid #00708c;
+}
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: #f4f4f4;

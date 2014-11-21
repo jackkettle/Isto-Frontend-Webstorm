@@ -191,7 +191,151 @@
   },
 
   "tumbling": {
-
+    "description": "Competitors must compete both routines at each level.",
+    "levels": [
+      {
+        "level": "Level 1",
+        "routines": [
+          {
+            "name": "Routine 1",
+            "moves": [
+              {"name": "From a run"},
+              {"name": "Stretch Jump"},
+              {"name": "Forward roll"},
+              {"name": "Jump hurdle step"},
+              {"name": "Round off"},
+              {"name": "Pike jump"}
+            ],
+            "total_tariff": 0.6,
+            "element_num": 5
+          },
+          {
+            "name": "Routine 2",
+            "moves": [
+              {"name": "From standing"},
+              {"name": "Forward roll"},
+              {"name": "Jump hurdle step"},
+              {"name": "Cartwheel 1-2"},
+              {"name": "Backwards roll to stand straight legs"},
+              {"name": "From standing"}
+            ],
+            "total_tariff": 0.4,
+            "element_num": 4
+          }
+        ]
+      },
+      {
+        "level": "Level 2",
+        "routines": [
+          {
+            "name": "Routine 1",
+            "moves": [
+              {"name": "From a run"},
+              {"name": "Jump hurdle step"},
+              {"name": "Round off"},
+              {"name": "Back flic"},
+              {"name": "Straight jump"},
+              {"name": "From standing"}
+            ],
+            "total_tariff": 0.6,
+            "element_num": 4
+          },
+          {
+            "name": "Routine 2",
+            "moves": [
+              {"name": "From standing"},
+              {"name": "Handspring to 1/to 2"},
+              {"name": "Jump hurdle step"},
+              {"name": "Round off"},
+              {"name": "Pike jump"},
+              {"name": "From standing"}
+            ],
+            "total_tariff": 0.6,
+            "element_num": 4
+          }
+        ]
+      },
+      {
+        "level": "Level 3",
+        "routines": [
+          {
+            "name": "Routine 1",
+            "moves": [
+              {"name": "From a run"},
+              {"name": "Round off"},
+              {"name": "Back flic"},
+              {"name": "Back flic"},
+              {"name": "Straight jump"}
+            ],
+            "total_tariff": 0.7,
+            "element_num": 4
+          },
+          {
+            "name": "Routine 2",
+            "moves": [
+              {"name": "From a run"},
+              {"name": "Handspring to 1/ to 2"},
+              {"name": "Round off"},
+              {"name": "Back flic"},
+              {"name": "Straight jump"}
+            ],
+            "total_tariff": 0.7,
+            "element_num": 4
+          }
+        ]
+      },
+      {
+        "level": "Level 4",
+        "routines": [
+          {
+            "name": "Routine 1",
+            "moves": [
+              {"name": "From a run"},
+              {"name": "Round off"},
+              {"name": "Back flic"},
+              {"name": "Back flic"},
+              {"name": "Tuck back salto"}
+            ],
+            "total_tariff": 1.1,
+            "element_num": 3
+          },
+          {
+            "name": "Routine 2",
+            "moves": [
+              {"name": "From a run"},
+              {"name": "Tuck front"},
+              {"name": "Round off"},
+              {"name": "Back flic"},
+              {"name": "Back flic"}
+            ],
+            "total_tariff": 1.1,
+            "element_num": 3
+          }
+        ]
+      },
+      {
+        "level": "Level 5",
+        "routines": [
+          {
+            "name": "Routine 1",
+            "rules": [
+              "Any  tumbling  pass  containing  a  forward  somersault  and  a  whip. ",
+              "Routine  must contain at least 5 elements.",
+              "E.g. Front somersault half twist, back flic, back flic, whip, tuck back."
+            ]
+          },
+          {
+            "name": "Routine 2",
+            "rules": [
+              "Any  tumbling  pass  containing  a  backward  somersault  and  a  whip.",
+              "Routine must contain at least 5 elements.",
+              "Tumblers can perform 6 elements if the first element is a round off. This round off will not be judged.",
+              "E.g. Round off, back flic, back flic, back flic, whip, full twisting back somersault."
+            ]
+          }
+        ]
+      }
+    ]
   },
 
   "dmt": {
@@ -266,12 +410,14 @@
             "pass": "2",
             "routines": [
               {
+                "pass": "A",
                 "moves": [
                   {"name": "Mounted straddle jump", "tariff": 0},
                   {"name": "Dismount full twist", "tariff": 0.2}
                 ]
               },
               {
+                "pass": "B",
                 "moves": [
                   {"name": "Spotter ½ twist", "tariff": 0.1},
                   {"name": "Dismount back somersault (free)", "tariff": 0.6}
