@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Abel|Lato:300,400,700,400italic);
+@import url(//fonts.googleapis.com/css?family=Abel|Lato:300,400,700,400italic);
 /*
 Theme Name: Open Mind
 Theme URI: http://razonartificial.com/openmind
@@ -317,7 +317,7 @@ blockquote.pull-right {
   margin: 0;
 }
 .panel-footer ~ .panel-body {
-  border-color: #f00 !important;
+  border-color: #f00;
 }
 .panel .list-group {
   background-color: #f7f7f7;
@@ -347,7 +347,7 @@ blockquote.pull-right {
   border-color: #00708c;
 }
 .panel-primary .panel-heading,
-.panel-primary .panel-footer {
+.panel-pa .panel-footer {
   background-color: #00708c;
   color: #fff;
 }
@@ -2465,6 +2465,12 @@ hr {
   padding: 5px;
   background-color: #00708c;
 }
-.repeatmove{
-	color: red;
-} 
+.repeatmove {
+  color: red;
+}
+.text-white {
+  color: #fff;
+}
+.sponsor-panel {
+  background-color: #fff !important;
+}

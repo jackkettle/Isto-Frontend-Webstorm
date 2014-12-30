@@ -14,9 +14,36 @@
 
         <div class="row">
             <div class="jumbotron animated fadeInDown animation-delay-8">
-                <div>
-                    <h1  class="page-header">ISTO is made possible by our Sponsors!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget velit mollis, rhoncus quam tristique, sagittis mi. Nunc sed fringilla sem. Mauris id turpis luctus, porttitor lacus nec, tincidunt diam. Quisque eget tempus sem, vitae cursus quam. Ut blandit sagittis lorem, pellentesque luctus est mollis in. Mauris nec elementum urna. Ut sagittis accumsan ligula, eu euismod ipsum blandit at. In non venenatis arcu. Nam metus justo, blandit id leo in, feugiat dapibus libero. Phasellus cursus blandit tortor, in ullamcorper ligula viverra eget. Duis vulputate in neque sed aliquet. Aenean pulvinar tincidunt sem vitae pharetra. Suspendisse scelerisque nulla a dolor pretium commodo quis nec purus. Sed mattis consequat urna condimentum porta. Phasellus ipsum nunc, convallis eget sagittis sit amet, tempus placerat tellus. Nam vel mollis metus. </p>
+                <div class="margin-bottom-20">
+                    <h2  class="page-title">ISTO is made possible by our Sponsors!</h2>
+                    <hr />
+                    <p>
+                    As ISTO is a non-profit event we rely heavily on the generosity of sponsors to make our event a success. 
+                    All of our judges, marshals and competition officials work on a purely voluntary basis, 
+                    and the competition is funded solely on competitor and club entry fees. 
+                    Because of this we are heavily reliant on sponsors who help support the competition by offering 
+                    reduced venue costs, discounts on merchandise, food, drink, and all of the many other 
+                    things that contribute to the successful running of a student trampolining competition. 
+                    In return, we can offer publicity and free advertising not only on this website, 
+                    in the hall at the competition, but also in our competition welcome pack which goes out to every 
+                    club that attends the competition. If you would consider supporting the Irish Student Trampoline 
+                    Open as one of our sponsors, please email us and we would be delighted to speak to you. 
+                    </p>
+                    <p>
+                    ISTO is also a great supporter of local businesses, as each year we bring hundreds of tourists 
+                    from the UK and around Ireland to a different city in Ireland. We like to offer recommendations 
+                    to the clubs in our welcome pack, of places to eat, drink and visit during their weekend stay 
+                    for the competition. If you would like your business to be promoted to our competitors and clubs, 
+                    please do not hesitate to email us. 
+                    </p>
+                    <p>
+                    Each year the committee selects a charity to support for the duration of the year, and this year 
+                    we selected Cystic Fibrosis Ireland. As well as fundraising throughout the year, we hold a very 
+                    popular raffle on the Sunday of the competition to raise awareness and money for our chosen charity. 
+                    We are always looking to raise more and more money each year, but to do this we need great raffle 
+                    prizes. If you would consider donating a prize to the ISTO charity raffle, please email us as any 
+                    donation is appreciated.  
+                    </p>
                 </div>
 
                 <aside class="col-md-12 well  well-sm">
@@ -32,24 +59,26 @@
                 </aside>
             </div>
         </div>
-
-        <div class="row">
-            <div ng-repeat="sponsor in sponsors">
+        <div class="panel panel-primary animated fadeInDown animation-delay-8">
+            <div class="panel-heading"><h2 class="text-white">This year we would like to thank our sponsors</h2></div>
+            <div class="panel-body">
+                <div ng-repeat="sponsor in sponsors">
                 <section>
-                    <div class="panel panel-default  animated fadeInDown animation-delay-8">
-                        <div class="panel-body profile-panel">
+                    <div class="panel panel-default">
+                        <div class="panel-body sponsor-panel">
                             <h3 class="section-title">{{ sponsor.name }}<div class="clearfix"></div></h3>
                             <div class="clearfix"></div>
                             <div class="col-md-7">
                                 <h3><span>Website:</span> <a href="{{ sponsor.website }}" style="text-overflow: ellipsis;">{{ sponsor.website }} </a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget velit mollis, rhoncus quam tristique, sagittis mi. Nunc sed fringilla sem. Mauris id turpis luctus, porttitor lacus nec, tincidunt diam. Quisque eget tempus sem, vitae cursus quam. Ut blandit sagittis lorem, pellentesque luctus est mollis in. Mauris nec elementum urna. Ut sagittis accumsan ligula, eu euismod ipsum blandit at. In non venenatis arcu. Nam metus justo, blandit id leo in, feugiat dapibus libero. Phasellus cursus blandit tortor, in ullamcorper ligula viverra eget. Duis vulputate in neque sed aliquet. Aenean pulvinar tincidunt sem vitae pharetra. Suspendisse scelerisque nulla a dolor pretium commodo quis nec purus. Sed mattis consequat urna condimentum porta. Phasellus ipsum nunc, convallis eget sagittis sit amet, tempus placerat tellus. Nam vel mollis metus. </p>
+                                <p>{{ sponsor.body }}</p>
                             </div>
                             <div class="col-md-5">
-                                <img src="{{sponsor.img_src}}" alt="" class="alignright imageborder img-responsive">
+                                <img src="{{ sponsor.img_src }}" alt="{{ sponsor.website }}" class="alignright imageborder img-responsive">
                             </div>
                         </div>
                     </div>
                 </section>
+            </div>
             </div>
         </div>
     </div> <!-- container -->

@@ -1,12 +1,20 @@
 [
   {
-    "name": "Milano",
+    "name": "The Mardyke Arena",
+    "website": "http://www.mardykearena.com/",
+    "img_src": "img/sponsors/mardyke.jpg",
+    "body": "This year the Mardyke arena has kindly agreed to let us once again host our event at their amazing facility. Situated on the bank of the river Lee, the Mardkye offers state of the art sporting and gym facilities. Check out their website for more information. "
+  },
+  {
+    "name": "Milano Leotards",
     "website": "http://www.milano-pro-sport.com/",
-    "img_src": "img/sponsors/milano.png"
+    "img_src": "img/sponsors/milano.png",
+    "body": "Milano offers high quality sporting attire for gymnastics and cheerleading. For over 20 years it has been a leader in the market, consistently producing beautiful and functionally designed leotards, leisure wear and accessories for all disciplines of gymnastics. They even provided the attire for the UK men’s Olympic team in 2012. You can find more information about this fantastic company, and frequent supporter of ISTO on their website. "
   },
   {
     "name": "Gymnastics Ireland",
     "website": "http://www.gymnasticsireland.com/",
-    "img_src": "img/sponsors/gi_logo.jpg"
+    "img_src": "img/sponsors/gi_logo.jpg",
+    "body": "Gymnastics is one of the most popular sports in Ireland, supported by the work of our national governing body, Gymnastics Ireland. We would like to thank Gymnastics Ireland for supporting the growth in popularity of trampolining as a sport in Ireland. "
   }
 ]

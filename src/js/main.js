@@ -236,8 +236,8 @@ angular
                 controller  : 'historyController'
             })
 
-            .when('/results', {
-                templateUrl : 'partials/results.html'
+            .when('/about', {
+                templateUrl : 'partials/about.html'
             })
 
             .otherwise({
