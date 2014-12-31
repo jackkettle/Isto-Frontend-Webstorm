@@ -1,0 +1,63 @@
+{
+  "current" : {
+    "name": "Cystic Fibrosis Ireland",
+    "website": "http://www.specialolympics.ie/",
+    "img_src": "img/charity/cfi.jpg",
+    "body": [
+      {
+        "paragraph" : "Cystic Fibrosis (CF) is a genetically inherited disease. Ireland has the highest incidence of CF in the world – approximately 1 in 19 Irish People are said to ‘carry’ one copy of the altered gene that causes CF. CF is due to a defective gene that is inherited, the gene is responsible for the regulation of sodium and chloride levels in cells. When the gene is defective, it results in a build-up of a thick sticky mucus in the body’s tubes and passageways. This disease affects the lungs and digestive system of suffers. The thick mucus clogs the lungs and causes life threatening infections for the patient, it also obstructs the pancreas from producing for the breakdown of food that the body needs to absorb to survive. The majority of people who suffer from CF will need a lung transplant in order to lengthen their lifespan."
+
+      },
+      {
+        "paragraph" : "Worldwide over 70,000 people per year suffer from CF, with over 1200 people to date suffering from this disease in Ireland. This shows that Ireland has a very high percentage of cases worldwide. In 2010 the median age which people lived to was 28 years of age, with 57% of people affected being male. To date people are now living into their early 30's. In Ireland over 55% of people suffering from the disease are over the age of 18. "
+      }
+    ]
+  },
+  "past" : [
+    {
+      "name": "Special Olympics Ireland",
+      "website": "http://www.specialolympics.ie/",
+      "img_src": "img/charity/specialolympcis.png",
+      "body": [
+        {
+          "paragraph" : "Special Olympics Ireland is a sports organisation for people with an intellectual disability, but it provides athletes with far more than the physical benefits of sport. Special Olympics changes lives. Through sport, athletes develop both physically and emotionally, they make new friends, realise their dreams, and know they can fit in. Special Olympics Ireland enables our athletes to achieve and win not only in sport but in life too."
+
+        },
+        {
+          "paragraph" : "Special Olympics Ireland currently has almost 9,318 registered athletes participating in 14 sports in 385 affiliated groups throughout the island of Ireland.  These athletes are supported by their families and a team of 25,000 volunteers who give of their time to help out at sporting and fundraising events"
+        }
+      ]
+    },
+    {
+      "name": "Irish Cancer Society",
+      "website": "http://www.cancer.ie/",
+      "img_src": "img/charity/ics.jpg",
+      "body": [
+        {
+          "paragraph" : "The Irish Cancer Society is the national charity in the Republic of Ireland dedicated to eliminating cancer as a major health problem, and improving the lives of those living with cancer."
+        },
+        {
+          "paragraph" : "The Society was founded in 1963 and is 95% financed by voluntary contributions from the public. It is the largest voluntary funder of cancer research in Ireland. The four strategic goals of the Society's current strategy statement (2013-2017) surround improving the lives of those affected by cancer, reducing the risk of cancer, influencing public policy on cancer and leading excellent collaborative research."
+        }
+      ]
+    },
+    {
+      "name": "Pieta House: Suicide and Self Harm Crisis Centre",
+      "website": "http://www.pieta.ie/",
+      "img_src": "img/charity/pietahouse.jpg",
+      "body": [
+        {
+          "paragraph" : "Pieta House, the centre for the prevention of self-harm or suicide, opened its doors in Lucan in January 2006. Since then, six centres of excellence have followed suit in Ballyfermot, Mungret, Roscrea, Tuam, Bishopstown and most recently Castleisland while we also have an outreach centre in Finglas."
+
+        },
+        {
+          "paragraph" : "Pieta House now has a staff of 170 and the demand for our services hasn’t let up. In 2013, nearly 4,000 people came to Pieta House for help and the numbers contacting us are rising all the time."       
+          
+        },
+        {
+          "paragraph" : "We’re passionate about our work. As 90% of our income comes from fundraising events, we rely heavily on the support and encouragement of our volunteers and the friends of Pieta."
+        }
+      ]
+    }
+  ]
+}

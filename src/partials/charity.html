@@ -1,0 +1,49 @@
+<section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">Charity</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li class="active">Charity</li>
+            </ol>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="panel panel-primary animated fadeInDown animation-delay-8">
+            <div class="panel-heading">
+                <h2 class="text-white">Our chosen charity for this year</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <a href="{{ charity.current.website }}"><img class="imageborder img-responsive margin-top-20" src="{{ charity.current.img_src }}"></img></a>
+                </div>
+                <div class="col-md-8">
+                    <h2>
+                        <a href="{{ charity.current.website }}">{{ charity.current.name }}</a>
+                    </h2>
+                    <p ng-repeat="paragraph in charity.current.body">{{ paragraph.paragraph }}</p>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="panel panel-primary animated fadeInDown animation-delay-8">
+            <div class="panel-heading">
+                <h2 class="text-white">Charites we have supported in the past</h2>
+            </div>
+            <div class="panel-body">
+                <div ng-repeat="organisation in charity.past" class="col-md-4">
+                    <a href="{{ organisation.website }}"><img class="imageborder img-responsive" src="{{ organisation.img_src }}" alt="{{ organisation.name }}"></img></a>
+                    <h3><a href="{{ organisation.website }}">{{ organisation.name }}</a></h3>
+                    <div>
+                        <p ng-repeat="paragraph in organisation.body">{{ paragraph.paragraph }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div> <!-- container -->
+</section>
+

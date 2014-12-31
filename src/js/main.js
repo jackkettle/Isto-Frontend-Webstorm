@@ -8,6 +8,7 @@ var sponsorJson = "json/sponsor.json";
 var photoJson = "json/photos.json";
 var historyJson = "json/history.json";
 var routinesJson = "json/routines.json";
+var charityJson = "json/charity.json";
 
 angular
     .module('istoApp', ['ngRoute', 'ui.bootstrap'])
@@ -38,6 +39,13 @@ angular
         $http.get(sponsorJson)
             .then(function(res){
                 $scope.sponsors = res.data;
+            });
+    })
+    
+    .controller('charityController', function($scope, $http) {
+        $http.get(charityJson)
+            .then(function(res){
+                $scope.charity = res.data;
             });
     })
 
@@ -236,8 +244,9 @@ angular
                 controller  : 'historyController'
             })
 
-            .when('/about', {
-                templateUrl : 'partials/about.html'
+            .when('/charity', {
+                templateUrl : 'partials/charity.html',
+                controller  : 'charityController'
             })
 
             .otherwise({
