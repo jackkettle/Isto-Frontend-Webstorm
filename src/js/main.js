@@ -9,6 +9,7 @@ var photoJson = "json/photos.json";
 var historyJson = "json/history.json";
 var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
+var travelJson = "json/travel.json";
 
 angular
     .module('istoApp', ['ngRoute', 'ui.bootstrap'])
@@ -21,7 +22,7 @@ angular
         $scope.mail     = 'mailto:info@isto.ie';
     })
 
-    .controller('historyController', function ($scope, $http) {
+    .controller('defaultHistoryController', function ($scope, $http) {
         $http.get(historyJson)
             .then(function(res){
                 $scope.history = res.data;
@@ -78,8 +79,30 @@ angular
         };
     })
 
-    .controller('defaultCompetitionController', function($scope) {
+    .controller('defaultCompetitionController', function($scope, $http) {
        $scope.tab = "info";
+       
+       // load in routines json
+        $http.get(routinesJson)
+            .then(function(res){
+                $scope.routineData = res.data;
+            });
+            
+        $http.get(travelJson)
+            .then(function(res){
+                $scope.travelData = res.data;
+                console.log($scope.travelData);
+            });
+
+        $scope.getTotalTariff = function( $scope ){
+            var total = 0;
+            for(var i = 0; i < $scope.length; i++){
+                total += $scope[i].tariff;
+            }
+
+            total = Math.round( total * 10) / 10;
+            return total;
+        }
 
     })
 
@@ -97,15 +120,23 @@ angular
         if($scope.params.id == 'tariff'){
             $scope.tab4 = true;
         }
+        if($scope.params.id == 'travel'){
+            $scope.tab5 = true;
+        }
 
         // load in routines json
         $http.get(routinesJson)
             .then(function(res){
                 $scope.routineData = res.data;
             });
+            
+        $http.get(travelJson)
+            .then(function(res){
+                $scope.travelData = res.data;
+                console.log($scope.travelData);
+            });
 
         $scope.getTotalTariff = function( $scope ){
-            console.log($scope);
             var total = 0;
             for(var i = 0; i < $scope.length; i++){
                 total += $scope[i].tariff;
@@ -241,7 +272,7 @@ angular
 
             .when('/history', {
                 templateUrl : 'partials/history.html',
-                controller  : 'historyController'
+                controller  : 'defaultHistoryController'
             })
 
             .when('/charity', {

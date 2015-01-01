@@ -1,50 +1,42 @@
 [
-  {
-    "name": "2014",
-    "location": "The Laganvalley Leisure Plex, Lisburn",
-    "commisto": [
-      {"name": "Siobáin McDermott"},
-      {"name": "Éilis Dockry"},
-      {"name": "Hannah Maria Gibney"},
-      {"name": "Kate O'Neill"},
-      {"name": "AnnMarie Flynn"},
-      {"name": "Killian Belle Macken"},
-      {"name": "Shannen Minter"}
-    ],
-    "theme": "Cowboys",
-    "nights_out": [
-      {
-        "day": "Friday",
-        "venue": "Queen's Students' Union",
-      },
-      {
-        "day": "Saturday",
-        "venue": "Queen's Students' Union",
-      }
-    ]
-  },
     {
-    "name": "2013",
-    "location": "",
-    "commisto": [
-      {"name": "Siobáin McDermott"},
-      {"name": "Éilis Dockry"},
-      {"name": "Hannah Maria Gibney"},
-      {"name": "Kate O'Neill"},
-      {"name": "AnnMarie Flynn"},
-      {"name": "Killian Belle Macken"},
-      {"name": "Shannen Minter"}
-    ],
-    "theme": "",
-    "nights_out": [
-      {
-        "day": "Friday",
-        "venue": "",
-      },
-      {
-        "day": "Saturday",
-        "venue": "",
-      }
-    ]
-  }
+        "name": "2014",
+        "location": "Lisburn, Northern Ireland",
+        "venue": "The Laganvalley Leisure Plex",
+        "commisto": [
+            {
+                "name": "Siobáin McDermott"
+            },
+            {
+                "name": "Éilis Dockry"
+            },
+            {
+                "name": "Hannah Maria Gibney"
+            },
+            {
+                "name": "Kate O'Neill"
+            },
+            {
+                "name": "AnnMarie Flynn"
+            },
+            {
+                "name": "Killian Belle Macken"
+            },
+            {
+                "name": "Shannen Minter"
+            }
+        ],
+        "theme": "1890s to 1990s (cowboys vs indians and 90s)",
+        "nights_out": [
+            {
+                "day": "Friday",
+                "venue": "Queen's Students' Union"
+            },
+            {
+                "day": "Saturday",
+                "venue": "Queen's Students' Union"
+            }
+        ],
+        "results": "http://www.tramponline.org/score/"
+    }
 ]

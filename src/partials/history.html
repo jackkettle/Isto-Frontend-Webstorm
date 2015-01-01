@@ -1,4 +1,14 @@
 <section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">History</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li class="active">history</li>
+            </ol>
+        </div>
+    </header>
     <div class="container">
         
         <!-- Primary label to ask people to email in -->
@@ -10,13 +20,14 @@
         </div>
         <tabset class="margin-bottom-20 margin-top-20">
             <tab ng-repeat="tab in history" heading="{{tab.name}}">
-                <div class="text-center animated fadeInDown animation-delay-8">
-                    <h1 class="text-primary">{{tab.name}}</h1>
-                </div>
-                <div class="panel panel-default animated fadeInDown animation-delay-8">
-                    <div class=" panel-body profile-panel">
+                <div class="panel panel-primary animated fadeInDown animation-delay-8">
+                    <div class="panel-heading">
+                        <h2 class="text-white text-center">{{tab.name}}</h2>
+                    </div>
+                    <div class="panel-body">
+                        
                         <div class="col-md-6">
-                            <h2>The venue</h2>
+                            <h2>Location</h2>
                             <hr class="hr-custom" />
                             <p>{{tab.location}}</p>
 
@@ -34,25 +45,24 @@
                             <p>{{tab.theme}}</p>
                             <h2>The venue</h2>
                             <hr class="hr-custom" />
-                            <p>{{tab.location}}</p>
+                            <p>{{tab.venue}}</p>
 
                             <h2>Competition results</h2>
                             <hr class="hr-custom" />
-                            <p>Full list of results <a href="#">here.</a></p>
+                            <p>Full list of results <a href="{{ tab.results }}">here.</a></p>
                         </div>
 
-                        <div class="col-md-12">
-                            <h2 class="text-center">Nights out</h2>
-                            <hr/>
-                            <div ng-repeat="night in tab.nights_out" class="panel panel-primary">
-                                <div>
-                                    <div class="panel-heading"><h3 style="color: #fff">{{ night.day }}</h3></div>
-                                    <div class="panel-body">
-                                        <h3>The venue</h3>
-                                        <p>{{ night.venue }}</p>
-                                        <h3>The story</h3>
-                                        <p>{{ night.story }}</p>
-                                    </div>
+                        <div class="col-md-12 well well-lg">
+                            <div class="text-center">
+                                <h2>Social Nights</h2>
+                                <hr class="hr-primary" />
+                            </div>
+                            <div>
+                                <div ng-repeat="night in tab.nights_out" class="col-md-6 padding-bottom-20">
+                                    <h3>{{ night.day }}</h3>
+                                    <h4><span class="label label-primary">
+                                        {{ night.venue }}
+                                    </span></h4>
                                 </div>
                             </div>
                         </div>

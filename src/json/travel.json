@@ -1,0 +1,256 @@
+{
+    "bus": {
+        "buses": [
+            {
+                "from": "Dublin",
+                "buseireann": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 23.27
+                        },
+                        {
+                            "type": "Student",
+                            "price": 20.9
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 14.25
+                        },
+                        {
+                            "type": "Student",
+                            "price": 12.35
+                        }
+                    ]
+                },
+                "aircoach": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 22
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "from": "Dublin Airport",
+                "buseireann": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 28.02
+                        },
+                        {
+                            "type": "Student",
+                            "price": 25.17
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 16.62
+                        },
+                        {
+                            "type": "Student",
+                            "price": 14.72
+                        }
+                    ]
+                },
+                "aircoach": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 29.7
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 17
+                        }
+                    ]
+                }
+            },
+            {
+                "from": "Cork Airport",
+                "buseireann": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 8.55
+                        },
+                        {
+                            "type": "Student",
+                            "price": 7.12
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 5.04
+                        },
+                        {
+                            "type": "Student",
+                            "price": 4.75
+                        }
+                    ]
+                }
+            },
+            {
+                "from": "Galway",
+                "buseireann": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 27.55
+                        },
+                        {
+                            "type": "Student",
+                            "price": 22.8
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 18.05
+                        },
+                        {
+                            "type": "Student",
+                            "price": 15.2
+                        }
+                    ]
+                }
+            },
+            {
+                "from": "Limerick",
+                "buseireann": {
+                    "return_price": [
+                        {
+                            "type": "Adult",
+                            "price": 21.85
+                        },
+                        {
+                            "type": "Student",
+                            "price": 17.1
+                        }
+                    ],
+                    "single_price": [
+                        {
+                            "type": "Adult",
+                            "price": 14.25
+                        },
+                        {
+                            "type": "Student",
+                            "price": 12.35
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "train": {
+        "trains": [
+            {
+                "from": "Dublin (Heuston)",
+                "return_price": [
+                    {
+                        "type": "Adult",
+                        "price": 39.98
+                    },
+                    {
+                        "type": "Student",
+                        "price": 31.5
+                    }
+                ],
+                "single_price": [
+                    {
+                        "type": "Adult",
+                        "price": 25.2
+                    },
+                    {
+                        "type": "Student",
+                        "price": 19.99
+                    }
+                ]
+            },
+            {
+                "from": "Limerick",
+                "return_price": [
+                    {
+                        "type": "Adult",
+                        "price": 19.98
+                    },
+                    {
+                        "type": "Student",
+                        "price": 17.4
+                    }
+                ],
+                "single_price": [
+                    {
+                        "type": "Adult",
+                        "price": 14.5
+                    },
+                    {
+                        "type": "Student",
+                        "price": 9.99
+                    }
+                ]
+            },
+            {
+                "from": "Belfast",
+                "return_price": [
+                    {
+                        "type": "Adult",
+                        "price": 57.97
+                    },
+                    {
+                        "type": "Student",
+                        "price": 51.5
+                    }
+                ],
+                "single_price": [
+                    {
+                        "type": "Adult",
+                        "price": 40.19
+                    },
+                    {
+                        "type": "Student",
+                        "price": 40
+                    }
+                ]
+            }
+        ]
+    },
+    "taxi": {
+        "taxis": [
+            {
+                "name": "Blue Cabs",
+                "number": "00353 21 4393939"
+            },
+            {
+                "name": "B Town Cabs",
+                "number": "00353 21 4345545"
+            },
+            {
+                "name": "Cork Taxi Coop",
+                "number": "00353 21 4272222"
+            },
+            {
+                "name": "Douglas Street Cabs",
+                "number": "00353 21 4847888"
+            },
+            {
+                "name": "Glen Eire Cabs",
+                "number": "00353 21 4500500"
+            }
+        ]
+    }
+}

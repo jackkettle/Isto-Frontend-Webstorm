@@ -75,6 +75,12 @@ iframe {
 .no-margin-top {
   margin-top: 0 !important;
 }
+.margin-all-10 {
+  margin: 10px;
+}
+.margin-all-20 {
+  margin: 20px;
+}
 .margin-bottom-20 {
   margin-bottom: 20px;
 }
@@ -83,6 +89,9 @@ iframe {
 }
 .margin-right-20 {
   margin-right: 30px;
+}
+.padding-bottom-20 {
+  padding-bottom: 20px;
 }
 .three_cols {
   overflow: hidden;
@@ -1725,6 +1734,9 @@ a.social-icon:hover {
 }
 hr {
   border-top: 1px solid #ddd;
+}
+.hr-primary {
+  border-top: 1px solid #00708c;
 }
 /*-------------------------------------------------------------------*/
 /* Blog */
