@@ -24,7 +24,7 @@
                         <h2 class="text-white">Map of Cork</h2>
                     </div>
                     <div class="panel-body">
-                        <p>The map below has all locations of interest noted, for on any site simply click on the pin.</p>
+                        <p>The map below has all locations of interest noted, for more info on any location simply click on the pin.</p>
                         <div class="margin-all-10">
                             <div class="google-maps">
                                 <iframe src="https://mapsengine.google.com/map/u/0/embed?mid=ze-th9W4Q-Z0.kPDl3rRH7Wj0" width="100%" height="100%"></iframe>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="jumbotron">
-                            <h4>The social mights have yet to be decided upon. This will be realeased on a date close to the competition.</h4>
+                            <h4>The social mights have yet to be decided upon. This will be released on a date close to the competition.</h4>
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
                 </div>
 
                 <!--Routines.Trampolining-->
-                <div class="panel panel-default animated fadeInDown animation-delay-8">
-                    <div class="panel-heading"><h2>Trampoline</h2></div>
+                <div class="panel panel-primary animated fadeInDown animation-delay-8">
+                    <div class="panel-heading"><h2 class="text-white">Trampoline</h2></div>
                     <div class="panel-body">
                         <div ng-repeat="level in routineData.trampolining.levels">
                             <h3 class="text-primary text-center">{{ level.level }}</h3>
@@ -96,8 +96,8 @@
                 </div>
 
                 <!--Routines.Tumbling-->
-                <div class="panel panel-default animated fadeInDown animation-delay-8">
-                    <div class="panel-heading"><h2>Tumbling</h2></div>
+                <div class="panel panel-primary animated fadeInDown animation-delay-8">
+                    <div class="panel-heading"><h2 class="text-white">Tumbling</h2></div>
                     <div class="panel-body">
                         <div class="col-md-12">
                             <h3 class="text-primary">Description</h3>
@@ -147,13 +147,19 @@
                 </div>
 
                 <!--Routines.DMT-->
-                <div class="panel panel-default animated fadeInDown animation-delay-8">
-                    <div class="panel-heading"><h2>DMT</h2></div>
+                <div class="panel panel-primary animated fadeInDown animation-delay-8">
+                    <div class="panel-heading"><h2 class="text-white">DMT</h2></div>
                     <div class="panel-body">
                         <div class="col-md-12">
                             <h3 class="text-primary">Description</h3>
                             <p>{{ routineData.dmt.description }}</p>
                         </div>
+                        <div class="jumbotron">
+                            <h4>
+                                The current DMT rountines are being revised. They will be updated shortly.
+                            </h4>
+                        </div>
+                        <!--START OF DMT 
                         <div ng-repeat="level in routineData.dmt.levels">
                             <h3 class="text-primary text-center">{{ level.level }}</h3>
                             <hr/>
@@ -190,6 +196,7 @@
                                 </ul>
                             </div>
                         </div>
+                        END OF DMT -->
                     </div>
                 </div>
             </tab>
@@ -370,7 +377,7 @@
                     </div>
                 </div>
                 
-                <!--Travel.Ta-->
+                <!--Travel.Taxi-->
                 <div class="panel panel-primary animated fadeInDown animation-delay-8">
                     <div class="panel-heading"><h2 class="text-white">Taxis</h2></div>
                     <div class="panel-body">
