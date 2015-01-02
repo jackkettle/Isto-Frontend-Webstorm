@@ -5,7 +5,7 @@
 
 var commistoJson = "json/commisto.json";
 var sponsorJson = "json/sponsor.json";
-var photoJson = "json/photos.json";
+var photoJson = "json/gallery.json";
 var historyJson = "json/history.json";
 var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
