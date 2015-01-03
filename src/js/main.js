@@ -238,7 +238,7 @@ angular
     })
 
     // configure our routes
-    .config(function($routeProvider) {
+    .config(function($routeProvider, $locationProvider) {
         $routeProvider
 
             .when('/', {
@@ -279,9 +279,15 @@ angular
                 templateUrl : 'partials/charity.html',
                 controller  : 'charityController'
             })
+            
+            .when('/form', {
+                templateUrl : 'partials/form.html'
+            })
 
             .otherwise({
                 templateUrl: 'partials/404.html'
             });
 
+        // use the HTML5 History API
+        $locationProvider.html5Mode(true);
     })
