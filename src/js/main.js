@@ -288,6 +288,4 @@ angular
                 templateUrl: 'partials/404.html'
             });
 
-        // use the HTML5 History API
-        $locationProvider.html5Mode(true);
     })
