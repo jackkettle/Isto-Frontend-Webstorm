@@ -1,6 +1,8 @@
 <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-header">
-        <img src="{{ image.img_src }}" alt="{{ image.name }}" class="aligncenter img-responsive imageborder"/>
+        <a target="_self" href="{{ base + image.img_src }}">
+            <img src="{{ image.img_src }}" alt="{{ image.name }}" class="aligncenter img-responsive imageborder"/>
+        </a>
     </div>
 </script>
 
