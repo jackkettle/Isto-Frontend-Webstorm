@@ -141,6 +141,9 @@ textarea {
     top: 25px;
     width: 220px;
   }
+  .form-top {
+    height: 220px;
+  }
 }
 @media (min-width: 1200px) {
   .menu {
@@ -2453,6 +2456,9 @@ hr {
     width: 100%;
     height: 360px;
   }
+  .full-height {
+    height: 100%;
+  }
 }
 @media (min-width: 1200px) {
   .background-img {
@@ -2489,10 +2495,4 @@ hr {
 .text-darkl {
   color: #28364f;
   font-weight: bold;
-}
-.full-height {
-  height: 100%;
-}
-.form-top {
-  height: 220px;
 }
