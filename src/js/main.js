@@ -80,9 +80,9 @@ angular
         
         var absUrl= $location.absUrl();
         //check for src
-        
-        if(absUrl.indexOf("src") > -1){
-            $rootScope.base = $location.protocol() + "://" + $location.host() + "/src/";
+        var indexVar = absUrl.indexOf("src");
+        if(indexVar > -1){
+            $rootScope.base = absUrl.substring(0, indexVar - 1) + "/src/";
         }else{
             $rootScope.base = $location.protocol() + "://" + $location.host() + "/";
         }
