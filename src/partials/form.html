@@ -7,10 +7,23 @@
                 <h2 class="text-white">Add a competitor</h2>
             </div>
             <div class="panel-body">
-                <form>
+                <form name="addCompetitorForm" ng-submit="addCompetitorSubmit()">
                     <div class="margin-bottom-20">
+                        <div class="col-md-12">
+                          <div class="alert alert-info">
+                            <strong>Some general info regarding this page</strong>
+                            <ul>
+                              <li>
+                                A checked box indicates a yes a blank box indicates a no.
+                              </li>
+                              <li>
+                                Some options are disabled until you select a box enableding it e.g to select 'level' you must first choose 'compete'.
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
                         <!-- Basic -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <div class="panel panel-default">
                                 <div class="panel-body sponsor-panel form-top">
                                     <h2 class="text-dark">Basic Info</h2>
@@ -19,17 +32,16 @@
                                     <div class="col-md-12">
                                       <label class="col-md-6" for="name">Name</label>  
                                       <div class="col-md-6">
-                                      <input id="name" name="name" type="text" placeholder="name" required="">
-                                        
+                                        <input ng-model="form.basic.name" id="name" name="name" type="text" placeholder="name" required="">
                                       </div>
                                     </div>
                                     
                                     <!-- Multiple Checkboxes (inline) -->
                                     <div class="col-md-12">
-                                      <label class="col-md-6" for="commisto">Past CommISTO</label>
+                                      <label class="col-md-6" for="commisto-0">Past CommISTO</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="commisto-0">
-                                          <input type="checkbox" name="commisto" id="commisto-0" value="true">
+                                          <input ng-model="form.basic.commisto" type="checkbox" name="commisto" id="commisto-0" ng-true-value="true" ng-false-value="false" >
                                           Yes / No
                                         </label>
                                       </div>
@@ -37,10 +49,10 @@
                                     
                                     <!-- Multiple Checkboxes (inline) -->
                                     <div class="col-md-12">
-                                      <label class="col-md-6" for="social">Social Ticket</label>
+                                      <label class="col-md-6" for="social-0">Social Ticket</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="social-0">
-                                          <input type="checkbox" name="social" id="social-0" value="true">
+                                          <input input ng-model="form.basic.social" type="checkbox" name="social" id="social-0" ng-true-value="true" ng-false-value="false" >
                                           Yes / No
                                         </label>
                                       </div>
@@ -49,122 +61,176 @@
                             </div>
                         </div>
                         
-                        <!-- Helping -->
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-body sponsor-panel form-top">
-                                    <h2 class="text-dark">Helping</h2>
-                                    <hr />
-                                    <!-- Multiple Checkboxes (inline) -->
-                                    <div class="col-md-12">
-                                      <label class="col-md-6" for="scorekeeping">Scorekeeping</label>
-                                      <div class="col-md-6">
-                                        <label class="checkbox-inline" for="scorekeeping-0">
-                                          <input type="checkbox" name="scorekeeping" id="scorekeeping-0" value="true">
-                                          Yes / No
-                                        </label>
-                                      </div>
-                                    </div>
-                                    
-                                    <!-- Multiple Radios (inline) -->
-                                    <div class="col-md-12">
-                                      <label class="col-md-6" for="scorekeeping">Marshalling</label>
-                                      <div class="col-md-6">
-                                        <label class="checkbox-inline" for="marshalling-0">
-                                            <input type="checkbox" name="marshalling" id="marshalling-0" value="true" >                                          
-                                            Yes / No
-                                        </label>
-                                      </div>
-                                    </div>
-                                </div>                    
+                    <!-- Helping -->
+                    <div class="col-md-6 col-sm-6">
+                      <div class="panel panel-default">
+                        <div class="panel-body sponsor-panel form-top">
+                          <h2 class="text-dark">Helping</h2>
+                          <hr />
+                          <!-- Multiple Checkboxes (inline) -->
+                          <div class="col-md-12">
+                            <label class="col-md-6" for="scorekeeping-0">Scorekeeping</label>
+                            <div class="col-md-6">
+                              <label class="checkbox-inline" for="scorekeeping-0">
+                                <input 
+                                type="checkbox" 
+                                name="scorekeeping" 
+                                id="scorekeeping-0" 
+                                ng-model="form.helper.scorekeeper" 
+                                ng-true-value="true" 
+                                ng-false-value="false" >
+                                Yes / No
+                              </label>
                             </div>
-                        </div>
-                    
-                    </fieldset>
+                          </div>
+                          
+                          <!-- Multiple Radios (inline) -->
+                          <div class="col-md-12">
+                            <label class="col-md-6" for="marshalling-0">Marshalling</label>
+                            <div class="col-md-6">
+                              <label class="checkbox-inline" for="marshalling-0">
+                                <input  
+                                type="checkbox" 
+                                name="marshalling" 
+                                id="marshalling-0" 
+                                ng-model="form.helper.marshall" 
+                                -true-value="true" 
+                                ng-false-value="false" >                                          
+                                Yes / No
+                              </label>
+                            </div>
+                          </div>
+                        </div>                    
+                      </div>
+                    </div>
+
                     <!-- Competing -->
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-body sponsor-panel">
                                 <h2 class="text-dark text-center">Competing</h2>
-                                <hr />
+                                <hr class="no-margin-bottom"/>
                                 <!-- Competing.Trampolining -->
-                                <div class="col-md-4">
+                                
+                                <div class="col-md-6">
                                     <h4 class="text-center">Trampolining</h4>
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampolining">Competing</label>
+                                      <label class="col-md-6 control-label" for="trampolining-0">Competing individually</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="trampolining-0">
-                                          <input type="checkbox" name="trampolining" id="trampolining-0" value="true">
+                                          <input
+                                            type="checkbox" 
+                                            name="trampolining" 
+                                            id="trampolining-0"
+                                            ng-model="form.competition.trampolining.competing">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Select Basic -->
                                     <div class="form-group col-md-12">
                                       <label class="col-md-6 control-label" for="trampolininglevel">Level</label>
                                       <div class="col-md-6">
-                                        <select id="trampolininglevel" name="trampolininglevel" class="form-control" disabled>
-                                          <option value="1">Novice</option>
-                                          <option value="2">Intermediate</option>
-                                          <option value="3">Advanced</option>
-                                          <option value="4">Elite</option>
+                                        <select 
+                                          id="trampolininglevel" 
+                                          name="trampolininglevel" 
+                                          class="form-control"
+                                          ng-model="form.competition.trampolining.level"
+                                          ng-options="level.value as level.name for level in trampLevels"
+                                          ng-disabled="!(form.competition.trampolining.competing || form.competition.trampolining.sync)">
                                         </select>
                                       </div>
                                     </div>
+                                    
+                                    <div class="form-group col-md-12">
+                                      <label class="col-md-6 control-label" for="trampoliningsync">Competing Syncro</label>
+                                      <div class="col-md-6">
+                                        <input 
+                                          id="trampoliningsync" 
+                                          name="trampoliningsync" 
+                                          type="checkbox"
+                                          ng-model="form.competition.trampolining.sync">
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12">
+                                      <label class="col-md-6 control-label" for="partner">Syncro partner name</label>
+                                      <div class="col-md-6">
+                                        <input 
+                                          id="partner" 
+                                          name="partner" 
+                                          type="text"
+                                          placeholder="Partner's name"
+                                          ng-model="form.competition.trampolining.syncpartner"
+                                          ng-disabled="!form.competition.trampolining.sync">
+                                      </div>
+                                    </div>
                                 </div>
-                                <!-- Competing.Tumbling -->
-                                <div class="col-md-4">
+                              
+                                <div class="col-md-6">
+                                  <div class="col-md-12">
+                                    <!-- Competing.Tumbling -->
                                     <h4 class="text-center">Tumbling</h4>
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampolining">Competing</label>
+                                      <label class="col-md-6 control-label" for="tumbling-0">Competing</label>
                                       <div class="col-md-6">
-                                        <label class="checkbox-inline" for="trampolining-0">
-                                          <input type="checkbox" name="trampolining" id="trampolining-0" value="true">
+                                        <label class="checkbox-inline" for="tumbling-0">
+                                          <input 
+                                            type="checkbox" 
+                                            name="tumbling" 
+                                            id="tumbling-0" 
+                                            ng-model="form.competition.tumbling.competing" >
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Select Basic -->
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampolininglevel">Level</label>
+                                      <label class="col-md-6 control-label" for="tumblinglevel">Level</label>
                                       <div class="col-md-6">
-                                        <select id="trampolininglevel" name="trampolininglevel" class="form-control" disabled>
-                                          <option value="1">Novice</option>
-                                          <option value="2">Intermediate</option>
-                                          <option value="3">Advanced</option>
-                                          <option value="4">Elite</option>
+                                        <select 
+                                          id="tumblinglevel" 
+                                          name="tumblinglevel" 
+                                          class="form-control"
+                                          ng-model="form.competition.tumbling.level" 
+                                          ng-options="level for level in tumblingLevels"
+                                          ng-disabled="!form.competition.tumbling.competing">
                                         </select>
                                       </div>
                                     </div>
-                                </div>
-                                <!-- Competing.Dmt -->
-                                <div class="col-md-4">
+                                  </div>
+                                  <!-- Competing.Dmt -->
+                                  <div class="col-md-12">
                                     <h4 class="text-center">Dmt</h4>
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampolining">Competing</label>
+                                      <label class="col-md-6 control-label" for="dmt">Competing</label>
                                       <div class="col-md-6">
-                                        <label class="checkbox-inline" for="trampolining-0">
-                                          <input type="checkbox" name="trampolining" id="trampolining-0" value="true">
+                                        <label class="checkbox-inline" for="dmt">
+                                          <input 
+                                            type="checkbox" 
+                                            name="dmt" 
+                                            id="dmt"
+                                            ng-model="form.competition.dmt.competing">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
-                                    
-                                    <!-- Select Basic -->
+                                  
+
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampolininglevel">Level</label>
+                                      <label class="col-md-6 control-label" for="dmtlevel">Level</label>
                                       <div class="col-md-6">
-                                        <select id="trampolininglevel" name="trampolininglevel" class="form-control" disabled>
-                                          <option value="1">Novice</option>
-                                          <option value="2">Intermediate</option>
-                                          <option value="3">Advanced</option>
-                                          <option value="4">Elite</option>
+                                        <select 
+                                          id="dmtlevel" 
+                                          name="dmtlevel" 
+                                          class="form-control"
+                                          ng-model="form.competition.dmt.level" 
+                                          ng-options="level for level in dmtLevels"
+                                          ng-disabled="!form.competition.dmt.competing">
                                         </select>
                                       </div>
                                     </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +238,7 @@
                     
                     
                     <!-- Judging -->
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-body sponsor-panel">
                                 <h2 class="text-dark text-center">Judging</h2>
@@ -182,58 +248,75 @@
                                     <h4 class="text-center">Trampolining</h4>
                                     
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampjudge">Form Judge</label>
+                                      <label class="col-md-6 control-label" for="trampjudge-0">Form</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="trampjudge-0">
-                                          <input type="checkbox" name="trampjudge" id="trampjudge-0" value="true">
+                                          <input 
+                                          type="checkbox" 
+                                          name="trampjudge" 
+                                          id="trampjudge-0"
+                                          ng-model="form.judging.trampoline.form">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Multiple Checkboxes (inline) -->
+                                    
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="tramptariffjudge">Tariff Judge</label>
+                                      <label class="col-md-6 control-label" for="tramptariffjudge-0">Tariff</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="tramptariffjudge-0">
-                                          <input type="checkbox" name="tramptariffjudge" id="tramptariffjudge-0" value="true" disabled>
+                                          <input 
+                                          type="checkbox" 
+                                          name="tramptariffjudge" 
+                                          id="tramptariffjudge-0"
+                                          ng-model="form.judging.trampoline.tariff"
+                                          ng-disabled="!form.judging.trampoline.form">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampsyncjudge">Sync Judge</label>
+                                      <label class="col-md-6 control-label" for="trampoliningjudginglevel">Max level you can tariff</label>
+                                      <div class="col-md-6">
+                                        <select 
+                                        id="trampoliningjudginglevel"
+                                        name="trampoliningjudginglevel" 
+                                        ng-model="form.judging.trampoline.level"
+                                        ng-options="level.value as level.name for level in trampLevels"
+                                        ng-disabled="!form.judging.trampoline.tariff">
+                                        </select>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12">
+                                      <label class="col-md-6 control-label" for="trampsyncjudge-0">Sync</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="trampsyncjudge-0">
-                                          <input type="checkbox" name="trampsyncjudge" id="trampsyncjudge-0" value="true" disabled>
+                                          <input 
+                                          type="checkbox" 
+                                          name="trampsyncjudge" 
+                                          id="trampsyncjudge-0" 
+                                          ng-model="form.judging.trampoline.sync"
+                                          ng-disabled="!form.judging.trampoline.form">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="dmtsuperior">Superior Judge</label>
+                                      <label class="col-md-6 control-label" for="dmtsuperior-0">Superior</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="dmtsuperior-0">
-                                          <input type="checkbox" name="dmtsuperior" id="dmtsuperior-0" value="true" disabled>
+                                          <input 
+                                          type="checkbox" 
+                                          name="dmtsuperior" 
+                                          id="dmtsuperior-0" 
+                                          ng-model="form.judging.trampoline.superior"
+                                          ng-disabled="!form.judging.trampoline.form">
                                           Yes / No
                                         </label>
-                                      </div>
-                                    </div>
-                                    
-                                    <!-- Select Basic -->
-                                    <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="trampoliningjudginglevel">Judging level</label>
-                                      <div class="col-md-6">
-                                        <select id="trampoliningjudginglevel" name="trampoliningjudginglevel" class="form-control" disabled>
-                                          <option value="1">Novice</option>
-                                          <option value="2">Intermediate</option>
-                                          <option value="3">Advanced</option>
-                                          <option value="4">Elite</option>
-                                        </select>
                                       </div>
                                     </div>
                                     
@@ -243,74 +326,90 @@
                                 <div class="col-md-4">
                                     <h4 class="text-center">Tumbling</h4>
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="tumblingjudge">Judge</label>
+                                      <label class="col-md-6 control-label" for="tumblingjudge-0">Judge</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="tumblingjudge-0">
-                                          <input type="checkbox" name="tumblingjudge" id="tumblingjudge-0" value="true">
+                                          <input 
+                                          type="checkbox" 
+                                          name="tumblingjudge" 
+                                          id="tumblingjudge-0"
+                                          ng-model="form.judging.tumbling.judge">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="tumblingsuperior">Superior Judge</label>
+                                      <label class="col-md-6 control-label" for="tumblingsuperior-0">Superior Judge</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="tumblingsuperior-0">
-                                          <input type="checkbox" name="tumblingsuperior" id="tumblingsuperior-0" value="true" disabled>
+                                          <input 
+                                          type="checkbox" 
+                                          name="tumblingsuperior" 
+                                          id="tumblingsuperior-0" 
+                                          ng-model="form.judging.tumbling.superior"
+                                          ng-disabled="!form.judging.tumbling.judge">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Select Basic -->
                                     <div class="form-group col-md-12">
                                       <label class="col-md-6 control-label" for="tumblingjudginglevel">Judging level</label>
                                       <div class="col-md-6">
-                                        <select id="tumblingjudginglevel" name="tumblingjudginglevel" class="form-control" disabled>
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
+                                        <select 
+                                        id="tumblingjudginglevel" 
+                                        name="tumblingjudginglevel" 
+                                        class="form-control"
+                                        ng-model="form.judging.tumbling.level"
+                                        ng-options="level for level in dmtLevels"
+                                        ng-disabled="!form.judging.tumbling.judge">
                                         </select>
                                       </div>
                                     </div>
                                 </div>
+                                
                                  <!-- Judging.Dmt -->
                                 <div class="col-md-4">
                                     <h4 class="text-center">Dmt</h4>
                                     <div class="form-group col-md-12">
-                                      <label class="col-md-6 control-label" for="dmtjudge">Judge</label>
+                                      <label class="col-md-6 control-label" for="dmtjudge-0">Judge</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="dmtjudge-0">
-                                          <input type="checkbox" name="dmtjudge" id="dmtjudge-0" value="true">
+                                          <input
+                                          type="checkbox" 
+                                          name="dmtjudge" 
+                                          id="dmtjudge-0"
+                                          ng-model="form.judging.dmt.judge">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="form-group col-md-12">
                                       <label class="col-md-6 control-label" for="dmtsuperior">Superior Judge</label>
                                       <div class="col-md-6">
-                                        <label class="checkbox-inline" for="dmtsuperior-0">
-                                          <input type="checkbox" name="dmtsuperior" id="dmtsuperior-0" value="true" disabled>
+                                        <label class="checkbox-inline" for="dmtsuperior">
+                                          <input 
+                                          type="checkbox" 
+                                          name="dmtsuperior" 
+                                          id="dmtsuperior" 
+                                          ng-model="form.judging.dmt.superior"
+                                          ng-disabled="!form.judging.dmt.judge">
                                           Yes / No
                                         </label>
                                       </div>
                                     </div>
                                     
-                                    <!-- Select Basic -->
                                     <div class="form-group col-md-12">
                                       <label class="col-md-6 control-label" for="dmtjudginglevel">Judging level</label>
                                       <div class="col-md-6">
-                                        <select id="dmtjudginglevel" name="dmtjudginglevel" class="form-control" disabled>
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
+                                        <select 
+                                        id="dmtjudginglevel" 
+                                        name="dmtjudginglevel" 
+                                        ng-model="form.judging.dmt.level" 
+                                        ng-options="level for level in dmtLevels"
+                                        ng-disabled="!form.judging.dmt.judge">
                                         </select>
                                       </div>
                                     </div>
@@ -320,10 +419,9 @@
                     </div>
                     
                     <!-- Submit -->
-                    
-                    <button class="aligncenter btn btn-primary btn-lg" type="submit" form="form1" value="Submit">Submit</button>
-
-                    
+                    <div class="col-md-12 col-sm-12">
+                      <input class="aligncenter btn btn-primary btn-lg" type="submit" value="Submit" />
+                    </div>
                 </form>
             </div>
         </div>

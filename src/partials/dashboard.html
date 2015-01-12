@@ -1,0 +1,96 @@
+<section  ng-controller="apiGetClubController">
+    <div class="container">
+        <div class="panel panel-primary animated fadeInDown animation-delay-8 margin-top-20">
+            <div class="panel-heading">
+                <h2 class="text-white text-center">Admin dashboard</h2>
+            </div>
+            <div class="panel-body admin-panel-body">
+
+                <!-- Clubs -->
+                <h2 class="text-center">Clubs</h2>
+                <hr>
+                <div class="aligncenter">
+                    <button class="btn btn-primary btn-lg margin-all-20" ng-click="loadClub('DCU')">DCU</button>
+                    <button class="btn btn-primary btn-lg margin-all-20" ng-click="loadClub('UCD')">UCD</button>
+                    <button class="btn btn-primary btn-lg margin-all-20" ng-click="loadClub('Triinty')">Triinty</button>
+                    <button class="btn btn-primary btn-lg margin-all-20" ng-click="loadClub('Maynooth')">Maynooth</button>
+                    <button class="btn btn-primary btn-lg margin-all-20" ng-click="loadClub('UCC')">UCC</button>
+                </div>
+                
+                <div class="admin-dash col-md-12">
+                    <!-- Club stats -->
+                    <h3 class="text-primary text-center">Club stats</h3>
+                    <hr>
+                    <div col-md-12>
+                        <!--Memebers-->
+                        <div class="col-md-4">
+                            <h4>Info</h4>
+                             <dl class="dl-horizontal">
+                                    <dt class="text-align-left">Number of members</dt>
+                                    <dd>{{ club.members.length }}</dd>
+                            </dl>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <h4>Volunteers</h4>
+                             <dl class="dl-horizontal">
+                                    <dt class="text-align-left">Number of judges</dt>
+                                    <dd></dd>
+                            </dl>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <h4>Pricing</h4>
+                            <dl class="dl-horizontal">
+                                    <dt class="text-align-left">Total money owed</dt>
+                                    <dd></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!-- Members-->
+                    <div class="col-md-12">
+                        <h3 class="text-primary text-center">Members</h3>
+                        <hr>
+                        <!-- Table -->
+                        <div>
+                            <table ng-table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Social</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="member in club.members">
+                						<td>{{ member.name }}</td>
+                						<td>
+                						    <span ng-if="member.socialTicket">
+                						        Yes
+                						    </span>
+                						    <span ng-if="!member.socialTicket">
+                						        No
+                						    </span>
+                						</td>
+                						<td>
+                							<div class="dropdown">
+                								<a data-toggle="dropdown" data-placement="left" href=""><i class="fa fa-pencil-square-o"></i></a>
+                								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                									<li role="presentation"><a role="menuitem" href="">Edit</a></li>
+                									<li role="presentation"><a role="menuitem" href="">Delte</a></li>
+                								</ul>
+                							</div>
+                						</td>
+                					</tr>
+                                </tbody>
+    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- container -->
+</section>
+

@@ -11,8 +11,15 @@ var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
 var travelJson = "json/travel.json";
 
+var API_URL = "https://1-dot-bamboo-depth-694.appspot.com/_ah/api/";
+
+    
+function OnLoadCallback(){
+    gapi.client.load('api2', 'v1', null, API_URL);
+}
+
 angular
-    .module('istoApp', ['ngRoute', 'ui.bootstrap'])
+    .module('istoApp', ['ngRoute', 'ui.bootstrap', 'ngTable'])
 
     .controller('socialController', function($scope) {
         $scope.twitter  = 'https://twitter.com/COMMISTO';
@@ -29,12 +36,108 @@ angular
             });
     })
     
-    .controller('commistoController', function($scope, $http) {
-        $http.get(commistoJson)
-            .then(function(res){
-                $scope.committee = res.data;
-            });
+    .controller('addCompetitorController', function ($scope) {
+        
+        $scope.teams = [
+            {name: "A", value: 1},
+            {name: "B", value: 2},
+            {name: "C", value: 3}
+        ];
+        $scope.trampLevels = [
+            {name: "Novice", value: 1},
+            {name: "Intermediate", value: 2},
+            {name: "Inter-advanced", value: 3},
+            {name: "Advanced", value: 4},
+            {name: "Elite", value: 5},
+            {name: "Elite-pro", value: 6}
+        ];
+        $scope.dmtLevels = [1,2,3];
+        $scope.tumblingLevels = [1,2,3,4,5];
+
+        
+        // Starting values for our form object
+        $scope.form = {
+            basic: {
+                name        : "",
+                commisto    : false,  
+                social      : false
+            },
+            helper: {
+                scorekeeper : false,
+                marshall    : false
+            },
+            competition: {
+                trampolining: {
+                    competing   : false,
+                    sync        : false,
+                    syncpartner : "",
+                    team        : "",
+                    level       : ""
+                },
+                tumbling: {
+                    competing   : false,
+                    level       : ""
+                },
+                dmt: {
+                    competing   : false,
+                    level       : ""
+                }
+            },
+            judging: {
+                trampolining: {
+                    form        : false,
+                    tariff      : false,
+                    sync        : false,
+                    superior    : false,
+                    level       : ""
+                    
+                },
+                tumbling: {
+                    judge       : false,
+                    superior    : false,
+                    level       : ""
+                },
+                dmt: {
+                    judge       : false,
+                    superior    : false,
+                    level       : ""
+                }
+            }
+        }
+        
+        $scope.addCompetitorSubmit=function(){
+            var data=$scope.form;  
+            /* post to server*/
+            console.log("submitted"); 
+            console.log(data);     
+        }
     })
+    
+    .controller('apiGetClubController', function($scope, $route) {
+    
+    
+        $scope.loadClub = function(clubName) {
+            
+            gapi.client.api2.getClub({ name: clubName}).execute(
+            	function(resp){
+            	    console.log(resp);
+                	 $scope.club  = resp;
+                	 $scope.$apply() 
+            	}
+            )
+        }
+        
+    })
+
+
+    /// API STUFF START
+    
+    .controller('commistoController', function($scope, $http) {
+        
+
+    })
+
+    ///M API STUFF END
 
     .controller('sponsorController', function($scope, $http) {
         $http.get(sponsorJson)
@@ -250,6 +353,7 @@ angular
 
     // configure our routes
     .config(function($routeProvider, $locationProvider) {
+        
         $routeProvider
 
             .when('/', {
@@ -292,11 +396,23 @@ angular
             })
             
             .when('/form', {
-                templateUrl : 'partials/form.html'
+                templateUrl : 'partials/form.html',
+                controller  : 'addCompetitorController'
+            })
+            
+            .when('/dashboard', {
+                templateUrl : 'partials/dashboard.html'
             })
 
             .otherwise({
                 templateUrl: 'partials/404.html'
             });
 
+<<<<<<< HEAD
     })
+=======
+        // use the HTML5 History API
+        $locationProvider.html5Mode(true);
+    })
+    
+>>>>>>> master
