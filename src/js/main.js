@@ -55,6 +55,7 @@ angular
         $scope.tumblingLevels = [1,2,3,4,5];
 
         
+        // Starting values for our form object
         $scope.form = {
             basic: {
                 name        : "",
@@ -65,13 +66,41 @@ angular
                 scorekeeper : false,
                 marshall    : false
             },
-            competition:{
+            competition: {
                 trampolining: {
                     competing   : false,
-                    syncro      : false,
+                    sync        : false,
+                    syncpartner : "",
                     team        : "",
                     level       : ""
+                },
+                tumbling: {
+                    competing   : false,
+                    level       : ""
+                },
+                dmt: {
+                    competing   : false,
+                    level       : ""
+                }
+            },
+            judging: {
+                trampolining: {
+                    form        : false,
+                    tariff      : false,
+                    sync        : false,
+                    superior    : false,
+                    level       : ""
                     
+                },
+                tumbling: {
+                    judge       : false,
+                    superior    : false,
+                    level       : ""
+                },
+                dmt: {
+                    judge       : false,
+                    superior    : false,
+                    level       : ""
                 }
             }
         }
