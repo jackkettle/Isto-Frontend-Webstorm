@@ -407,12 +407,5 @@ angular
             .otherwise({
                 templateUrl: 'partials/404.html'
             });
-
-<<<<<<< HEAD
-    })
-=======
-        // use the HTML5 History API
-        $locationProvider.html5Mode(true);
     })
     
->>>>>>> master
