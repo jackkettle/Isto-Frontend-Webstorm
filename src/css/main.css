@@ -72,6 +72,9 @@ iframe {
     max-width: 1200px;*/
 }
 /* helper classes */
+.text-align-left {
+  text-align: left !important;
+}
 .no-margin-top {
   margin-top: 0 !important;
 }
@@ -130,6 +133,9 @@ textarea {
   .menu {
     position: static;
     margin-bottom: 40px;
+  }
+  .form-top {
+    height: 280px;
   }
 }
 @media (min-width: 992px) {
@@ -2495,4 +2501,12 @@ hr {
 .text-darkl {
   color: #28364f;
   font-weight: bold;
+}
+.admin-panel-body {
+  min-height: 700px;
+}
+.admin-dash {
+  border: solid 1px #ddd;
+  padding: 10px;
+  background-color: #fff;
 }

@@ -7,10 +7,10 @@
                 <h2 class="text-white">Add a competitor</h2>
             </div>
             <div class="panel-body">
-                <form>
+                <form name="addCompetitorForm" ng-submit="addCompetitorSubmit()">
                     <div class="margin-bottom-20">
                         <!-- Basic -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <div class="panel panel-default">
                                 <div class="panel-body sponsor-panel form-top">
                                     <h2 class="text-dark">Basic Info</h2>
@@ -19,7 +19,7 @@
                                     <div class="col-md-12">
                                       <label class="col-md-6" for="name">Name</label>  
                                       <div class="col-md-6">
-                                      <input id="name" name="name" type="text" placeholder="name" required="">
+                                      <input ng-model="form.name" id="name" name="name" type="text" placeholder="name" required="">
                                         
                                       </div>
                                     </div>
@@ -50,7 +50,7 @@
                         </div>
                         
                         <!-- Helping -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-6">
                             <div class="panel panel-default">
                                 <div class="panel-body sponsor-panel form-top">
                                     <h2 class="text-dark">Helping</h2>
@@ -82,7 +82,7 @@
                     
                     </fieldset>
                     <!-- Competing -->
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-body sponsor-panel">
                                 <h2 class="text-dark text-center">Competing</h2>
@@ -104,7 +104,7 @@
                                     <div class="form-group col-md-12">
                                       <label class="col-md-6 control-label" for="trampolininglevel">Level</label>
                                       <div class="col-md-6">
-                                        <select id="trampolininglevel" name="trampolininglevel" class="form-control" disabled>
+                                        <select id="trampolininglevel" name="trampolininglevel" class="form-control" ng-disabled="">
                                           <option value="1">Novice</option>
                                           <option value="2">Intermediate</option>
                                           <option value="3">Advanced</option>
@@ -172,7 +172,7 @@
                     
                     
                     <!-- Judging -->
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-body sponsor-panel">
                                 <h2 class="text-dark text-center">Judging</h2>
@@ -320,10 +320,9 @@
                     </div>
                     
                     <!-- Submit -->
-                    
-                    <button class="aligncenter btn btn-primary btn-lg" type="submit" form="form1" value="Submit">Submit</button>
-
-                    
+                    <div class="col-md-12 col-sm-12">
+                      <input class="aligncenter btn btn-primary btn-lg" type="submit" value="Submit" />
+                    </div>
                 </form>
             </div>
         </div>

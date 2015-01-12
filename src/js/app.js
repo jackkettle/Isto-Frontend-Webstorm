@@ -1,5 +1,3 @@
-
-
 /* Smooth scrolling para anclas */  
 $(document).on('click','a.smooth', function(e){
     e.preventDefault();
