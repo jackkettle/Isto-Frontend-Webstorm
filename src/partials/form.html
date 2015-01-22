@@ -14,10 +14,16 @@
                             <strong>Some general info regarding this page</strong>
                             <ul>
                               <li>
+                                Please give a member's <strong>full name</strong>. In the case you have two people with the same name please include their middle name. (Full names need to be unique)
+                              </li>
+                              <li>
                                 A checked box indicates a yes a blank box indicates a no.
                               </li>
                               <li>
                                 Some options are disabled until you select a box enableding it e.g to select 'level' you must first choose 'compete'.
+                              </li>
+                              <li>
+                                For the moment, it is one T-shirt per member. If a member wants additional t-shirts please email info@isto.ie
                               </li>
                             </ul>
                           </div>
@@ -25,18 +31,16 @@
                         <!-- Basic -->
                         <div class="col-md-6 col-sm-6">
                             <div class="panel panel-default">
-                                <div class="panel-body sponsor-panel form-top">
+                                <div class="panel-body sponsor-panel form-top padding-bottom-20">
                                     <h2 class="text-dark">Basic Info</h2>
                                     <hr />
-                                    <!-- Text input-->
-                                    <div class="col-md-12">
-                                      <label class="col-md-6" for="name">Name</label>  
+
+                                    <div class="col-md-12 margin-bottom-10">
+                                      <label class="col-md-6" for="name">Full name</label>  
                                       <div class="col-md-6">
                                         <input ng-model="form.basic.name" id="name" name="name" type="text" placeholder="name" required="">
                                       </div>
                                     </div>
-                                    
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="col-md-12">
                                       <label class="col-md-6" for="commisto-0">Past CommISTO</label>
                                       <div class="col-md-6">
@@ -47,12 +51,21 @@
                                       </div>
                                     </div>
                                     
-                                    <!-- Multiple Checkboxes (inline) -->
                                     <div class="col-md-12">
                                       <label class="col-md-6" for="social-0">Social Ticket</label>
                                       <div class="col-md-6">
                                         <label class="checkbox-inline" for="social-0">
                                           <input input ng-model="form.basic.social" type="checkbox" name="social" id="social-0" ng-true-value="true" ng-false-value="false" >
+                                          Yes / No
+                                        </label>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                      <label class="col-md-6" for="guest-0">Guest</label>
+                                      <div class="col-md-6">
+                                        <label class="checkbox-inline" for="guest-0">
+                                          <input input ng-model="form.basic.guest" type="checkbox" name="guest-0" id="guest-0" ng-true-value="true" ng-false-value="false" >
                                           Yes / No
                                         </label>
                                       </div>
@@ -64,10 +77,10 @@
                     <!-- Helping -->
                     <div class="col-md-6 col-sm-6">
                       <div class="panel panel-default">
-                        <div class="panel-body sponsor-panel form-top">
-                          <h2 class="text-dark">Helping</h2>
+                        <div class="panel-body sponsor-panel form-top padding-bottom-20">
+                          <h2 class="text-dark">Helpers and Shirt Info</h2>
                           <hr />
-                          <!-- Multiple Checkboxes (inline) -->
+                          
                           <div class="col-md-12">
                             <label class="col-md-6" for="scorekeeping-0">Scorekeeping</label>
                             <div class="col-md-6">
@@ -76,9 +89,7 @@
                                 type="checkbox" 
                                 name="scorekeeping" 
                                 id="scorekeeping-0" 
-                                ng-model="form.helper.scorekeeper" 
-                                ng-true-value="true" 
-                                ng-false-value="false" >
+                                ng-model="form.helper.scorekeeper" >
                                 Yes / No
                               </label>
                             </div>
@@ -93,13 +104,54 @@
                                 type="checkbox" 
                                 name="marshalling" 
                                 id="marshalling-0" 
-                                ng-model="form.helper.marshall" 
-                                -true-value="true" 
-                                ng-false-value="false" >                                          
+                                ng-model="form.helper.marshall"  >                                          
                                 Yes / No
                               </label>
                             </div>
                           </div>
+                          
+                          <div class="col-md-12">
+                            <label class="col-md-6" for="shirt-0">T-shirt</label>
+                            <div class="col-md-6">
+                              <label class="checkbox-inline" for="shirt-0">
+                                <input 
+                                type="checkbox" 
+                                name="shirt-0" 
+                                id="shirt-0" 
+                                ng-model="form.helper.shirt" >
+                                Yes / No
+                              </label>
+                            </div>
+                          </div>
+                          
+                          <div class="form-group col-md-12">
+                            <label class="col-md-6 control-label" for="shirtsize">Shirt size</label>
+                            <div class="col-md-6">
+                              <select 
+                                id="shirtsize" 
+                                name="shirtsize"
+                                class="form-control"
+                                ng-model="form.helper.shirtSize"
+                                ng-options="level.value as level.name for level in shirtSizes"
+                                ng-disabled="!form.helper.shirt">
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="form-group col-md-12">
+                            <label class="col-md-6 control-label" for="shirtcolor">Shirt colour</label>
+                            <div class="col-md-6">
+                              <select 
+                                id="shirtcolor" 
+                                name="shirtcolor" 
+                                class="form-control"
+                                ng-model="form.helper.shirtColor"
+                                ng-options="level.value as level.name for level in shirtColors"
+                                ng-disabled="!form.helper.shirt">
+                              </select>
+                            </div>
+                          </div>
+                          
                         </div>                    
                       </div>
                     </div>
@@ -134,10 +186,10 @@
                                         <select 
                                           id="trampolininglevel" 
                                           name="trampolininglevel" 
-                                          class="form-control"
                                           ng-model="form.competition.trampolining.level"
+                                          class="form-control"
                                           ng-options="level.value as level.name for level in trampLevels"
-                                          ng-disabled="!(form.competition.trampolining.competing || form.competition.trampolining.sync)">
+                                          ng-disabled="!form.competition.trampolining.competing">
                                         </select>
                                       </div>
                                     </div>
@@ -163,6 +215,20 @@
                                           placeholder="Partner's name"
                                           ng-model="form.competition.trampolining.syncpartner"
                                           ng-disabled="!form.competition.trampolining.sync">
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12">
+                                      <label class="col-md-6 control-label" for="synclevel">Sync Level</label>
+                                      <div class="col-md-6">
+                                        <select 
+                                          id="synclevel" 
+                                          name="synclevel"
+                                          class="form-control"
+                                          ng-model="form.competition.trampolining.synclevel"
+                                          ng-options="level.value as level.name for level in syncLevels"
+                                          ng-disabled="!form.competition.trampolining.sync">
+                                        </select>
                                       </div>
                                     </div>
                                 </div>
@@ -282,7 +348,8 @@
                                       <div class="col-md-6">
                                         <select 
                                         id="trampoliningjudginglevel"
-                                        name="trampoliningjudginglevel" 
+                                        name="trampoliningjudginglevel"
+                                        class="form-control"
                                         ng-model="form.judging.trampoline.level"
                                         ng-options="level.value as level.name for level in trampLevels"
                                         ng-disabled="!form.judging.trampoline.tariff">
@@ -407,6 +474,7 @@
                                         <select 
                                         id="dmtjudginglevel" 
                                         name="dmtjudginglevel" 
+                                        class="form-control"
                                         ng-model="form.judging.dmt.level" 
                                         ng-options="level for level in dmtLevels"
                                         ng-disabled="!form.judging.dmt.judge">

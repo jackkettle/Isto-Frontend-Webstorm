@@ -11,12 +11,12 @@ var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
 var travelJson = "json/travel.json";
 
-var API_URL = "https://1-dot-bamboo-depth-694.appspot.com/_ah/api/";
-
-    
-function OnLoadCallback(){
-    gapi.client.load('api2', 'v1', null, API_URL);
+function checkApi() {
+    if(gapi.client.api == undefined){
+        
+    }
 }
+
 
 angular
     .module('istoApp', ['ngRoute', 'ui.bootstrap', 'ngTable'])
@@ -38,6 +38,7 @@ angular
     
     .controller('addCompetitorController', function ($scope) {
         
+        // GLOBAL CONSTANTS
         $scope.teams = [
             {name: "A", value: 1},
             {name: "B", value: 2},
@@ -53,6 +54,25 @@ angular
         ];
         $scope.dmtLevels = [1,2,3];
         $scope.tumblingLevels = [1,2,3,4,5];
+        $scope.shirtSizes = [
+            {name: "S (34\/36\")", value: 1},
+            {name: "M (38\/40\")", value: 2},
+            {name: "L (42\/44\")", value: 3},
+            {name: "XL (46\/48\")", value: 4},
+            {name: "2XL (50\/52\")", value: 5}
+        ];
+        $scope.shirtColors = [
+            {name: "Pink", value: 1},
+            {name: "Navy", value: 2},
+            {name: "Green", value: 3},
+            {name: "Orange", value: 4},
+            {name: "Red", value: 5}
+        ];
+        $scope.syncLevels = [
+            {name: "Novice and Intermediate", value: 1},
+            {name: "Intervanced and Advanced", value: 2},
+            {name: "Elite and Pro-Elite", value: 3}
+        ];
 
         
         // Starting values for our form object
@@ -60,11 +80,15 @@ angular
             basic: {
                 name        : "",
                 commisto    : false,  
-                social      : false
+                social      : false,
+                guest       : false
             },
             helper: {
                 scorekeeper : false,
-                marshall    : false
+                marshall    : false,
+                shirt       : false,
+                shirtSize   : "",
+                shirtColor  : ""
             },
             competition: {
                 trampolining: {
@@ -113,12 +137,20 @@ angular
         }
     })
     
-    .controller('apiGetClubController', function($scope, $route) {
+    .controller('apiClubController', function($scope, $route) {
     
-    
+        gapi.client.api.getAllClubNames()
+            .execute(
+            	function(resp){
+            	    console.log(resp);
+                	 $scope.clubNames  = resp;
+                	 $scope.$apply() 
+            	}
+            ) 
+        
         $scope.loadClub = function(clubName) {
-            
-            gapi.client.api2.getClub({ name: clubName}).execute(
+            console.log("loadClub");
+            gapi.client.api.getClub({ Name: clubName}).execute(
             	function(resp){
             	    console.log(resp);
                 	 $scope.club  = resp;
