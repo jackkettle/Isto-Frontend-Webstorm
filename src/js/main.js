@@ -19,7 +19,7 @@ function checkApi() {
 
 
 angular
-    .module('istoApp', ['ngRoute', 'ui.bootstrap', 'ngTable'])
+    .module('istoApp', ['ui.router', 'ui.bootstrap', 'ngTable'])
 
     .controller('socialController', function($scope) {
         $scope.twitter  = 'https://twitter.com/COMMISTO';
@@ -137,16 +137,8 @@ angular
         }
     })
     
-    .controller('apiClubController', function($scope, $route) {
     
-        gapi.client.api.getAllClubNames()
-            .execute(
-            	function(resp){
-            	    console.log(resp);
-                	 $scope.clubNames  = resp;
-                	 $scope.$apply() 
-            	}
-            ) 
+    .controller('apiClubController', function($scope) {
         
         $scope.loadClub = function(clubName) {
             console.log("loadClub");
@@ -161,15 +153,12 @@ angular
         
     })
 
-
-    /// API STUFF START
-    
     .controller('commistoController', function($scope, $http) {
-        
-
+        $http.get(commistoJson)
+            .then(function(res){
+                $scope.committee = res.data;
+            });
     })
-
-    ///M API STUFF END
 
     .controller('sponsorController', function($scope, $http) {
         $http.get(sponsorJson)
@@ -237,7 +226,6 @@ angular
         $http.get(travelJson)
             .then(function(res){
                 $scope.travelData = res.data;
-                console.log($scope.travelData);
             });
 
         $scope.getTotalTariff = function( $scope ){
@@ -252,21 +240,21 @@ angular
 
     })
 
-    .controller('competitionController', function($scope, $routeParams, $http) {
-        $scope.params = $routeParams;
-        if($scope.params.id == 'info'){
+    .controller('competitionController', function($scope, $stateParams, $http) {
+        
+        if($stateParams.id == 'info'){
             $scope.tab1 = true;
         }
-        if($scope.params.id == 'routines'){
+        if($stateParams.id == 'routines'){
             $scope.tab2 = true;
         }
-        if($scope.params.id == 'schedule'){
+        if($stateParams.id == 'schedule'){
             $scope.tab3 = true;
         }
-        if($scope.params.id == 'tariff'){
+        if($stateParams.id == 'tariff'){
             $scope.tab4 = true;
         }
-        if($scope.params.id == 'travel'){
+        if($stateParams.id == 'travel'){
             $scope.tab5 = true;
         }
 
@@ -279,7 +267,6 @@ angular
         $http.get(travelJson)
             .then(function(res){
                 $scope.travelData = res.data;
-                console.log($scope.travelData);
             });
 
         $scope.getTotalTariff = function( $scope ){
@@ -291,7 +278,7 @@ angular
             total = Math.round( total * 10) / 10;
             return total;
         }
-
+        
     })
     
     .controller("tariffController", function ($scope, $http) {
@@ -383,64 +370,242 @@ angular
     
     })
 
-    // configure our routes
-    .config(function($routeProvider, $locationProvider) {
+// configure our routes
+    .config(function($stateProvider, $urlRouterProvider) {
         
-        $routeProvider
-
-            .when('/', {
-                templateUrl : 'partials/index.html'
+        $urlRouterProvider.otherwise("/");
+        
+        $stateProvider
+            .state('home', {
+                url: "/",
+                templateUrl: "partials/index.html",
+                data: {
+                    requireLogin: false
+                }
             })
 
-            .when('/competition', {
-                templateUrl : 'partials/competition.html',
-                controller  : 'defaultCompetitionController'
-            })
-
-            .when('/competition/:id', {
-                templateUrl : 'partials/competition.html',
-                controller  : 'competitionController'
-            })
-
-            .when('/sponsor', {
-                templateUrl : 'partials/sponsor.html',
-                controller  : 'sponsorController'
-            })
-
-            .when('/photo', {
-                templateUrl : 'partials/photo.html',
-                controller  : 'photoController'
-            })
-
-            .when('/commisto', {
-                templateUrl : 'partials/commisto.html',
-                controller  : 'commistoController'
-            })
-
-            .when('/history', {
-                templateUrl : 'partials/history.html',
-                controller  : 'defaultHistoryController'
-            })
-
-            .when('/charity', {
-                templateUrl : 'partials/charity.html',
-                controller  : 'charityController'
+            .state('competition', {
+                url: "/competition",
+                templateUrl: "partials/competition.html",
+                controller: "defaultCompetitionController",
+                data: {
+                    requireLogin: false
+                }
             })
             
-            .when('/form', {
-                templateUrl : 'partials/form.html',
-                controller  : 'addCompetitorController'
+            .state('competition.id', {
+                url: "/:id",
+                views: {
+                    "@": {
+                        templateUrl: "partials/competition.html",
+                        controller: "competitionController"
+                    }
+                }
             })
             
-            .when('/dashboard', {
-                templateUrl : 'partials/dashboard.html'
+            .state('sponsor', {
+                url: "/sponsor",
+                templateUrl: "partials/sponsor.html",
+                controller: "sponsorController",
+                data: {
+                    requireLogin: false
+                }
+            })
+            
+            .state('photo', {
+                url: "/photo",
+                templateUrl: "partials/photo.html",
+                controller: "photoController",
+                data: {
+                    requireLogin: false
+                }
+            })
+            
+            .state('commisto', {
+                url: "/commisto",
+                templateUrl: "partials/commisto.html",
+                controller: "commistoController",
+                data: {
+                    requireLogin: false
+                }
+            })
+            
+            .state('history', {
+                url: "/history",
+                templateUrl: "partials/history.html",
+                controller: "defaultHistoryController",
+                data: {
+                    requireLogin: false
+                }
+            })
+            
+            .state('charity', {
+                url: "/charity",
+                templateUrl: "partials/charity.html",
+                controller: "charityController",
+                data: {
+                    requireLogin: false
+                }
+            })
+            
+            // Auth required URLs
+            .state('dashboard', {
+                url: "/dashboard",
+                templateUrl: "partials/dashboard.html",
+                controller: "apiClubController",
+                data: {
+                    requireLogin: true // this property will apply to all children of 'app'
+                }
+
+            })
+            
+            .state('dashboard.add', {
+                url: "/add",
+                views: {
+                    "@": {
+                        templateUrl: "partials/form.html",
+                        controller: "addCompetitorController"
+                    }
+                }
             })
 
-            .otherwise({
-                templateUrl: 'partials/404.html'
+    })
+    
+    //-------------------------------------------------------
+    //-------------------------------------------------------
+    //-------------------------------------------------------
+    //-------------------------------------------------------
+    //-------------------------------------------------------
+    
+    .controller('loginNavController', function ($scope, $state, loginModal) {
+
+        $scope.logModal = function () {
+            loginModal()
+                .then(function () {
+                        $state.go('dashboard');
+                    })
+                    .catch(function () {
+                        $state.go('home');
+                    });
+        }
+        
+    })
+    
+    .controller('LoginModalCtrl', function ($scope, UsersApi) {
+
+        this.cancel = function () {
+            console.log("cancel");
+            $scope.$dismiss();
+        }
+        
+        this.submit = function (email, password) {
+            console.log("submit");
+            UsersApi(email, password).then(function (user) {
+                console.log(user);
+                console.log(user.result);
+                if(user.result == false){
+                    $scope.warning = true;
+                    $scope.message = "Invalid user or password.";
+                    $scope.apply();
+                }else{
+                    $scope.$close(user);
+                }
             });
+        };
+        
+    })
 
-        // use the HTML5 History API
-        $locationProvider.html5Mode(true);
+    
+    .config(function ($httpProvider) {
+    
+        $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
+            var loginModal, $http, $state;
+            
+            // this trick must be done so that we don't receive
+            // `Uncaught Error: [$injector:cdep] Circular dependency found`
+            $timeout(function () {
+                loginModal = $injector.get('loginModal');
+                $http = $injector.get('$http');
+                $state = $injector.get('$state');
+            });
+                
+            return {
+                responseError: function (rejection) {
+                    if (rejection.status !== 401) {
+                        return rejection;
+                    }
+                    
+                    var deferred = $q.defer();
+                    
+                    loginModal()
+                        .then(function () {
+                            deferred.resolve( $http(rejection.config) );
+                        })
+                        .catch(function () {
+                            $state.go('home');
+                            deferred.reject(rejection);
+                        });
+                            
+                    return deferred.promise;
+                }
+            }
+        })
+    })
+    
+    .run(function ($rootScope, $state, loginModal) {
+
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+            
+            var requireLogin = toState.data.requireLogin;   
+            
+            
+            if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+                event.preventDefault();
+                console.log("Get me a login modal!");
+                
+                // login modal
+                loginModal()
+                    .then(function () {
+                        return $state.go(toState.name, toParams);
+                    })
+                    .catch(function () {
+                        return $state.go('home');
+                    });
+            }
+        });
+
+    })
+    
+    .service('UsersApi', function ($modal, $rootScope) {
+
+        return function (userName, password) {
+            
+            var details = {
+                User: userName, 
+                Password: password
+            }
+                
+            var user = gapi.client.api.login(details)
+            return user;
+        }
+    })
+    
+    .service('loginModal', function ($modal, $rootScope) {
+
+        function assignCurrentUser (user) {
+            $rootScope.currentUser = user;
+            return user;
+        }
+        
+        return function() {
+            var instance = $modal.open({
+                templateUrl: 'partials/loginModalTemplate.html',
+                controller: 'LoginModalCtrl',
+                controllerAs: 'LoginModalCtrl'
+            })
+        
+            return instance.result.then(assignCurrentUser);
+        };
+    
     })
     

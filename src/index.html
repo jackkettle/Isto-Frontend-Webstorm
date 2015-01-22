@@ -55,7 +55,7 @@
 <header id="header" class="hidden-xs">
     <div class="container">
         <div id="header-title">
-            <a href="/"> <img src="img/misc/isto-logo-white.png" alt=""/></a>
+            <a ui-sref="home"> <img src="img/misc/isto-logo-white.png" alt=""/></a>
             <h1 class="animated fadeInDown"><a href=""><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</a></h1>
         </div>
 
@@ -95,7 +95,7 @@
                 <li class="dropdown" ng-class="{ active: isActive('/competition')}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Competition <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/competition/info">Information</a></li>
+                        <li><a ui-sref="competition.id({id: 'info'})">Information</a></li>
                         <li><a href="#/competition/routines">Routines</a></li>
                         <li><a href="#/competition/schedule">Schedule</a></li>
                         <li><a href="#/competition/tariff">Tariff Calculator</a></li>
@@ -127,36 +127,20 @@
                 </li>
 
             </ul> <!-- nav nabvar-nav -->
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
-                    <div class="dropdown-menu dropdown-login animated fadeInUp">
-                        <form role="form">
-                            <h4 class="section-title">Login Form</h4>
-
-                            <div class="form-group">
-                                <div class="input-group login-input">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" class="form-control" placeholder="Username">
-                                </div>
-                                <br>
-                                <div class="input-group login-input">
-                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input type="password" class="form-control" placeholder="Password">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Remember me
-                                    </label>
-                                </div>
-                                <button type="submit" class="btn btn-primary pull-right">Login</button>
-                                <div class="clearfix"></div>
-                            </div>
-                        </form>
-                    </div>
-                </li> <!-- dropdown -->
-            </ul> <!-- nav nabvar-nav -->
+            <div ng-if="currentUser">
+                <ul class="nav navbar-nav navbar-right" ng-controller="loginNavController">
+                    <li class="dropdown">
+                        <a ui-sref="dashboard" >Dashboard</a>
+                    </li> <!-- dropdown -->
+                </ul> <!-- nav nabvar-nav -->
+            </div>
+            <div ng-if="!currentUser">
+                <ul class="nav navbar-nav navbar-right" ng-controller="loginNavController">
+                    <li class="dropdown">
+                        <a href="" ng-click="logModal()">Login</a>
+                    </li> <!-- dropdown -->
+                </ul> <!-- nav nabvar-nav -->
+            </div>
         </div><!-- navbar-collapse -->
     </div> <!-- container -->
 </nav> <!-- navbar navbar-default -->
@@ -164,7 +148,7 @@
 <!-- MAIN VIEW -->
 
 <div id="main-view">
-    <div ng-view></div>
+    <div ui-view=""></div>
 </div>
 
 <!-- FO0TER -->
@@ -251,7 +235,7 @@
 
 <!-- load angular via CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="vendor/js/ui-bootstrap-tpls-0.11.2.min.js"></script>
 <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 <script src="js/main.js"></script>
