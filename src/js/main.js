@@ -141,7 +141,6 @@ angular
     .controller('apiClubController', function($scope) {
         
         $scope.loadClub = function(clubName) {
-            console.log("loadClub");
             gapi.client.api.getClub({ Name: clubName}).execute(
             	function(resp){
             	    console.log(resp);
@@ -480,7 +479,6 @@ angular
     .controller('loginNavController', function ($scope, $state, loginModal, $rootScope, $cookieStore) {
 
         $scope.logOut = function () {
-            console.log("logout");
             $rootScope.currentUser = null;
             $cookieStore.remove('istoUserId');
             $cookieStore.remove('istoUserClub');
@@ -505,14 +503,11 @@ angular
     .controller('LoginModalCtrl', function ($scope, UsersApi, $cookieStore,$rootScope) {
 
         this.cancel = function () {
-            console.log("cancel");
             $scope.$dismiss();
         }
         
         this.submit = function (email, password) {
-            console.log("submit");
             UsersApi(email, password).then(function (user) {
-                console.log(user.result);
                 if(user.result == false){
                     $scope.warning = true;
                     $scope.message = "Invalid user or password.";
@@ -589,10 +584,8 @@ angular
                 };
                 
             }
-            console.log($rootScope.currentUser);
             if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
                 event.preventDefault();
-                console.log("Get me a login modal!");
                 
                 // login modal
                 loginModal()
@@ -626,8 +619,6 @@ angular
         function assignCurrentUser (user) {
             $rootScope.currentUser = user;
             // Cookies
-            console.log("Setting cookies");
-            console.log(user);
             $cookieStore.put('istoUserId', user.id);
             $cookieStore.put('istoUserClub', user.clubName);
             $cookieStore.put('istoUserName', user.userName);
