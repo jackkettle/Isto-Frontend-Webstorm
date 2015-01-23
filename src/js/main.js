@@ -19,7 +19,7 @@ function checkApi() {
 
 
 angular
-    .module('istoApp', ['ui.router', 'ui.bootstrap', 'ngTable'])
+    .module('istoApp', ['ui.router', 'ui.bootstrap', 'ngTable', 'ngCookies'])
 
     .controller('socialController', function($scope) {
         $scope.twitter  = 'https://twitter.com/COMMISTO';
@@ -477,8 +477,19 @@ angular
     //-------------------------------------------------------
     //-------------------------------------------------------
     
-    .controller('loginNavController', function ($scope, $state, loginModal) {
+    .controller('loginNavController', function ($scope, $state, loginModal, $rootScope, $cookieStore) {
 
+        $scope.logOut = function () {
+            console.log("logout");
+            $rootScope.currentUser = null;
+            $cookieStore.remove('istoUserId');
+            $cookieStore.remove('istoUserClub');
+            $cookieStore.remove('istoUserName');
+            $cookieStore.remove('istoUserType');
+            $state.go('home');
+            location.reload();
+        }
+        
         $scope.logModal = function () {
             loginModal()
                 .then(function () {
@@ -491,7 +502,7 @@ angular
         
     })
     
-    .controller('LoginModalCtrl', function ($scope, UsersApi) {
+    .controller('LoginModalCtrl', function ($scope, UsersApi, $cookieStore,$rootScope) {
 
         this.cancel = function () {
             console.log("cancel");
@@ -501,14 +512,19 @@ angular
         this.submit = function (email, password) {
             console.log("submit");
             UsersApi(email, password).then(function (user) {
-                console.log(user);
                 console.log(user.result);
                 if(user.result == false){
                     $scope.warning = true;
                     $scope.message = "Invalid user or password.";
                     $scope.apply();
                 }else{
-                    $scope.$close(user);
+                    var newUser = {
+                        id : user.result.id,
+                        clubName : user.result.clubName,
+                        userName : user.result.userName,
+                        userType : user.result.userType
+                    }
+                    $scope.$close(newUser);
                 }
             });
         };
@@ -529,6 +545,7 @@ angular
                 $state = $injector.get('$state');
             });
                 
+            
             return {
                 responseError: function (rejection) {
                     if (rejection.status !== 401) {
@@ -545,20 +562,34 @@ angular
                             $state.go('home');
                             deferred.reject(rejection);
                         });
-                            
                     return deferred.promise;
                 }
             }
         })
     })
     
-    .run(function ($rootScope, $state, loginModal) {
+    .run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             
-            var requireLogin = toState.data.requireLogin;   
+            var requireLogin = toState.data.requireLogin;
             
-            
+            if($cookieStore.get('istoUserId')){
+                
+                var idCookie = $cookieStore.get('istoUserId');
+                var clubNameCookie = $cookieStore.get('istoUserClub');
+                var userNameCookie = $cookieStore.get('istoUserName');
+                var userTypeCookie = $cookieStore.get('istoUserType');
+                
+                $rootScope.currentUser = {
+                    id : idCookie,
+                    clubName : clubNameCookie,
+                    userName : userNameCookie,
+                    userType : userTypeCookie
+                };
+                
+            }
+            console.log($rootScope.currentUser);
             if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
                 event.preventDefault();
                 console.log("Get me a login modal!");
@@ -585,15 +616,23 @@ angular
                 Password: password
             }
                 
-            var user = gapi.client.api.login(details)
+            var user = gapi.client.api.login(details);
             return user;
         }
     })
     
-    .service('loginModal', function ($modal, $rootScope) {
+    .service('loginModal', function ($modal, $rootScope, $cookieStore) {
 
         function assignCurrentUser (user) {
             $rootScope.currentUser = user;
+            // Cookies
+            console.log("Setting cookies");
+            console.log(user);
+            $cookieStore.put('istoUserId', user.id);
+            $cookieStore.put('istoUserClub', user.clubName);
+            $cookieStore.put('istoUserName', user.userName);
+            $cookieStore.put('istoUserType', user.userType);
+            
             return user;
         }
         
@@ -606,6 +645,5 @@ angular
         
             return instance.result.then(assignCurrentUser);
         };
-    
     })
     

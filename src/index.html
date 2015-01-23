@@ -129,16 +129,19 @@
             </ul> <!-- nav nabvar-nav -->
             <div ng-if="currentUser">
                 <ul class="nav navbar-nav navbar-right" ng-controller="loginNavController">
-                    <li class="dropdown">
+                    <li>
                         <a ui-sref="dashboard" >Dashboard</a>
-                    </li> <!-- dropdown -->
+                    </li>
+                    <li>
+                        <a href="" ng-click="logOut()">Log out</a>
+                    </li>
                 </ul> <!-- nav nabvar-nav -->
             </div>
             <div ng-if="!currentUser">
                 <ul class="nav navbar-nav navbar-right" ng-controller="loginNavController">
-                    <li class="dropdown">
+                    <li>
                         <a href="" ng-click="logModal()">Login</a>
-                    </li> <!-- dropdown -->
+                    </li>
                 </ul> <!-- nav nabvar-nav -->
             </div>
         </div><!-- navbar-collapse -->
@@ -236,6 +239,7 @@
 <!-- load angular via CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="vendor/js/ui-bootstrap-tpls-0.11.2.min.js"></script>
 <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 <script src="js/main.js"></script>
