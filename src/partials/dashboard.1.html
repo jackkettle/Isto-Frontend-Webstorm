@@ -1,0 +1,191 @@
+<section  ng-controller="apiClubController">
+    <div class="container">
+        <div class="panel panel-primary animated fadeInDown animation-delay-8 margin-top-20">
+            <div class="panel-heading">
+                <h2 class="text-white text-center">Admin dashboard</h2>
+            </div>
+            <div class="panel-body admin-panel-body">
+                <div class="admin-dash col-md-12">
+                    <!-- Club stats -->
+                    <h3 class="text-primary text-center">Club Information</h3>
+                    <hr>
+                    <div col-md-12>
+                        <!--Memebers-->
+                        <div class="col-md-6">
+                            <h4 class="text-center">Info</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                    <tr>
+                            			<td class="text-primary">Club name</td>
+                            			<td>{{currentUser.clubName}}</td>
+                            		</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h4 class="text-center">Pricing</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                    <tr>
+                						<td class="text-primary">Total Money Due</td>
+                						<td>552</td>
+                					</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-dash col-md-12 margin-top-15">
+                    <h3 class="text-primary text-center">Club Statistics</h3>
+                    <hr>
+                    <div class="col-md-6">
+                            <h4 class="text-center">Members and Volunteers</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                   <tr>
+                            			<td class="text-primary">Marshalls</td>
+                            			<td>{{ club.members.length }}</td>
+                            		</tr>
+                            		<tr>
+                            			<td class="text-primary">Scorekeepers</td>
+                            			<td>{{ club.members.length }}</td>
+                            		</tr>
+                                    <tr>
+                            			<td class="text-primary">Total members</td>
+                            			<td>{{ club.members.length }}</td>
+                            		</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h4 class="text-center">Judges</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                   <tr>
+                						<td class="text-primary">Trampoline judges</td>
+                						<td>4</td>
+                					</tr>
+                					<tr>
+                						<td class="text-primary">Tumbling judges</td>
+                						<td>4</td>
+                					</tr>
+                					<tr>
+                						<td class="text-primary">DMT judges</td>
+                						<td>4</td>
+                					</tr>
+                                    <tr>
+                						<td class="text-primary">Total judges</td>
+                						<td>4</td>
+                					</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                
+                    <div class="admin-dash col-md-12 margin-top-15">
+                        <h3 class="text-primary text-center">Club Statistics</h3>
+                        <hr>
+                        
+                        <div class="col-md-4">
+                            <h4 class="text-center">Trampoline</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                    <tr>
+                            			<td class="text-primary">Total competitors</td>
+                            			<td>{{ club.members.length }}</td>
+                            		</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <h4 class="text-center">Tumbling</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                    <tr>
+                						<td class="text-primary">Total competitors</td>
+                						<td>4</td>
+                					</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <h4 class="text-center">DMT</h4>
+                            <hr class="hr-primary">
+                            <table class="table table-striped table-responsive">
+                               <tbody>
+                                    <tr>
+                						<td class="text-primary">Total competitors</td>
+                						<td>4</td>
+                					</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <!-- Members-->
+                </div>
+                <div class="admin-dash col-md-12 margin-top-15">
+                    <div class="col-md-12">
+                        <h3 class="text-primary text-center">Members</h3>
+                        <hr>
+                        <!-- Table -->
+                        <div>
+                            <table ng-table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Basic Info</th>
+                                        <th>Competing</th>
+                                        <th>Judging</th>
+                                        <th class="col-sm-1">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="member in club.members">
+                                        <!-- Actions 1 -->
+                                        <td>{{ member.name }}</td>
+                                        <!-- Actions 2 -->
+                                        <td>
+                                            <span ng-if="member.socialTicket">
+                                                Yes
+                                            </span>
+                                            <span ng-if="!member.socialTicket">
+                                                No
+                                            </span>
+                                        </td>
+                                        <!-- Actions 3-->
+                                        <td>{{ member.name }}</td>
+                                        <!-- Actions 4 -->
+                                        <td>{{ member.name }}</td>
+                                        <!-- Actions 5 -->
+                                        <td class="col-sm-1">
+                                            <div class="dropdown center-block col-sm-6">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li role="presentation"><a role="menuitem" href="">Delte</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+</section>
+
