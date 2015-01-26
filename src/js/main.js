@@ -11,13 +11,6 @@ var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
 var travelJson = "json/travel.json";
 
-function checkApi() {
-    if(gapi.client.api == undefined){
-        
-    }
-}
-
-
 angular
     .module('istoApp', ['ui.router', 'ui.bootstrap', 'ngTable', 'ngCookies'])
 
@@ -36,15 +29,16 @@ angular
             });
     })
     
-    .controller('addCompetitorController', function ($scope) {
+    .controller('addCompetitorController', function ($scope, $rootScope, $state) {
         
         // GLOBAL CONSTANTS
-        $scope.teams = [
+        $rootScope.teams = [
             {name: "A", value: 1},
             {name: "B", value: 2},
             {name: "C", value: 3}
         ];
-        $scope.trampLevels = [
+        $scope.dmtLevels = [1,2,3];
+        $rootScope.trampLevels = [
             {name: "Novice", value: 1},
             {name: "Intermediate", value: 2},
             {name: "Inter-advanced", value: 3},
@@ -52,7 +46,6 @@ angular
             {name: "Elite", value: 5},
             {name: "Elite-pro", value: 6}
         ];
-        $scope.dmtLevels = [1,2,3];
         $scope.tumblingLevels = [1,2,3,4,5];
         $scope.shirtSizes = [
             {name: "S (34\/36\")", value: 1},
@@ -68,11 +61,16 @@ angular
             {name: "Orange", value: 4},
             {name: "Red", value: 5}
         ];
-        $scope.syncLevels = [
+        $rootScope.syncLevels = [
             {name: "Novice and Intermediate", value: 1},
             {name: "Intervanced and Advanced", value: 2},
             {name: "Elite and Pro-Elite", value: 3}
         ];
+        $scope.gender = [
+            "Male",
+            "Female"
+        ];
+
 
         
         // Starting values for our form object
@@ -81,50 +79,52 @@ angular
                 name        : "",
                 commisto    : false,  
                 social      : false,
-                guest       : false
+                guest       : false,
+                gender      : ""
             },
             helper: {
                 scorekeeper : false,
                 marshall    : false,
                 shirt       : false,
-                shirtSize   : "",
-                shirtColor  : ""
+                shirtSize   : "n/a",
+                shirtColor  : "n/a"
             },
             competition: {
                 trampolining: {
                     competing   : false,
                     sync        : false,
-                    syncpartner : "",
-                    team        : "",
-                    level       : ""
+                    syncpartner : "n/a",
+                    synclevel   : "n/a",
+                    team        : "n/a",
+                    level       : "n/a"
                 },
                 tumbling: {
                     competing   : false,
-                    level       : ""
+                    level       : "n/a"
                 },
                 dmt: {
                     competing   : false,
-                    level       : ""
+                    level       : "n/a"
                 }
             },
             judging: {
-                trampolining: {
+                trampoline: {
                     form        : false,
                     tariff      : false,
                     sync        : false,
                     superior    : false,
-                    level       : ""
+                    level       : "n/a"
                     
                 },
                 tumbling: {
                     judge       : false,
                     superior    : false,
-                    level       : ""
+                    level       : "n/a"
                 },
                 dmt: {
                     judge       : false,
                     superior    : false,
-                    level       : ""
+                    level       : "n/a"
                 }
             }
         }
@@ -133,23 +133,47 @@ angular
             var data=$scope.form;  
             /* post to server*/
             console.log("submitted"); 
-            console.log(data);     
-        }
-    })
-    
-    
-    .controller('apiClubController', function($scope) {
-        
-        $scope.loadClub = function(clubName) {
-            gapi.client.api.getClub({ Name: clubName}).execute(
+            console.log(data);
+            gapi.client.api.addMember({ 
+                Club                        : $rootScope.currentUser.clubName,
+                Name                        : data.basic.name,
+                CommISTO                    : data.basic.commisto,
+                socialTicket                : data.basic.social,
+                guest                       : data.basic.guest,
+                gender                       : data.basic.gender,
+                scorekeeper                 : data.helper.scorekeeper,
+                marshling                   : data.helper.marshall,
+                Shirt                       : data.helper.shirt,
+                ShirtSize                   : data.helper.shirtSize,
+                ShirtColor                  : data.helper.shirtColor,
+                trampolineCompetitor        : data.competition.trampolining.competing,
+                trampolineSyncCompetitor    : data.competition.trampolining.sync,
+                trampolineSyncPartner       : data.competition.trampolining.syncpartner,
+                trampolineSyncLevel         : data.competition.trampolining.synclevel,
+                trampolineTeam              : data.competition.trampolining.team,
+                trampolineLevel             : data.competition.trampolining.level,
+                dmtCompetitor               : data.competition.dmt.competing,
+                dmtLevel                    : data.competition.dmt.level,
+                tumblingCompetitor          : data.competition.tumbling.competing,
+                tumblingLevel               : data.competition.tumbling.level,
+                trampolineFormJudge         : data.judging.trampoline.form,
+                trampolineTariffJudge       : data.judging.trampoline.tariff,
+                trampolineSyncJudge         : data.judging.trampoline.sync,
+                trampolineSuperiorJudge     : data.judging.trampoline.superior,
+                trampolineJudgeLevel        : data.judging.trampoline.level,
+                tumblingJudge               : data.judging.tumbling.judge,
+                tumblingJudgeLevel          : data.judging.tumbling.level,
+                tumblingSuperiorJudge       : data.judging.tumbling.superior,
+                dmtJudge                    : data.judging.dmt.judge,
+                dmtJudgeLevel               : data.judging.dmt.level,
+                dmtSuperiorJudge            : data.judging.dmt.superior
+            }).execute(
             	function(resp){
             	    console.log(resp);
-                	 $scope.club  = resp;
-                	 $scope.$apply() 
+            	    $state.go('dashboard');
             	}
             )
         }
-        
     })
 
     .controller('commistoController', function($scope, $http) {
@@ -450,8 +474,7 @@ angular
             // Auth required URLs
             .state('dashboard', {
                 url: "/dashboard",
-                templateUrl: "partials/dashboard.html",
-                controller: "apiClubController",
+                templateUrl: "partials/dashboard.1.html",
                 data: {
                     requireLogin: true // this property will apply to all children of 'app'
                 }
@@ -493,9 +516,6 @@ angular
                 .then(function () {
                         $state.go('dashboard');
                     })
-                    .catch(function () {
-                        $state.go('home');
-                    });
         }
         
     })
@@ -519,6 +539,7 @@ angular
                         userName : user.result.userName,
                         userType : user.result.userType
                     }
+                    $rootScope.currentUser = newUser;
                     $scope.$close(newUser);
                 }
             });
@@ -636,5 +657,106 @@ angular
         
             return instance.result.then(assignCurrentUser);
         };
+    })
+    
+    .factory('Gapi', function($timeout, $q) {
+        return {
+            load: function load() {
+                if (typeof gapi.client.api === 'undefined') {
+                    return $timeout(load, 500);
+                }else{
+                    $q.promise
+                }
+            }
+        }
+    })
+    
+    .controller('deleteMemberModalController', function ($scope, $state, name, clubName) {
+        
+        
+        $scope.name = name;
+        $scope.clubName = clubName;
+        
+        $scope.delete = function(name, clubName){
+
+            gapi.client.api.deleteMember({ 
+                Club: name,
+                Name: clubName
+            }).execute(function(resp){
+                console.log(resp);
+                $scope.$dismiss();
+                $state.reload();
+            })
+            
+        }
+        
+        $scope.cancel = function() {
+        
+            $scope.$dismiss();
+        }
+        
+    })
+    
+    
+    .controller('apiClubController', function($scope, Gapi, $rootScope, $modal) {
+        
+        $rootScope.trampLevels = [
+            {name: "Novice", value: 1},
+            {name: "Intermediate", value: 2},
+            {name: "Inter-advanced", value: 3},
+            {name: "Advanced", value: 4},
+            {name: "Elite", value: 5},
+            {name: "Elite-pro", value: 6}
+        ];
+        
+        $rootScope.syncLevels = [
+            {name: "Novice and Intermediate", value: 1},
+            {name: "Intervanced and Advanced", value: 2},
+            {name: "Elite and Pro-Elite", value: 3}
+        ];
+        
+        $rootScope.teams = [
+            {name: "A", value: 1},
+            {name: "B", value: 2},
+            {name: "C", value: 3}
+        ];
+        
+        if(typeof gapi.client.api !== 'undefined'){
+            gapi.client.api.getClub({Name: $rootScope.currentUser.clubName}).execute(
+                	function(resp){
+                        $scope.club  = resp;
+                        console.log(resp);
+                        $scope.$apply() 
+                	}
+                )
+        } else {
+            Gapi.load()
+            .then(function () {
+                gapi.client.api.getClub({ Name: $rootScope.currentUser.clubName}).execute(
+                	function(resp){
+                        $scope.club  = resp;
+                        console.log(resp);
+                        $scope.$apply() 
+                	}
+                )
+            })
+            .catch(function() {
+                console.log("Error loading api");
+            })
+        }
+        
+        $scope.deleteMemberModal = function(clubName, name){
+            var instance = $modal.open({
+                templateUrl: 'partials/deleteMemberModal.html',
+                controller: 'deleteMemberModalController',
+                controllerAs: 'deleteMemberModalController',
+                resolve: {
+                    clubName: function(){ return clubName },
+                    name: function(){ return name }
+                }
+            })
+            
+            return instance;
+        }
     })
     

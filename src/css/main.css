@@ -99,6 +99,12 @@ iframe {
 .margin-top-20 {
   margin-top: 30px;
 }
+.margin-top-15 {
+  margin-top: 15px;
+}
+.margin-bottm-15 {
+  margin-top: 15px;
+}
 .margin-right-20 {
   margin-right: 30px;
 }
@@ -832,7 +838,7 @@ dt {
 }
 .aligncenter {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 .imageborder {
   padding: 5px;
@@ -2524,4 +2530,14 @@ hr {
 }
 .modal {
   min-height: 400px;
+}
+.hr-half {
+  border-top: 1px solid #00708c;
+  margin: 0 auto;
+  width: 50%;
+}
+.hr-primary {
+  border-top: 1px solid #00708c;
+  margin-top: 0;
+  margin-bottom: 0;
 }
