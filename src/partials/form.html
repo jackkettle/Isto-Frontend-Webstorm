@@ -25,6 +25,12 @@
                               <li>
                                 For the moment, it is one T-shirt per member. If a member wants additional t-shirts please email info@isto.ie
                               </li>
+                              <li>
+                                There are limited places for both DMT and Tumbling. DMT max of 
+                              </li>
+                              <li>
+                                The judging level option is the max level you feel you can tariff.
+                              </li>
                             </ul>
                           </div>
                         </div>
@@ -460,7 +466,7 @@
                                         name="tumblingjudginglevel" 
                                         class="form-control"
                                         ng-model="form.judging.tumbling.level"
-                                        ng-options="level for level in dmtLevels"
+                                        ng-options="level for level in tumblingLevels"
                                         ng-disabled="!form.judging.tumbling.judge">
                                         </select>
                                       </div>
@@ -507,7 +513,7 @@
                                         name="dmtjudginglevel" 
                                         class="form-control"
                                         ng-model="form.judging.dmt.level" 
-                                        ng-options="level for level in tumblingLevels"
+                                        ng-options="level for level in dmtLevels"
                                         ng-disabled="!form.judging.dmt.judge">
                                         </select>
                                       </div>
@@ -518,6 +524,9 @@
                     </div>
                     
                     <!-- Submit -->
+                    <div class="col-md-12">
+                      <div ng-if="errorMessage" class="alert alert-warning" role="alert">{{errorMessage}}</div>
+                    </div>
                     <div class="col-md-12 col-sm-12">
                       <input class="aligncenter btn btn-primary btn-lg" type="submit" value="Submit" />
                     </div>
