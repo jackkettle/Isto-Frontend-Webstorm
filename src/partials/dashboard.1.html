@@ -65,7 +65,8 @@
                             		</tr>
                                     <tr>
                             			<td class="text-primary">Total members</td>
-                            			<td>{{ club.members.length }}</td>
+                            			<td ng-if="club.members">{{ club.members.length }}</td>
+                            			<td ng-if="!club.members">0</td>
                             		</tr>
                             		
                                 </tbody>

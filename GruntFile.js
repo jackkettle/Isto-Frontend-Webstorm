@@ -5,23 +5,6 @@
 module.exports = function (grunt) {
     grunt.initConfig({
 
-        watch: {
-            styles: {
-                files: ["**/*.less"],
-                tasks: "less",
-                options: {
-                    livereload: true
-                }
-
-            },
-            html: {
-                files: ['**/*.htm','**/*.html','**/*.js'],
-                options: {
-                    livereload: true
-                }
-            }
-        },
-
         // Compile specified less files
         less: {
             compile: {
@@ -33,12 +16,52 @@ module.exports = function (grunt) {
                     "src/css/main.css": "src/less/style.less"
                 }
             }
+        },
+        
+        // concat all js files
+        concat: {
+          js: {
+            src: ['src/js/dev/main.js', 'src/js/dev/**/*.js'],
+            dest: 'src/js/dest/concat.js'
+          }
+        },
+        
+        // minifyjs
+        uglify: {
+            options: {
+                compress: false,
+                mangle: false,
+                beautify: true
+            },
+            js: {
+                files: {
+                'src/js/dest/main.min.js': ['src/js/dest/concat.js']
+                }
+            }
+        },
+        
+        watch: {
+            styles: {
+                files: ["**/*.less"],
+                tasks: "less",
+                options: {
+                    livereload: true
+                }
+
+            },
+            scripts: {
+                files: ["src/js/dev/**"],
+                tasks: ['concat', 'uglify']
+            }
         }
+
     });
 
     // Load tasks so we can use them
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-less");
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // The dev task will be used during development
     grunt.registerTask("default", ["watch"]);
