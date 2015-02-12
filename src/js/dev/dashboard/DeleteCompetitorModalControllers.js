@@ -1,19 +1,24 @@
-app.controller('deleteMemberModalController', function ($scope, $state, name, clubName) {
+app.controller('deleteMemberModalController', function ($scope, $state, clubName, id, name) {
     
     
-    $scope.name = name;
+    $scope.id = id;
     $scope.clubName = clubName;
+    $scope.name = name;
     
-    $scope.delete = function(name, clubName){
+    $scope.delete = function(clubName, id){
 
-        gapi.client.api.deleteMember({ 
-            Club: name,
-            Name: clubName
+        console.log("id " + id);
+        console.log("clubName " + clubName);
+        
+        gapi.client.api.deleteMemberId({ 
+            Id: id,
+            Club: clubName
         }).execute(function(resp){
             console.log(resp);
             $scope.$dismiss();
             $state.reload();
         })
+        
         
     }
     

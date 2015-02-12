@@ -355,6 +355,9 @@ blockquote.pull-right {
 .panel-footer ~ .panel-body {
   border-color: #f00;
 }
+.panel .table {
+  border-collapse: separate;
+}
 .panel .list-group {
   background-color: #f7f7f7;
   border: solid 1px #00708c;
@@ -828,13 +831,11 @@ dt {
   float: left;
   margin-right: 10px;
   margin-bottom: 10px;
-  margin-top: 5px;
 }
 .alignright {
   float: right;
   margin-left: 10px;
   margin-bottom: 10px;
-  margin-top: 5px;
 }
 .aligncenter {
   display: block;

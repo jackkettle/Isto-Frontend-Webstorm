@@ -1,11 +1,11 @@
 <div class="dropdown-login col-md-12">
     <h4 class="section-title">Delete member</h4>
     <div class="col-md-12">
-        <div class="alert alert-warning" role="alert">Are you sure you want to delete the member <span class="text-primary">{{name}}</span></div>
+        <div class="alert alert-warning" role="alert">Are you sure you want to delete the member <span class="text-primary">{{name}} (id: {{id}})</span></div>
     </div>
     <div class="col-md-4 col-md-offset-8">
         <div class="col-md-6">
-            <button ng-click="delete(clubName, name)" class="btn btn-primary alignright col-md-">Yes</button>
+            <button ng-click="delete(clubName, id)" class="btn btn-primary alignright col-md-">Yes</button>
         </div>
         <div class="col-md-6">
             <button ng-click="cancel()" class="btn btn-primary alignright">Cancel</button>

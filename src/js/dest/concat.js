@@ -111,6 +111,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        
+        .state('dashboard.edit', {
+            url: "/edit/:id",
+            views: {
+                "@": {
+                    templateUrl: "partials/form.html",
+                    controller: "editCompetitorController"
+                }
+            }
+        })
 })
 
 // Catch 401 errors when trying to view restrcited pages
@@ -152,6 +162,11 @@ app.config(function ($httpProvider) {
 
 app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
 
+
+    $rootScope.maxTumbling  = 80;
+    $rootScope.maxDMT       = 80;
+    $rootScope.maxSync      = 160;
+
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         
         var requireLogin = toState.data.requireLogin;
@@ -185,6 +200,45 @@ app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
         }
     });
 
+})
+
+app.factory('Gapi', function($timeout, $q) {
+    return {
+        load: function load() {
+            if (typeof gapi.client === 'undefined') {
+                console.log("gapi.client");
+                return $timeout(load, 500);
+            } else if (typeof gapi.client.api === 'undefined') {
+                console.log("gapi.client.api");
+                return $timeout(load, 500); 
+            } else{
+                return $timeout(function() {
+                    console.log("Api loaded");
+                }, 500);
+            }
+        },
+    };
+})
+app.controller('navController', function($scope, $location, $rootScope) {
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+    };
+    
+    var absUrl= $location.absUrl();
+    //check for src
+    
+    if(absUrl.indexOf("src") > -1){
+        $rootScope.base = $location.protocol() + "://" + $location.host() + "/src/";
+    }else{
+        $rootScope.base = $location.protocol() + "://" + $location.host() + "/";
+    }
+})
+app.controller('socialController', function($scope) {
+    $scope.twitter  = 'https://twitter.com/COMMISTO';
+    $scope.facebook = 'https://www.facebook.com/pages/Irish-Student-Trampoline-Open/139153787666';
+    $scope.google   = 'https://plus.google.com/u/0/114618181369690971121/posts';
+    $scope.youtube  = 'https://www.youtube.com/user/isto2012/';
+    $scope.mail     = 'mailto:info@isto.ie';
 })
 
 /* Smooth scrolling para anclas */  
@@ -238,43 +292,15 @@ $(document).ready(function(){
     });
 
 });
-app.factory('Gapi', function($timeout, $q) {
-    return {
-        load: function load() {
-            if (typeof gapi.client.api === 'undefined') {
-                return $timeout(load, 500);
-            }else{
-                $q.promise
-            }
-        }
-    };
-})
-app.controller('navController', function($scope, $location, $rootScope) {
-    $scope.isActive = function (viewLocation) {
-        return viewLocation === $location.path();
-    };
-    
-    var absUrl= $location.absUrl();
-    //check for src
-    
-    if(absUrl.indexOf("src") > -1){
-        $rootScope.base = $location.protocol() + "://" + $location.host() + "/src/";
-    }else{
-        $rootScope.base = $location.protocol() + "://" + $location.host() + "/";
-    }
-})
-app.controller('socialController', function($scope) {
-    $scope.twitter  = 'https://twitter.com/COMMISTO';
-    $scope.facebook = 'https://www.facebook.com/pages/Irish-Student-Trampoline-Open/139153787666';
-    $scope.google   = 'https://plus.google.com/u/0/114618181369690971121/posts';
-    $scope.youtube  = 'https://www.youtube.com/user/isto2012/';
-    $scope.mail     = 'mailto:info@isto.ie';
-})
-
 app.controller('addCompetitorController', function ($scope, $rootScope, $state) {
     
     // GLOBAL CONSTANTS
+    $rootScope.submitted = false;
+    
+    $rootScope.formType = "Add";
+    
     $rootScope.teams = [
+        {name: "", value: 'n/a'},
         {name: "A", value: 1},
         {name: "B", value: 2},
         {name: "C", value: 3}
@@ -370,9 +396,12 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
             }
         }
     }
-    
-    $scope.addCompetitorSubmit=function(){
-        var data=$scope.form;  
+    console.log($rootScope.club.name);
+    $scope.onCompetitorSubmit=function(){
+        var data=$scope.form;
+        
+        $rootScope.submitted = true;
+        
         /* post to server*/
         console.log("submitted"); 
         console.log(data);
@@ -385,12 +414,13 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         	    console.log(resp);
         	    console.log("Testing 1");
         	    console.log(resp.items[0] );
-        	    if(resp.items[0] > 76){
+        	    if(resp.items[0] >= $rootScope.maxTumbling){
         	        $rootScope.errorMessage = "We're sorry but the limit for tumbling competitors has been reached."
-        	        $scope.apply;
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
         	    }else{
         	        gapi.client.api.addMember({ 
-                        Club                        : $rootScope.currentUser.clubName,
+                        Club                        : $rootScope.club.name,
                         Name                        : data.basic.name,
                         CommISTO                    : data.basic.commisto,
                         socialTicket                : data.basic.social,
@@ -438,12 +468,13 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         	    console.log(resp);
         	    console.log("Testing 2");
         	    console.log(resp.items[0] );
-        	    if(resp.items[0] > 76){
+        	    if(resp.items[0] >= $rootScope.maxDmt){
         	        $rootScope.errorMessage = "We're sorry but the limit for dmt competitors has been reached."
-        	        $scope.apply;
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
         	    }else{
         	        gapi.client.api.addMember({ 
-                        Club                        : $rootScope.currentUser.clubName,
+                        Club                        : $rootScope.club.name,
                         Name                        : data.basic.name,
                         CommISTO                    : data.basic.commisto,
                         socialTicket                : data.basic.social,
@@ -491,12 +522,13 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         	    console.log(resp);
         	    console.log("Testing 3");
         	    console.log(resp.items[0] );
-        	    if(resp.items[0] > 110){
+        	    if(resp.items[0] >= $rootScope.maxSync){
         	        $rootScope.errorMessage = "We're sorry but the limit for sync competitors has been reached."
-        	        $scope.apply;
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
         	    }else{
         	        gapi.client.api.addMember({ 
-                        Club                        : $rootScope.currentUser.clubName,
+                        Club                        : $rootScope.club.name,
                         Name                        : data.basic.name,
                         CommISTO                    : data.basic.commisto,
                         socialTicket                : data.basic.social,
@@ -539,7 +571,7 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         }
         if(!data.competition.trampolining.sync && !data.competition.tumbling.competing && !data.competition.dmt.competing){
             gapi.client.api.addMember({ 
-                Club                        : $rootScope.currentUser.clubName,
+                Club                        : $rootScope.club.name,
                 Name                        : data.basic.name,
                 CommISTO                    : data.basic.commisto,
                 socialTicket                : data.basic.social,
@@ -581,7 +613,8 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
     }
 })
 
-app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal) {
+app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal, $timeout, $filter, ngTableParams) {
+    
         
     $rootScope.trampLevels = [
         {name: "Novice", value: 1},
@@ -606,9 +639,11 @@ app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal) {
     
     
     // Set stats
+    $scope.memberCount = 0;
     $scope.socialCount = 0;
     $scope.MarshallsCount = 0;
     $scope.ScorekeeperCount = 0;
+    $scope.commistoCount = 0;
     
     $scope.trampJudgesCount = 0;
     $scope.tumblingJudgesCount = 0;
@@ -635,251 +670,241 @@ app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal) {
     $scope.dmtCount2 = 0;
     $scope.dmtCount3 = 0;
     
-    if(typeof gapi.client.api !== 'undefined'){
-        gapi.client.api.getClub({Name: $rootScope.currentUser.clubName}).execute(
-            	function(resp){
-                    $scope.club  = resp;
+    $rootScope.data = [];
+    
+    // table vars
+    $scope.tableParams = new ngTableParams({
+        page: 1,            // show first page
+        count: 5,          // count per page
+        sorting: {
+            name: 'asc'     // initial sorting
+        },
+        filter: {
 
-                    if(resp.members){
-                        for(var i = 0; i < resp.members.length; i++){
-                            var member = resp.members[i];
-                            
-                            //stats
-                            if(member.socialTicket){
-                                $scope.socialCount++
-                            }
-                            
-                            if(member.marshling){
-                                $scope.MarshallsCount++
-                            }
-                            
-                            if(member.scorekeeper){
-                                $scope.ScorekeeperCount++
-                            }
-                            
-                            //judges
-                            if(member.trampolineFormJudge){
-                                $scope.trampJudgesCount++
-                            }
-                            
-                            if(member.tumblingJudge){
-                                $scope.tumblingJudgesCount++
-                            }
-                            
-                            if(member.dmtJudge){
-                                $scope.dmtJudges++
-                            }
-                            
-                            if(member.trampolineFormJudge || member.tumblingJudge || member.dmtJudge){
-                                $scope.totalJudges++
-                            }
+        }
+    }, {
+        counts: [5,10,25,50],
+        total: 0,
+        getData: function($defer, params) {
+            params.total($scope.data.length);
+            
+            var filteredData = params.filter() ?
+                    $filter('filter')($scope.data, params.filter()) :
+                    $scope.data;
+            
+            var orderedData = params.sorting() ?
+                $filter('orderBy')(filteredData, params.orderBy()) :
+                $scope.data;
+                
+            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+        }
+    },{
+    });
+    $scope.tableParams.settings().$scope = $scope;
     
-                            //tramp
-                            if(member.trampolineLevel){
-                                switch (member.trampolineLevel) {
-                                    case "1":
-                                        $scope.trampCount1++;
-                                        break;
-                                    case "2":
-                                        $scope.trampCount2++;
-                                        break;
-                                    case "3":
-                                        $scope.trampCount3++;
-                                        break;
-                                    case "4":
-                                        $scope.trampCount4++;
-                                        break;
-                                    case "5":
-                                        $scope.trampCount5++;
-                                        break;
-                                    case "6":
-                                        $scope.trampCount6++;
-                                        break;
-                                }
-                            }
-                            
-                            //tumbling
-                            if(member.tumblingLevel){
-                                switch (member.tumblingLevel) {
-                                    case "1":
-                                        $scope.tumblingCount1++;
-                                        break;
-                                    case "2":
-                                        $scope.tumblingCount2++;
-                                        break;
-                                    case "3":
-                                        $scope.tumblingCount3++;
-                                        break;
-                                    case "4":
-                                        $scope.tumblingCount4++;
-                                        break;
-                                    case "5":
-                                        $scope.tumblingCount5++;
-                                        break;
-                                }
-                            }
-                            
-                            //dmt
-                            if(member.dmtLevel){
-                                switch (member.dmtLevel) {
-                                    case "1":
-                                        $scope.dmtCount1++;
-                                        break;
-                                    case "2":
-                                        $scope.dmtCount2++;
-                                        break;
-                                    case "3":
-                                        $scope.dmtCount3++;
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                    $scope.$apply()
+    // Get club members and compute stats
+    $scope.callApiGetClub = function(nameParam) {
+        
+        // Set stats
+        $scope.memberCount = 0;
+        $scope.socialCount = 0;
+        $scope.MarshallsCount = 0;
+        $scope.ScorekeeperCount = 0;
+        $scope.commistoCount = 0;
+        
+        $scope.trampJudgesCount = 0;
+        $scope.tumblingJudgesCount = 0;
+        $scope.dmtJudges = 0;
+        $scope.totalJudges = 0;
+        
+        //Tramp
+        $scope.trampCount1 = 0;
+        $scope.trampCount2 = 0;
+        $scope.trampCount3 = 0;
+        $scope.trampCount4 = 0;
+        $scope.trampCount5 = 0;
+        $scope.trampCount6 = 0;
+        
+        //Tumbling
+        $scope.tumblingCount1 = 0;
+        $scope.tumblingCount2 = 0;
+        $scope.tumblingCount3 = 0;
+        $scope.tumblingCount4 = 0;
+        $scope.tumblingCount5 = 0;
+        
+        //Tumbling
+        $scope.dmtCount1 = 0;
+        $scope.dmtCount2 = 0;
+        $scope.dmtCount3 = 0;
+        
+        gapi.client.api.getDmtTumblingCount({Option: 1}).execute(function(resp) {
+            if(resp.items){
+                $rootScope.maxTotalTumbling = resp.items[0];
+                $rootScope.$apply();
+            }
+        })
+        
+        gapi.client.api.getDmtTumblingCount({Option: 2}).execute(function(resp) {
+            if(resp.items){
+                $rootScope.maxTotalDmt = resp.items[0];
+                $rootScope.$apply();
+            }
+        })
+        
+        gapi.client.api.getDmtTumblingCount({Option: 3}).execute(function(resp) {
+            if(resp.items){
+                $rootScope.maxTotalSync = resp.items[0];
+                $rootScope.$apply();
+            }
+        })
+        
+        gapi.client.api.getClub({ Name: nameParam}).execute(function(resp){
+            $rootScope.club  = resp;
+            if(resp.members){
+                $rootScope.data = $scope.club.members;
+                
+                // Get stats for each member
+                for(var i = 0; i < resp.members.length; i++){
+                    var member = resp.members[i];
                     
-            	}
-            )
-    } else {
-        Gapi.load()
-        .then(function () {
-            gapi.client.api.getClub({ Name: $rootScope.currentUser.clubName}).execute(
-            	function(resp){
-                    $scope.club  = resp;
-                    if(resp.members){
-                        for(var i = 0; i < resp.members.length; i++){
-                            var member = resp.members[i];
-                            
-                            //stats
-                            if(member.socialTicket){
-                                $scope.socialCount++
-                            }
-                            
-                            if(member.marshling){
-                                $scope.MarshallsCount++
-                            }
-                            
-                            if(member.scorekeeper){
-                                $scope.ScorekeeperCount++
-                            }
-                            
-                            //judges
-                            if(member.trampolineFormJudge){
-                                $scope.trampJudgesCount++
-                            }
-                            
-                            if(member.tumblingJudge){
-                                $scope.tumblingJudgesCount++
-                            }
-                            
-                            if(member.dmtJudge){
-                                $scope.dmtJudges++
-                            }
-                            
-                            if(member.trampolineFormJudge || member.tumblingJudge || member.dmtJudge){
-                                $scope.totalJudges++
-                            }
-    
-                            //tramp
-                            if(member.trampolineLevel){
-                                switch (member.trampolineLevel) {
-                                    case "1":
-                                        $scope.trampCount1++;
-                                        break;
-                                    case "2":
-                                        $scope.trampCount2++;
-                                        break;
-                                    case "3":
-                                        $scope.trampCount3++;
-                                        break;
-                                    case "4":
-                                        $scope.trampCount4++;
-                                        break;
-                                    case "5":
-                                        $scope.trampCount5++;
-                                        break;
-                                    case "6":
-                                        $scope.trampCount6++;
-                                        break;
-                                }
-                            }
-                            
-                            //tumbling
-                            if(member.tumblingLevel){
-                                switch (member.tumblingLevel) {
-                                    case "1":
-                                        $scope.tumblingCount1++;
-                                        break;
-                                    case "2":
-                                        $scope.tumblingCount2++;
-                                        break;
-                                    case "3":
-                                        $scope.tumblingCount3++;
-                                        break;
-                                    case "4":
-                                        $scope.tumblingCount4++;
-                                        break;
-                                    case "5":
-                                        $scope.tumblingCount5++;
-                                        break;
-                                }
-                            }
-                            
-                            //dmt
-                            if(member.dmtLevel){
-                                switch (member.dmtLevel) {
-                                    case "1":
-                                        $scope.dmtCount1++;
-                                        break;
-                                    case "2":
-                                        $scope.dmtCount2++;
-                                        break;
-                                    case "3":
-                                        $scope.dmtCount3++;
-                                        break;
-                                }
-                            }
+                    //stats
+                    $scope.memberCount++;
+                    if(member.socialTicket){        $scope.socialCount++ }
+                    if(member.marshling){           $scope.MarshallsCount++ }
+                    if(member.scorekeeper){         $scope.ScorekeeperCount++ }
+                    if(member.pastCommISTO){        $scope.commistoCount++ }
+                    
+                    //judges
+                    if(member.trampolineFormJudge){ $scope.trampJudgesCount++ }
+                    if(member.tumblingJudge){       $scope.tumblingJudgesCount++ }
+                    if(member.dmtJudge){            $scope.dmtJudges++ }
+                    if(member.trampolineFormJudge || member.tumblingJudge || member.dmtJudge){
+                        $scope.totalJudges++
+                    }
+
+                    //tramp
+                    if(member.trampolineLevel && member.trampolineCompetitor){
+                        switch (member.trampolineLevel) {
+                            case "1":
+                                $scope.trampCount1++;
+                                break;
+                            case "2":
+                                $scope.trampCount2++;
+                                break;
+                            case "3":
+                                $scope.trampCount3++;
+                                break;
+                            case "4":
+                                $scope.trampCount4++;
+                                break;
+                            case "5":
+                                $scope.trampCount5++;
+                                break;
+                            case "6":
+                                $scope.trampCount6++;
+                                break;
                         }
                     }
-                    $scope.$apply() 
-            	}
-            )
-        })
-        .catch(function() {
-            console.log("Error loading api");
-        })
+                    
+                    //tumbling
+                    if(member.tumblingLevel && member.tumblingCompetitor){
+                        switch (member.tumblingLevel) {
+                            case "1":
+                                $scope.tumblingCount1++;
+                                break;
+                            case "2":
+                                $scope.tumblingCount2++;
+                                break;
+                            case "3":
+                                $scope.tumblingCount3++;
+                                break;
+                            case "4":
+                                $scope.tumblingCount4++;
+                                break;
+                            case "5":
+                                $scope.tumblingCount5++;
+                                break;
+                        }
+                    }
+                    
+                    //dmt
+                    if(member.dmtLevel && member.dmtCompetitor){
+                        switch (member.dmtLevel) {
+                            case "1":
+                                $scope.dmtCount1++;
+                                break;
+                            case "2":
+                                $scope.dmtCount2++;
+                                break;
+                            case "3":
+                                $scope.dmtCount3++;
+                                break;
+                        }
+                    }
+                }
+                $scope.tableParams.reload();
+                $scope.$apply();
+            }
+    	})
     }
     
-    $scope.deleteMemberModal = function(clubName, name){
+    $scope.deleteMemberModal = function(clubName, id, name){
         var instance = $modal.open({
             templateUrl: 'partials/deleteMemberModal.html',
             controller: 'deleteMemberModalController',
             controllerAs: 'deleteMemberModalController',
             resolve: {
                 clubName: function(){ return clubName },
+                id: function(){ return id },
                 name: function(){ return name }
             }
         })
         
         return instance;
     }
-    
-})
-app.controller('deleteMemberModalController', function ($scope, $state, name, clubName) {
-    
-    
-    $scope.name = name;
-    $scope.clubName = clubName;
-    
-    $scope.delete = function(name, clubName){
 
-        gapi.client.api.deleteMember({ 
-            Club: name,
-            Name: clubName
+    // Call club details
+    Gapi.load()
+        .then(function () { 
+            $scope.callApiGetClub($rootScope.currentUser.clubName);
+            
+            // if commISTO user add club options also
+            if($rootScope.currentUser.userType === 2){
+                gapi.client.api.getAllClubNames().execute(
+                    function(resp){
+                        if(resp.items){
+                            $scope.allClubNames = resp;
+                        }
+                        $scope.$apply();
+                    })
+            }
+            
+        });
+})
+
+
+
+app.controller('deleteMemberModalController', function ($scope, $state, clubName, id, name) {
+    
+    
+    $scope.id = id;
+    $scope.clubName = clubName;
+    $scope.name = name;
+    
+    $scope.delete = function(clubName, id){
+
+        console.log("id " + id);
+        console.log("clubName " + clubName);
+        
+        gapi.client.api.deleteMemberId({ 
+            Id: id,
+            Club: clubName
         }).execute(function(resp){
             console.log(resp);
             $scope.$dismiss();
             $state.reload();
         })
+        
         
     }
     
@@ -889,6 +914,319 @@ app.controller('deleteMemberModalController', function ($scope, $state, name, cl
     }
     
 })
+app.controller('editCompetitorController', function ($scope, $rootScope, $state, $stateParams, $timeout) {
+    
+    // GLOBAL CONSTANTS
+    $scope.submitted = false;
+    
+    $rootScope.formType = "Edit";
+    
+    $rootScope.teams = [
+        {name: "", value: 'n/a'},
+        {name: "A", value: 1},
+        {name: "B", value: 2},
+        {name: "C", value: 3}
+    ];
+    $scope.dmtLevels = [1,2,3];
+    $rootScope.trampLevels = [
+        {name: "Novice", value: 1},
+        {name: "Intermediate", value: 2},
+        {name: "Inter-advanced", value: 3},
+        {name: "Advanced", value: 4},
+        {name: "Elite", value: 5},
+        {name: "Elite-pro", value: 6}
+    ];
+    $scope.tumblingLevels = [1,2,3,4,5];
+    $scope.shirtSizes = [
+        {name: "S (34\/36\")", value: 1},
+        {name: "M (38\/40\")", value: 2},
+        {name: "L (42\/44\")", value: 3},
+        {name: "XL (46\/48\")", value: 4},
+        {name: "2XL (50\/52\")", value: 5}
+    ];
+    $scope.shirtColors = [
+        {name: "Pink", value: 1},
+        {name: "Navy", value: 2},
+        {name: "Green", value: 3},
+        {name: "Orange", value: 4},
+        {name: "Red", value: 5}
+    ];
+    $rootScope.syncLevels = [
+        {name: "Novice and Intermediate", value: 1},
+        {name: "Intervanced and Advanced", value: 2},
+        {name: "Elite and Pro-Elite", value: 3}
+    ];
+    $scope.gender = [
+        "Male",
+        "Female"
+    ];
+    
+    
+    // if no members go to dashboard to get them
+    //console.log($rootScope.club.name);
+    
+    if($rootScope.data === undefined){
+        $state.go('dashboard');
+    }else{
+        // get member from members
+        angular.forEach($rootScope.data, function(member) {
+            if(member.key.id === $stateParams.id){
+                $scope.currentEditMember= member;
+            }
+        });
+        
+        // Starting values for our form object
+        $scope.form = {
+            basic: {
+                name        : $scope.currentEditMember.name,
+                commisto    : $scope.currentEditMember.pastCommISTO,  
+                social      : $scope.currentEditMember.socialTicket,
+                guest       : $scope.currentEditMember.guest,
+                gender      : $scope.currentEditMember.gender
+            },
+            helper: {
+                scorekeeper : $scope.currentEditMember.scorekeeper,
+                marshall    : $scope.currentEditMember.marshling,
+                shirt       : $scope.currentEditMember.shirt,
+                shirtSize   : parseInt($scope.currentEditMember.shirtSize),
+                shirtColor  : parseInt($scope.currentEditMember.shirtColor),
+            },
+            competition: {
+                trampolining: {
+                    competing   : $scope.currentEditMember.trampolineCompetitor,
+                    sync        : $scope.currentEditMember.trampolineSyncCompetitor,
+                    syncpartner : $scope.currentEditMember.trampolineSyncPartner,
+                    synclevel   : parseInt($scope.currentEditMember.trampolineSyncLevel),
+                    team        : parseInt($scope.currentEditMember.trampolineTeam),
+                    level       : parseInt($scope.currentEditMember.trampolineLevel),
+                },
+                tumbling: {
+                    competing   : $scope.currentEditMember.tumblingCompetitor,
+                    level       : parseInt($scope.currentEditMember.tumblingLevel),
+                },
+                dmt: {
+                    competing   : $scope.currentEditMember.dmtCompetitor,
+                    level       : parseInt($scope.currentEditMember.dmtLevel),
+                }
+            },
+            judging: {
+                trampoline: {
+                    form        : $scope.currentEditMember.trampolineFormJudge,
+                    tariff      : $scope.currentEditMember.trampolineTariffJudge,
+                    sync        : $scope.currentEditMember.trampolineSyncJudge,
+                    superior    : $scope.currentEditMember.trampolineSuperiorJudge,
+                    level       : parseInt($scope.currentEditMember.trampolineJudgeLevel),
+                    
+                },
+                tumbling: {
+                    judge       : $scope.currentEditMember.tumblingJudge,
+                    superior    : $scope.currentEditMember.tumblingSuperiorJudge,
+                    level       : parseInt($scope.currentEditMember.tumblingJudgeLevel),
+                },
+                dmt: {
+                    judge       : $scope.currentEditMember.dmtJudge,
+                    superior    : $scope.currentEditMember.dmtSuperiorJudge,
+                    level       : parseInt($scope.currentEditMember.dmtJudgeLevel),
+                }
+            }
+        }
+    }
+
+    $scope.onCompetitorSubmit=function(){
+        
+        var data=$scope.form;
+        
+        $scope.submitted = true;
+        $scope.checkBool = true;
+        
+        // checks for limited spots
+        // tumbling
+        if(!$scope.currentEditMember.tumblingCompetitor && data.competition.tumbling.competing){
+            
+            console.log($rootScope.maxTotalTumbling);
+            console.log($rootScope.maxTumbling);
+            if($rootScope.maxTotalTumbling < $rootScope.maxTumbling){
+                
+                gapi.client.api.updateMember({
+                    Club                        : $rootScope.club.name,
+                    Id                          : $scope.currentEditMember.key.id,
+                    Name                        : data.basic.name,
+                    CommISTO                    : data.basic.commisto,
+                    socialTicket                : data.basic.social,
+                    guest                       : data.basic.guest,
+                    gender                      : data.basic.gender,
+                    scorekeeper                 : data.helper.scorekeeper,
+                    marshling                   : data.helper.marshall,
+                    Shirt                       : data.helper.shirt,
+                    ShirtSize                   : data.helper.shirtSize,
+                    ShirtColor                  : data.helper.shirtColor,
+                    trampolineCompetitor        : data.competition.trampolining.competing,
+                    trampolineSyncCompetitor    : data.competition.trampolining.sync,
+                    trampolineSyncPartner       : data.competition.trampolining.syncpartner,
+                    trampolineSyncLevel         : data.competition.trampolining.synclevel,
+                    trampolineTeam              : data.competition.trampolining.team,
+                    trampolineLevel             : data.competition.trampolining.level,
+                    dmtCompetitor               : data.competition.dmt.competing,
+                    dmtLevel                    : data.competition.dmt.level,
+                    tumblingCompetitor          : data.competition.tumbling.competing,
+                    tumblingLevel               : data.competition.tumbling.level,
+                    trampolineFormJudge         : data.judging.trampoline.form,
+                    trampolineTariffJudge       : data.judging.trampoline.tariff,
+                    trampolineSyncJudge         : data.judging.trampoline.sync,
+                    trampolineSuperiorJudge     : data.judging.trampoline.superior,
+                    trampolineJudgeLevel        : data.judging.trampoline.level,
+                    tumblingJudge               : data.judging.tumbling.judge,
+                    tumblingJudgeLevel          : data.judging.tumbling.level,
+                    tumblingSuperiorJudge       : data.judging.tumbling.superior,
+                    dmtJudge                    : data.judging.dmt.judge,
+                    dmtJudgeLevel               : data.judging.dmt.level,
+                    dmtSuperiorJudge            : data.judging.dmt.superior
+                }).execute(function (resp) {
+                    console.log(resp);
+                    $state.go('dashboard');
+                });
+            }else{
+                    $rootScope.errorMessage = "We're sorry but the limit for tumbling competitors has been reached."
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
+            }
+        // dmt
+        }else if(!$scope.currentEditMember.dmtCompetitor && data.competition.dmt.competing){
+            if($rootScope.maxTotalDmt < $rootScope.maxDMT){
+                gapi.client.api.updateMember({
+                    Club                        : $rootScope.club.name,
+                    Id                          : $scope.currentEditMember.key.id,
+                    Name                        : data.basic.name,
+                    CommISTO                    : data.basic.commisto,
+                    socialTicket                : data.basic.social,
+                    guest                       : data.basic.guest,
+                    gender                      : data.basic.gender,
+                    scorekeeper                 : data.helper.scorekeeper,
+                    marshling                   : data.helper.marshall,
+                    Shirt                       : data.helper.shirt,
+                    ShirtSize                   : data.helper.shirtSize,
+                    ShirtColor                  : data.helper.shirtColor,
+                    trampolineCompetitor        : data.competition.trampolining.competing,
+                    trampolineSyncCompetitor    : data.competition.trampolining.sync,
+                    trampolineSyncPartner       : data.competition.trampolining.syncpartner,
+                    trampolineSyncLevel         : data.competition.trampolining.synclevel,
+                    trampolineTeam              : data.competition.trampolining.team,
+                    trampolineLevel             : data.competition.trampolining.level,
+                    dmtCompetitor               : data.competition.dmt.competing,
+                    dmtLevel                    : data.competition.dmt.level,
+                    tumblingCompetitor          : data.competition.tumbling.competing,
+                    tumblingLevel               : data.competition.tumbling.level,
+                    trampolineFormJudge         : data.judging.trampoline.form,
+                    trampolineTariffJudge       : data.judging.trampoline.tariff,
+                    trampolineSyncJudge         : data.judging.trampoline.sync,
+                    trampolineSuperiorJudge     : data.judging.trampoline.superior,
+                    trampolineJudgeLevel        : data.judging.trampoline.level,
+                    tumblingJudge               : data.judging.tumbling.judge,
+                    tumblingJudgeLevel          : data.judging.tumbling.level,
+                    tumblingSuperiorJudge       : data.judging.tumbling.superior,
+                    dmtJudge                    : data.judging.dmt.judge,
+                    dmtJudgeLevel               : data.judging.dmt.level,
+                    dmtSuperiorJudge            : data.judging.dmt.superior
+                }).execute(function (resp) {
+                    console.log(resp);
+                    $state.go('dashboard');
+                });
+            }else{
+                    $rootScope.errorMessage = "We're sorry but the limit for dmt competitors has been reached."
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
+            }
+            
+        // Sync
+        }else if(!$scope.currentEditMember.trampolineSyncCompetitor && data.competition.trampolining.sync){
+            if($rootScope.maxTotalSync < $rootScope.maxSync){
+                gapi.client.api.updateMember({
+                    Club                        : $rootScope.club.name,
+                    Id                          : $scope.currentEditMember.key.id,
+                    Name                        : data.basic.name,
+                    CommISTO                    : data.basic.commisto,
+                    socialTicket                : data.basic.social,
+                    guest                       : data.basic.guest,
+                    gender                      : data.basic.gender,
+                    scorekeeper                 : data.helper.scorekeeper,
+                    marshling                   : data.helper.marshall,
+                    Shirt                       : data.helper.shirt,
+                    ShirtSize                   : data.helper.shirtSize,
+                    ShirtColor                  : data.helper.shirtColor,
+                    trampolineCompetitor        : data.competition.trampolining.competing,
+                    trampolineSyncCompetitor    : data.competition.trampolining.sync,
+                    trampolineSyncPartner       : data.competition.trampolining.syncpartner,
+                    trampolineSyncLevel         : data.competition.trampolining.synclevel,
+                    trampolineTeam              : data.competition.trampolining.team,
+                    trampolineLevel             : data.competition.trampolining.level,
+                    dmtCompetitor               : data.competition.dmt.competing,
+                    dmtLevel                    : data.competition.dmt.level,
+                    tumblingCompetitor          : data.competition.tumbling.competing,
+                    tumblingLevel               : data.competition.tumbling.level,
+                    trampolineFormJudge         : data.judging.trampoline.form,
+                    trampolineTariffJudge       : data.judging.trampoline.tariff,
+                    trampolineSyncJudge         : data.judging.trampoline.sync,
+                    trampolineSuperiorJudge     : data.judging.trampoline.superior,
+                    trampolineJudgeLevel        : data.judging.trampoline.level,
+                    tumblingJudge               : data.judging.tumbling.judge,
+                    tumblingJudgeLevel          : data.judging.tumbling.level,
+                    tumblingSuperiorJudge       : data.judging.tumbling.superior,
+                    dmtJudge                    : data.judging.dmt.judge,
+                    dmtJudgeLevel               : data.judging.dmt.level,
+                    dmtSuperiorJudge            : data.judging.dmt.superior
+                }).execute(function (resp) {
+                    console.log(resp);
+                    $state.go('dashboard');
+                });
+            }
+            else{
+                    $rootScope.errorMessage = "We're sorry but the limit for sync competitors has been reached."
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
+            }
+        }else{
+            gapi.client.api.updateMember({
+                Club                        : $rootScope.club.name,
+                Id                          : $scope.currentEditMember.key.id,
+                Name                        : data.basic.name,
+                CommISTO                    : data.basic.commisto,
+                socialTicket                : data.basic.social,
+                guest                       : data.basic.guest,
+                gender                      : data.basic.gender,
+                scorekeeper                 : data.helper.scorekeeper,
+                marshling                   : data.helper.marshall,
+                Shirt                       : data.helper.shirt,
+                ShirtSize                   : data.helper.shirtSize,
+                ShirtColor                  : data.helper.shirtColor,
+                trampolineCompetitor        : data.competition.trampolining.competing,
+                trampolineSyncCompetitor    : data.competition.trampolining.sync,
+                trampolineSyncPartner       : data.competition.trampolining.syncpartner,
+                trampolineSyncLevel         : data.competition.trampolining.synclevel,
+                trampolineTeam              : data.competition.trampolining.team,
+                trampolineLevel             : data.competition.trampolining.level,
+                dmtCompetitor               : data.competition.dmt.competing,
+                dmtLevel                    : data.competition.dmt.level,
+                tumblingCompetitor          : data.competition.tumbling.competing,
+                tumblingLevel               : data.competition.tumbling.level,
+                trampolineFormJudge         : data.judging.trampoline.form,
+                trampolineTariffJudge       : data.judging.trampoline.tariff,
+                trampolineSyncJudge         : data.judging.trampoline.sync,
+                trampolineSuperiorJudge     : data.judging.trampoline.superior,
+                trampolineJudgeLevel        : data.judging.trampoline.level,
+                tumblingJudge               : data.judging.tumbling.judge,
+                tumblingJudgeLevel          : data.judging.tumbling.level,
+                tumblingSuperiorJudge       : data.judging.tumbling.superior,
+                dmtJudge                    : data.judging.dmt.judge,
+                dmtJudgeLevel               : data.judging.dmt.level,
+                dmtSuperiorJudge            : data.judging.dmt.superior
+            }).execute(function (resp) {
+                console.log(resp);
+                $state.go('dashboard');
+            });
+        }
+    }
+})
+
 app.controller('LoginModalCtrl', function ($scope, UsersApi, $cookieStore,$rootScope) {
 
     this.cancel = function () {

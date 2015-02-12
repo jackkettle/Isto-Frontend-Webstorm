@@ -111,6 +111,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        
+        .state('dashboard.edit', {
+            url: "/edit/:id",
+            views: {
+                "@": {
+                    templateUrl: "partials/form.html",
+                    controller: "editCompetitorController"
+                }
+            }
+        })
 })
 
 // Catch 401 errors when trying to view restrcited pages
@@ -151,6 +161,11 @@ app.config(function ($httpProvider) {
 })
 
 app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
+
+
+    $rootScope.maxTumbling  = 80;
+    $rootScope.maxDMT       = 80;
+    $rootScope.maxSync      = 160;
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         

@@ -1,7 +1,12 @@
 app.controller('addCompetitorController', function ($scope, $rootScope, $state) {
     
     // GLOBAL CONSTANTS
+    $rootScope.submitted = false;
+    
+    $rootScope.formType = "Add";
+    
     $rootScope.teams = [
+        {name: "", value: 'n/a'},
         {name: "A", value: 1},
         {name: "B", value: 2},
         {name: "C", value: 3}
@@ -97,9 +102,12 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
             }
         }
     }
-    
-    $scope.addCompetitorSubmit=function(){
-        var data=$scope.form;  
+    console.log($rootScope.club.name);
+    $scope.onCompetitorSubmit=function(){
+        var data=$scope.form;
+        
+        $rootScope.submitted = true;
+        
         /* post to server*/
         console.log("submitted"); 
         console.log(data);
@@ -112,12 +120,13 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         	    console.log(resp);
         	    console.log("Testing 1");
         	    console.log(resp.items[0] );
-        	    if(resp.items[0] > 76){
+        	    if(resp.items[0] >= $rootScope.maxTumbling){
         	        $rootScope.errorMessage = "We're sorry but the limit for tumbling competitors has been reached."
-        	        $scope.apply;
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
         	    }else{
         	        gapi.client.api.addMember({ 
-                        Club                        : $rootScope.currentUser.clubName,
+                        Club                        : $rootScope.club.name,
                         Name                        : data.basic.name,
                         CommISTO                    : data.basic.commisto,
                         socialTicket                : data.basic.social,
@@ -165,12 +174,13 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         	    console.log(resp);
         	    console.log("Testing 2");
         	    console.log(resp.items[0] );
-        	    if(resp.items[0] > 76){
+        	    if(resp.items[0] >= $rootScope.maxDmt){
         	        $rootScope.errorMessage = "We're sorry but the limit for dmt competitors has been reached."
-        	        $scope.apply;
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
         	    }else{
         	        gapi.client.api.addMember({ 
-                        Club                        : $rootScope.currentUser.clubName,
+                        Club                        : $rootScope.club.name,
                         Name                        : data.basic.name,
                         CommISTO                    : data.basic.commisto,
                         socialTicket                : data.basic.social,
@@ -218,12 +228,13 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         	    console.log(resp);
         	    console.log("Testing 3");
         	    console.log(resp.items[0] );
-        	    if(resp.items[0] > 110){
+        	    if(resp.items[0] >= $rootScope.maxSync){
         	        $rootScope.errorMessage = "We're sorry but the limit for sync competitors has been reached."
-        	        $scope.apply;
+        	        $rootScope.submitted = false;
+        	        $rootScope.$apply();
         	    }else{
         	        gapi.client.api.addMember({ 
-                        Club                        : $rootScope.currentUser.clubName,
+                        Club                        : $rootScope.club.name,
                         Name                        : data.basic.name,
                         CommISTO                    : data.basic.commisto,
                         socialTicket                : data.basic.social,
@@ -266,7 +277,7 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
         }
         if(!data.competition.trampolining.sync && !data.competition.tumbling.competing && !data.competition.dmt.competing){
             gapi.client.api.addMember({ 
-                Club                        : $rootScope.currentUser.clubName,
+                Club                        : $rootScope.club.name,
                 Name                        : data.basic.name,
                 CommISTO                    : data.basic.commisto,
                 socialTicket                : data.basic.social,
