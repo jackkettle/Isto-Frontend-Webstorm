@@ -25,7 +25,7 @@
                     </h2>
                     <p ng-repeat="paragraph in charity.current.body">{{ paragraph.paragraph }}</p>
                     <aside class="" ng-if="donation_url !== ''">
-                        <a href="{{donation_url}}"><i class="fa fa-money fa-3x"></i><span class="text-change margin-left-10">Donate here</span></a>
+                        <a href="{{charity.current.donation_url}}"><i class="fa fa-money fa-3x"></i><span class="text-change margin-left-10">Donate here</span></a>
                     </aside>
                 </div>
             </div>
