@@ -1,8 +1,9 @@
 {
   "current" : {
     "name": "Cystic Fibrosis Ireland",
-    "website": "http://www.specialolympics.ie/",
+    "website": "https://www.cfireland.ie/",
     "img_src": "img/charity/cfi.jpg",
+    "donation_url": "http://www.mycharity.ie/event/isto/",
     "body": [
       {
         "paragraph" : "Cystic Fibrosis (CF) is a genetically inherited disease. Ireland has the highest incidence of CF in the world – approximately 1 in 19 Irish People are said to ‘carry’ one copy of the altered gene that causes CF. CF is due to a defective gene that is inherited, the gene is responsible for the regulation of sodium and chloride levels in cells. When the gene is defective, it results in a build-up of a thick sticky mucus in the body’s tubes and passageways. This disease affects the lungs and digestive system of suffers. The thick mucus clogs the lungs and causes life threatening infections for the patient, it also obstructs the pancreas from producing for the breakdown of food that the body needs to absorb to survive. The majority of people who suffer from CF will need a lung transplant in order to lengthen their lifespan."
