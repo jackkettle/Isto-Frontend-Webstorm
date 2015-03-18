@@ -75,7 +75,7 @@
             <a class="navbar-brand visible-xs" href="index.html"><h1 class="animated fadeInDown"><span>I</span>rish <span>S</span>tudent <span>T</span>rampoline <span>O</span>pen</h1>
             </a>
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-mind-collapse">
+            <button type="button" class="navbar-toggle" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
                 <span class="sr-only">Toggle navigation</span>
                 <i class="fa fa-bars fa-inverse fa-3x"></i>
             </button>
@@ -83,45 +83,45 @@
 
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-mind-collapse">
+        <div class="collapse navbar-collapse navbar-mind-collapse" collapse="isCollapsed">
             <ul id="menu-mainmenu" class="nav navbar-nav">
 
                 <li ng-class="{ active: isActive('/')}">
-                    <a href="#/">Home</a>
+                    <a href="#/" ng-click="isCollapsed = !isCollapsed">Home</a>
                 </li>
 
-                <li class="dropdown" ng-class="{ active: isActive('/competition')}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Competition <b class="caret"></b></a>
+                <li class="dropdown" dropdown ng-class="{ active: isActive('/competition')}">
+                    <a href="#" class="dropdown-toggle" dropdown-toggle>Competition <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="competition.id({id: 'info'})">Information</a></li>
-                        <li><a href="#/competition/routines">Routines</a></li>
-                        <li><a href="#/competition/schedule">Schedule</a></li>
-                        <li><a href="#/competition/tariff">Tariff Calculator</a></li>
-                        <li><a href="#/competition/travel">Travel</a></li>
+                        <li><a ui-sref="competition.id({id: 'info'})" ng-click="isCollapsed = !isCollapsed">Information</a></li>
+                        <li><a href="#/competition/routines" ng-click="isCollapsed = !isCollapsed">Routines</a></li>
+                        <li><a href="#/competition/schedule" ng-click="isCollapsed = !isCollapsed">Schedule</a></li>
+                        <li><a href="#/competition/tariff" ng-click="isCollapsed = !isCollapsed">Tariff Calculator</a></li>
+                        <li><a href="#/competition/travel" ng-click="isCollapsed = !isCollapsed">Travel</a></li>
                     </ul>
                 </li>
 
                 <li ng-class="{ active: isActive('/commisto')}">
-                    <a href="#/commisto">CommISTO</a>
+                    <a href="#/commisto" ng-click="isCollapsed = !isCollapsed">CommISTO</a>
                 </li>
 
                 <li ng-class="{ active: isActive('/sponsor')}">
-                    <a href="#/sponsor">Sponsors</a>
+                    <a href="#/sponsor" ng-click="isCollapsed = !isCollapsed">Sponsors</a>
                 </li>
 
                 <li ng-class="{ active: isActive('/photo')}">
-                    <a href="#/photo">Photos</a>
+                    <a href="#/photo" ng-click="isCollapsed = !isCollapsed">Photos</a>
                 </li>
 
-                <li class="dropdown" ng-class="{ active: isActive('/history')}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">History <b class="caret"></b></a>
+                <li class="dropdown" dropdown  ng-class="{ active: isActive('/history')}">
+                    <a href="#" class="dropdown-toggle" dropdown-toggle>History <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/history">2014</a></li>
+                        <li><a href="#/history" ng-click="isCollapsed = !isCollapsed">2014</a></li>
                     </ul>
                 </li>
                 
                 <li ng-class="{ active: isActive('/charity')}">
-                    <a href="#/charity">Charity</a>
+                    <a href="#/charity" ng-click="isCollapsed = !isCollapsed">Charity</a>
                 </li>
 
             </ul> <!-- nav nabvar-nav -->
@@ -232,15 +232,15 @@
 <script src="vendor/js/jquery.mixitup.min.js"></script>
 <script src="vendor/js/lightbox-2.6.min.js"></script>
 <script src="vendor/js/holder.js"></script>
-
 <!-- load angular via CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-<script src="vendor/js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 <script src="bower_components/file-saver/FileSaver.min.js"></script>
 <script src="js/dest/main.min.js"></script>
+
 
 </body>
 
