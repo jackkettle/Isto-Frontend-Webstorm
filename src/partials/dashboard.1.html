@@ -9,9 +9,15 @@
                 <div ng-if="currentUser.userType === 2" class="admin-dash col-md-12">
                     <!-- Club stats -->
                     <h3 class="text-primary text-center">Club Selection</h3>
-                    <hr>
-                    <div class="col-md-12 animated fadeInDown animation-delay-8">
-                        <div class="col-md-2 margin-top-10" ng-repeat="clubName in allClubNames.items | orderBy:'toString()'">
+                    <hr class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <button class="btn btn-success btn-sm col-md-offset-4 col-md-4" ng-click="callApiGetAllMembers()">All members</button>
+                        </div>
+                    </div>
+                    <hr class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="col-xs-2 margin-top-10" ng-repeat="clubName in allClubNames.items | orderBy:'toString()'">
                             <button class="btn btn-primary btn-sm col-md-12" ng-click="callApiGetClub(clubName)">{{clubName}}</button>
                         </div>
                     </div>

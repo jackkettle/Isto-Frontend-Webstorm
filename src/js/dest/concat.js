@@ -849,6 +849,140 @@ app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal, $
     	})
     }
     
+    $scope.callApiGetAllMembers = function() {
+        
+        console.log("callApiGetAllMembers");
+        
+        // Set stats
+        $scope.memberCount = 0;
+        $scope.socialCount = 0;
+        $scope.MarshallsCount = 0;
+        $scope.ScorekeeperCount = 0;
+        $scope.commistoCount = 0;
+        
+        $scope.trampJudgesCount = 0;
+        $scope.tumblingJudgesCount = 0;
+        $scope.dmtJudges = 0;
+        $scope.totalJudges = 0;
+        
+        //Tramp
+        $scope.trampCount1 = 0;
+        $scope.trampCount2 = 0;
+        $scope.trampCount3 = 0;
+        $scope.trampCount4 = 0;
+        $scope.trampCount5 = 0;
+        $scope.trampCount6 = 0;
+        
+        //Tumbling
+        $scope.tumblingCount1 = 0;
+        $scope.tumblingCount2 = 0;
+        $scope.tumblingCount3 = 0;
+        $scope.tumblingCount4 = 0;
+        $scope.tumblingCount5 = 0;
+        
+        //Tumbling
+        $scope.dmtCount1 = 0;
+        $scope.dmtCount2 = 0;
+        $scope.dmtCount3 = 0;
+        
+        gapi.client.api.getAllClubs().execute(function(resp){
+            console.log("callApiGetAllMembers - returned");
+            var allMembers = [];
+            console.log(resp.items.length)
+            for(var i = 0; i < resp.items.length; i++){
+                if(resp.items[i].members && resp.items[i].members.length > 0){
+                    var tmpMembers = resp.items[i].members;
+                    allMembers = allMembers.concat(tmpMembers);
+                }
+            }
+            
+            $rootScope.club  = { name: "All members" }
+            $rootScope.data = allMembers;
+            // Get stats for each member
+            for(var i = 0; i < allMembers.length; i++){
+                var member = allMembers[i];
+                
+                //stats
+                $scope.memberCount++;
+                if(member.socialTicket){        $scope.socialCount++ }
+                if(member.marshling){           $scope.MarshallsCount++ }
+                if(member.scorekeeper){         $scope.ScorekeeperCount++ }
+                if(member.pastCommISTO){        $scope.commistoCount++ }
+                
+                //judges
+                if(member.trampolineFormJudge){ $scope.trampJudgesCount++ }
+                if(member.tumblingJudge){       $scope.tumblingJudgesCount++ }
+                if(member.dmtJudge){            $scope.dmtJudges++ }
+                if(member.trampolineFormJudge || member.tumblingJudge || member.dmtJudge){
+                    $scope.totalJudges++
+                }
+
+                //tramp
+                if(member.trampolineLevel && member.trampolineCompetitor){
+                    switch (member.trampolineLevel) {
+                        case "1":
+                            $scope.trampCount1++;
+                            break;
+                        case "2":
+                            $scope.trampCount2++;
+                            break;
+                        case "3":
+                            $scope.trampCount3++;
+                            break;
+                        case "4":
+                            $scope.trampCount4++;
+                            break;
+                        case "5":
+                            $scope.trampCount5++;
+                            break;
+                        case "6":
+                            $scope.trampCount6++;
+                            break;
+                    }
+                }
+                
+                //tumbling
+                if(member.tumblingLevel && member.tumblingCompetitor){
+                    switch (member.tumblingLevel) {
+                        case "1":
+                            $scope.tumblingCount1++;
+                            break;
+                        case "2":
+                            $scope.tumblingCount2++;
+                            break;
+                        case "3":
+                            $scope.tumblingCount3++;
+                            break;
+                        case "4":
+                            $scope.tumblingCount4++;
+                            break;
+                        case "5":
+                            $scope.tumblingCount5++;
+                            break;
+                    }
+                }
+                
+                //dmt
+                if(member.dmtLevel && member.dmtCompetitor){
+                    switch (member.dmtLevel) {
+                        case "1":
+                            $scope.dmtCount1++;
+                            break;
+                        case "2":
+                            $scope.dmtCount2++;
+                            break;
+                        case "3":
+                            $scope.dmtCount3++;
+                            break;
+                    }
+                }
+            }
+            $scope.tableParams.reload();
+            $scope.$apply();
+
+    	})
+    }
+    
     $scope.deleteMemberModal = function(clubName, id, name){
         var instance = $modal.open({
             templateUrl: 'partials/deleteMemberModal.html',
