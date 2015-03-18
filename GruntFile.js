@@ -40,15 +40,16 @@ module.exports = function (grunt) {
             }
         },
         
-        'ftp-deploy': {
+        ftpush: {
             build: {
                 auth: {
-                    host: '',
+                    host: 'ftp1.reg365.net',
                     "username": "",
                     "password": ""
                 },
-                src: '.c9/',
-                dest: '/web/test/'
+                simple: true,
+                src: 'src/',
+                dest: 'web/'
             }
         },
         
@@ -74,7 +75,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-ftp-deploy');
+    grunt.loadNpmTasks('grunt-ftpush');
 
     // The dev task will be used during development
     grunt.registerTask("default", ["watch"]);
