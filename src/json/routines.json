@@ -394,36 +394,25 @@
                 "pass": "A",
                 "moves": [
                   {"name": "Spotter tuck jump", "tariff": 0},
-                  {"name": "Dismount front somersault (free)", "tariff": 0.6}
+                  {"name": "Dismount front somersault (free)", "tariff": 0.5}
                 ]
               },
               {
                 "pass": "B",
                 "moves": [
-                  {"name": "Mounted tuck jump", "tariff": 0},
-                  {"name": "Dismount full twist", "tariff": 0.2}
+                  {"name": "Mounted ½ twist", "tariff": 0.1},
+                  {"name": "Dismount back somersault (free)", "tariff": 0.5}
                 ]
               }
             ]
           },
           {
             "pass": "2",
-            "routines": [
-              {
-                "pass": "A",
-                "moves": [
-                  {"name": "Mounted straddle jump", "tariff": 0},
-                  {"name": "Dismount full twist", "tariff": 0.2}
-                ]
-              },
-              {
-                "pass": "B",
-                "moves": [
-                  {"name": "Spotter ½ twist", "tariff": 0.1},
-                  {"name": "Dismount back somersault (free)", "tariff": 0.6}
-                ]
-              }
+            "rules": [
+              "Must contain a summersault of at least 360 degrees rotation",
+              "Maximum tariff: 1.5"
             ]
+            
           }
         ]
       },

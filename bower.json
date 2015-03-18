@@ -1,0 +1,23 @@
+{
+  "name": "isto-frontend-webstorm",
+  "version": "1.2.0",
+  "homepage": "https://github.com/jackkettle/Isto-Frontend-Webstorm",
+  "authors": [
+    "Jack Kettle <jack.kettle2@mail.dcu.ie>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.3.10",
+    "angular-ui-router": "~0.2.13",
+    "file-saver": "*",
+    "ng-table": "~0.4.1"
+  }
+}

@@ -40,6 +40,18 @@ module.exports = function (grunt) {
             }
         },
         
+        'ftp-deploy': {
+            build: {
+                auth: {
+                    host: '',
+                    "username": "",
+                    "password": ""
+                },
+                src: '.c9/',
+                dest: '/web/test/'
+            }
+        },
+        
         watch: {
             styles: {
                 files: ["**/*.less"],
@@ -62,6 +74,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-ftp-deploy');
 
     // The dev task will be used during development
     grunt.registerTask("default", ["watch"]);

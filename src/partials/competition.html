@@ -154,12 +154,7 @@
                             <h3 class="text-primary">Description</h3>
                             <p>{{ routineData.dmt.description }}</p>
                         </div>
-                        <div class="jumbotron">
-                            <h4>
-                                The current DMT rountines are being revised. They will be updated shortly.
-                            </h4>
-                        </div>
-                        <!--START OF DMT 
+                        
                         <div ng-repeat="level in routineData.dmt.levels">
                             <h3 class="text-primary text-center">{{ level.level }}</h3>
                             <hr/>
@@ -189,14 +184,15 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="panel-body" ng-if="level.level == 'Level 3'">
+                            <div class="col-md-12" ng-if="level.level == 'Level 3' || level.level == 'Level 2'">
                                 <h4>Rules</h4>
                                 <ul class="list-unstyled">
-                                    <li ng-repeat="rule in level.rules">{{rule}}</li>
+                                    <li ng-if="level.rules" ng-repeat="rule in level.rules">{{rule}}</li>
+                                    <li ng-if="level.passes[1].rules" ng-repeat="rule in level.passes[1].rules">{{rule}}</li>
                                 </ul>
                             </div>
                         </div>
-                        END OF DMT -->
+
                     </div>
                 </div>
             </tab>

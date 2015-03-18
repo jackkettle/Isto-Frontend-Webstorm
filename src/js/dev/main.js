@@ -101,7 +101,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
 
         })
-        
+        /*
         .state('dashboard.add', {
             url: "/add",
             views: {
@@ -121,6 +121,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        */
 })
 
 // Catch 401 errors when trying to view restrcited pages
@@ -165,7 +166,7 @@ app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
 
     $rootScope.maxTumbling  = 80;
     $rootScope.maxDMT       = 80;
-    $rootScope.maxSync      = 160;
+    $rootScope.maxSync      = 165;
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         
