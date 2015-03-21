@@ -87,41 +87,41 @@
             <ul id="menu-mainmenu" class="nav navbar-nav">
 
                 <li ng-class="{ active: isActive('/')}">
-                    <a href="#/" ng-click="isCollapsed = !isCollapsed">Home</a>
+                    <a href="#/" ng-click="isCollapsed = true">Home</a>
                 </li>
 
                 <li class="dropdown" dropdown ng-class="{ active: isActive('/competition')}">
                     <a href="#" class="dropdown-toggle" dropdown-toggle>Competition <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="competition.id({id: 'info'})" ng-click="isCollapsed = !isCollapsed">Information</a></li>
-                        <li><a href="#/competition/routines" ng-click="isCollapsed = !isCollapsed">Routines</a></li>
-                        <li><a href="#/competition/schedule" ng-click="isCollapsed = !isCollapsed">Schedule</a></li>
-                        <li><a href="#/competition/tariff" ng-click="isCollapsed = !isCollapsed">Tariff Calculator</a></li>
-                        <li><a href="#/competition/travel" ng-click="isCollapsed = !isCollapsed">Travel</a></li>
+                        <li><a ui-sref="competition.id({id: 'info'})" ng-click="isCollapsed = true">Information</a></li>
+                        <li><a href="#/competition/routines" ng-click="isCollapsed = true">Routines</a></li>
+                        <li><a href="#/competition/schedule" ng-click="isCollapsed = true">Schedule</a></li>
+                        <li><a href="#/competition/tariff" ng-click="isCollapsed = true">Tariff Calculator</a></li>
+                        <li><a href="#/competition/travel" ng-click="isCollapsed = true">Travel</a></li>
                     </ul>
                 </li>
 
                 <li ng-class="{ active: isActive('/commisto')}">
-                    <a href="#/commisto" ng-click="isCollapsed = !isCollapsed">CommISTO</a>
+                    <a href="#/commisto" ng-click="isCollapsed = true">CommISTO</a>
                 </li>
 
                 <li ng-class="{ active: isActive('/sponsor')}">
-                    <a href="#/sponsor" ng-click="isCollapsed = !isCollapsed">Sponsors</a>
+                    <a href="#/sponsor" ng-click="isCollapsed = true">Sponsors</a>
                 </li>
 
                 <li ng-class="{ active: isActive('/photo')}">
-                    <a href="#/photo" ng-click="isCollapsed = !isCollapsed">Photos</a>
+                    <a href="#/photo" ng-click="isCollapsed = true">Photos</a>
                 </li>
 
                 <li class="dropdown" dropdown  ng-class="{ active: isActive('/history')}">
                     <a href="#" class="dropdown-toggle" dropdown-toggle>History <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/history" ng-click="isCollapsed = !isCollapsed">2014</a></li>
+                        <li><a href="#/history" ng-click="isCollapsed = true">2014</a></li>
                     </ul>
                 </li>
                 
                 <li ng-class="{ active: isActive('/charity')}">
-                    <a href="#/charity" ng-click="isCollapsed = !isCollapsed">Charity</a>
+                    <a href="#/charity" ng-click="isCollapsed = true">Charity</a>
                 </li>
 
             </ul> <!-- nav nabvar-nav -->
