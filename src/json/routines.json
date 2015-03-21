@@ -78,7 +78,8 @@
           "Maximum S/S rotation permitted is 360 degrees (back s/s to seat is permitted)",
           "Maximum of two S/S",
           "No S/S may be linked",
-          "Maximum Tariff is 1.9"
+          "Maximum Tariff is 1.9",
+          "Minimum Tariff is 1.2"
         ]
       },
       {
@@ -121,7 +122,8 @@
           "Maximum of four S/S",
           "Maximum twist of 180 degrees allowed during S/S",
           "No more than two S/S may be linked",
-          "Maximum Tariff is 2.9"
+          "Maximum Tariff is 2.9",
+          "Minimum Tariff is 2.1"
         ]
       },
       {
@@ -163,7 +165,8 @@
           "Maximum of six S/S",
           "Maximum twist of 180 degrees allowed during S/S",
           "No more than three S/S may be linked",
-          "Maximum Tariff is 4.0"
+          "Maximum Tariff is 4.0",
+          "Minimum Tariff is 3.0"
         ]
       },
       {
@@ -172,8 +175,8 @@
           "6 Skills of at least 360 degrees of rotation",
           "One skill of at least 270 degrees rotation landing on either front or back",
           "One skill from front or back of at least 450 degrees of rotation",
-          "Minimum set routine tariff 4.1",
-          "Maximum tariff for both routines 5.2"
+          "Maximum tariff for both routines 5.2",
+          "Minimum Tariff is 4.1"
         ]
       },
       {
@@ -183,7 +186,7 @@
           "One skill of at least 270 degrees rotation landing on either front or back",
           "One skill from front or back of at least 450 degrees of rotation",
           "One skill of at least 720 degrees of rotation OR one skill of at least 360 degrees of rotation and 540 degrees of twist.",
-          "Minimum set routine tariff 5.2  ",
+          "Minimum tariff 5.2",
           "No voluntary routine restrictions "
         ]
       }
