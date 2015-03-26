@@ -10,6 +10,9 @@ var historyJson = "json/history.json";
 var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
 var travelJson = "json/travel.json";
+var scheduleJson = "json/schedule.json";
+var travelJson = "json/travel.json";
+var socialJson = "json/social.json";
 
 var app = angular.module('istoApp', ['ui.router', 'ui.bootstrap', 'ngTable', 'ngCookies'])
 
@@ -1533,6 +1536,20 @@ app.controller('competitionController', function($scope, $stateParams, $http) {
         return total;
     }
     
+})
+
+app.controller("scheduleController", function($scope, $http) {
+    $http.get(scheduleJson).then(function(res){
+           console.log(res);
+           $scope.daysData = res.data;
+    });
+})
+
+app.controller("socialController", function($scope, $http) {
+    $http.get(socialJson).then(function(res){
+           console.log(res);
+           $scope.socialData = res.data;
+    });
 })
 app.controller("tariffController", function ($scope, $http) {
 

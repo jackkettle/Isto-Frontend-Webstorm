@@ -10,6 +10,9 @@ var historyJson = "json/history.json";
 var routinesJson = "json/routines.json";
 var charityJson = "json/charity.json";
 var travelJson = "json/travel.json";
+var scheduleJson = "json/schedule.json";
+var travelJson = "json/travel.json";
+var socialJson = "json/social.json";
 
 var app = angular.module('istoApp', ['ui.router', 'ui.bootstrap', 'ngTable', 'ngCookies'])
 

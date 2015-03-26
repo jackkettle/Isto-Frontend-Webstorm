@@ -1,0 +1,109 @@
+{
+    "days": [
+        {
+            "day": "Thurday",
+            "periods": [
+                {
+                    "startTime": "21.30",
+                    "endTime": "2.00",
+                    "activity": "Club Colours - Social Cyprus Avenue"
+                }
+            ]
+        },
+        {
+            "day": "Friday",
+            "periods": [
+                {
+                    "startTime": "12.00",
+                    "endTime": "14.30",
+                    "activity": "General Warm up and Club Registation"
+                },
+                {
+                    "startTime": "14.30",
+                    "endTime": "17.30",
+                    "activity": "Novice Men & Novice Ladies"
+                },
+                {
+                    "startTime": "23.00",
+                    "endTime": "late",
+                    "activity": "80s Aerobics - Social The Hanover"
+                }
+            ]
+        },
+        {
+            "day": "Saturday",
+            "periods": [
+                {
+                    "startTime": "9.00",
+                    "endTime": "9.30",
+                    "activity": "General warm up"
+                },
+                {
+                    "startTime": "9.30",
+                    "endTime": "12.30",
+                    "activity": "Intermediate Men, Intermediate Ladies, Intervanced Ladies, Tumbling Level 4+5"
+                },
+                {
+                    "startTime": "12.30",
+                    "endTime": "14.00",
+                    "activity": "Intervanced Men, Advanced Ladies, Advanced Men, Tumbling Level 2+3"
+                },
+                {
+                    "startTime": "14.45",
+                    "endTime": "15.00",
+                    "activity": "Elite March On"
+                },
+                {
+                    "startTime": "15.00",
+                    "endTime": "16.30",
+                    "activity": "Elite Men, Elite Ladies, Elite-pro Men, Elite Pro-Ladies, Tumblung Level 1"
+                },
+                {
+                    "startTime": "16.30",
+                    "endTime": "17.30",
+                    "activity": "Free bouncing"
+                },
+                {
+                    "startTime": "23.00",
+                    "endTime": "late",
+                    "activity": "Masquerade - Social The Savoy"
+                }
+            ]
+        },
+        {
+            "day": "Sunday",
+            "periods": [
+                {
+                    "startTime": "10.00",
+                    "endTime": "10.30",
+                    "activity": "General Warm Up"
+                },
+                {
+                    "startTime": "10.30",
+                    "endTime": "13.00",
+                    "activity": "DMT and Synchro"
+                },
+                {
+                    "startTime": "13.30",
+                    "endTime": "14.30",
+                    "activity": "Cheerleading"
+                },
+                {
+                    "startTime": "14.45",
+                    "endTime": "15.45",
+                    "activity": "Medals"
+                },
+                {
+                    "startTime": "16.00",
+                    "endTime": "17.00",
+                    "activity": "Gladiators"
+                },
+                {
+                    "startTime": "21.30",
+                    "endTime": "2.00",
+                    "activity": "Sunday Trampy Sunday - Social The Bailey"
+                }
+            ]
+        }
+    ]
+}

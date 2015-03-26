@@ -1,0 +1,26 @@
+[
+    {
+        "day": "Thursday",
+        "theme": "Club Colours",
+        "venue": "Cyprus Avenue",
+        "location": "Caroline Street"
+    },
+    {
+        "day": "Friday",
+        "theme": "80s Aerobics",
+        "venue": "The Hanover",
+        "location": "17 Hanover Street Cork"
+    },
+    {
+        "day": "Saturday",
+        "theme": "Masquerade",
+        "venue": "The Savoy",
+        "location": "107-108 St. Patrick's Street"
+    },
+    {
+        "day": "Sunday",
+        "theme": "Sunday Trampy Sunday",
+        "venue": "The Bailey",
+        "location": "2 Courthouse St"
+    }
+]
