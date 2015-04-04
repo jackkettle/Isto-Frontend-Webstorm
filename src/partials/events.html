@@ -1,0 +1,77 @@
+<section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">Events</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li class="active">Events</li>
+            </ol>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="admin-dash col-md-12 margin-top-15">
+            <h3 class="text-primary text-center">Events</h3>
+            <p class="text-center">Select the event below you are scorekeeping</p>
+            <hr>
+            
+            <div class="col-md-3"> 
+                <div>
+                    <h4 class="text-center">Trampoline</h4>
+                    <hr class="hr-primary">
+                    <table class="table table-striped table-responsive table-hover">
+                        <tbody>
+                            <tr ng-repeat="level in trampLevels">
+                                <td class="text-primary"><a ui-sref="events.record({event: 'trampoline', level: level.value})">{{level.name}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-3"> 
+                <div>
+                    <h4 class="text-center">Synchronised Trampoline</h4>
+                    <hr class="hr-primary">
+                    <table class="table table-striped table-responsive table-hover">
+                        <tbody>
+                            <tr ng-repeat="level in syncLevels">
+                                <td class="text-primary"><a ui-sref="events.record({event: 'syncro', level: level.value})">{{level.name}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div>
+                    <h4 class="text-center">Tumbling</h4>
+                    <hr class="hr-primary">
+                    <table class="table table-striped table-responsive table-hover">
+                        <tbody>
+                            <tr ng-repeat="level in tumblingLevels">
+                                <td class="text-primary"><a ui-sref="events.record({event: 'tumbling', level: level})">Level {{level}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div>
+                    <h4 class="text-center">DMT</h4>
+                    <hr class="hr-primary">
+                    <table class="table table-striped table-responsive table-hover">
+                        <tbody>
+                            <tr ng-repeat="level in dmtLevels">
+                                <td class="text-primary"><a ui-sref="events.record({event: 'dmt', level: level})">Level {{level}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>

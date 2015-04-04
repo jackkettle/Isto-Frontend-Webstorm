@@ -64,17 +64,3 @@ app.controller('competitionController', function($scope, $stateParams, $http) {
     }
     
 })
-
-app.controller("scheduleController", function($scope, $http) {
-    $http.get(scheduleJson).then(function(res){
-           console.log(res);
-           $scope.daysData = res.data;
-    });
-})
-
-app.controller("socialController", function($scope, $http) {
-    $http.get(socialJson).then(function(res){
-           console.log(res);
-           $scope.socialData = res.data;
-    });
-})

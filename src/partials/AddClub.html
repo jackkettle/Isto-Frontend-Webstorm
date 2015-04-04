@@ -1,0 +1,40 @@
+<section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">Add Club</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/events">Events</a></li>
+                <li class="active">Record</li>
+            </ol>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="admin-dash col-md-12 margin-top-15 mid-height">
+            <h3 class="text-primary text-center capitalize">Add Club</h3>
+            <hr>
+            
+            <p class="text-center">
+                Ensure the club you are creating does not already existing
+            </p>
+            <div class="col-md-12 margin-bottom-20"> 
+                <form class="col-md-6 col-md-offset-3" >
+                    <div class="col-md-9">
+                    <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="Trinity"/>
+                    </div>
+                    <div class="col-md-3">
+                    <input class="col-md-12" type="submit" ng-disabled="disabledVar" value="Submit"/>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-12">
+                <div ng-init="disabledMessageVar=true" ng-hide="disabledMessageVar" class="alert alert-warning" role="alert">
+                    The club {{clubName}} alread exists.    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

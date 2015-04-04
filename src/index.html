@@ -127,9 +127,15 @@
             </ul> <!-- nav nabvar-nav -->
             <div ng-if="currentUser">
                 <ul class="nav navbar-nav navbar-right" ng-controller="loginNavController">
-                    <li>
+                    
+                    <li ng-if="getUserType(currentUser) == 'CommISTO' || getUserType(currentUser) == 'Club'">
                         <a ui-sref="dashboard" >Dashboard</a>
                     </li>
+                    
+                    <li ng-if="getUserType(currentUser) == 'CommISTO' || getUserType(currentUser) == 'ScoreKeeper'">
+                        <a ui-sref="events" >Events</a>
+                    </li>
+                    
                     <li>
                         <a href="" ng-click="logOut()">Log out</a>
                     </li>

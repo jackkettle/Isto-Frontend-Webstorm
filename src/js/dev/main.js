@@ -104,7 +104,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
 
         })
-        /*
+
         .state('dashboard.add', {
             url: "/add",
             views: {
@@ -124,7 +124,52 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        */
+        
+        .state('dashboard.addClub', {
+            url: "/addclub",
+            views: {
+                "@": {
+                    templateUrl: "partials/AddClub.html",
+                    controller: "addClubController"
+                }
+            }
+        })
+        
+        .state('dashboard.addUser', {
+            url: "/adduser",
+            views: {
+                "@": {
+                    templateUrl: "partials/AddUser.html",
+                    controller: "addUserController"
+                }
+            }
+        })
+        
+        .state('events', {
+            url: "/events",
+            views: {
+                "@": {
+                    templateUrl: "partials/events.html"
+                }
+            },
+            data: {
+                requireLogin: true // this property will apply to all children of 'app'
+            }
+        })
+        
+        .state('events.record', {
+            url: "/record/:event/:level",
+            views: {
+                "@": {
+                    templateUrl: "partials/record.html",
+                    controller: "recorderController"
+                }
+            },
+            data: {
+                requireLogin: true // this property will apply to all children of 'app'
+            }
+        })
+
 })
 
 // Catch 401 errors when trying to view restrcited pages
@@ -166,6 +211,24 @@ app.config(function ($httpProvider) {
 
 app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
 
+
+    $rootScope.trampLevels = [
+        {name: "Novice", value: 1},
+        {name: "Intermediate", value: 2},
+        {name: "Inter-advanced", value: 3},
+        {name: "Advanced", value: 4},
+        {name: "Elite", value: 5},
+        {name: "Elite-pro", value: 6}
+    ];
+    
+    $rootScope.syncLevels = [
+        {name: "Novice and Intermediate", value: 1},
+        {name: "Intervanced and Advanced", value: 2},
+        {name: "Elite and Pro-Elite", value: 3}
+    ];
+
+    $rootScope.tumblingLevels = [1,2,3,4,5];
+    $rootScope.dmtLevels = [1,2,3];
 
     $rootScope.maxTumbling  = 80;
     $rootScope.maxDMT       = 80;

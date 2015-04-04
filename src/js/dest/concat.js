@@ -104,7 +104,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
 
         })
-        /*
+
         .state('dashboard.add', {
             url: "/add",
             views: {
@@ -124,7 +124,52 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        */
+        
+        .state('dashboard.addClub', {
+            url: "/addclub",
+            views: {
+                "@": {
+                    templateUrl: "partials/AddClub.html",
+                    controller: "addClubController"
+                }
+            }
+        })
+        
+        .state('dashboard.addUser', {
+            url: "/adduser",
+            views: {
+                "@": {
+                    templateUrl: "partials/AddUser.html",
+                    controller: "addUserController"
+                }
+            }
+        })
+        
+        .state('events', {
+            url: "/events",
+            views: {
+                "@": {
+                    templateUrl: "partials/events.html"
+                }
+            },
+            data: {
+                requireLogin: true // this property will apply to all children of 'app'
+            }
+        })
+        
+        .state('events.record', {
+            url: "/record/:event/:level",
+            views: {
+                "@": {
+                    templateUrl: "partials/record.html",
+                    controller: "recorderController"
+                }
+            },
+            data: {
+                requireLogin: true // this property will apply to all children of 'app'
+            }
+        })
+
 })
 
 // Catch 401 errors when trying to view restrcited pages
@@ -167,6 +212,24 @@ app.config(function ($httpProvider) {
 app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
 
 
+    $rootScope.trampLevels = [
+        {name: "Novice", value: 1},
+        {name: "Intermediate", value: 2},
+        {name: "Inter-advanced", value: 3},
+        {name: "Advanced", value: 4},
+        {name: "Elite", value: 5},
+        {name: "Elite-pro", value: 6}
+    ];
+    
+    $rootScope.syncLevels = [
+        {name: "Novice and Intermediate", value: 1},
+        {name: "Intervanced and Advanced", value: 2},
+        {name: "Elite and Pro-Elite", value: 3}
+    ];
+
+    $rootScope.tumblingLevels = [1,2,3,4,5];
+    $rootScope.dmtLevels = [1,2,3];
+
     $rootScope.maxTumbling  = 80;
     $rootScope.maxDMT       = 80;
     $rootScope.maxSync      = 165;
@@ -206,6 +269,20 @@ app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
 
 })
 
+app.controller('commonFunctionsController', function($rootScope) {
+    
+    /*
+     * See if string is numeric
+     */
+    $rootScope.isNumeric = function (value) {
+        var num = parseInt(value);
+        if(isNaN(num)){
+           return  false;
+        }
+        return true;
+    }
+    
+})
 app.factory('Gapi', function($timeout, $q) {
     return {
         load: function load() {
@@ -296,6 +373,47 @@ $(document).ready(function(){
     });
 
 });
+app.controller('addClubController', function($scope, Gapi) {
+    
+    $scope.disabledVar = true;
+    
+    Gapi.load()
+        .then(function () { 
+            console.log("addClubController")
+            gapi.client.api.getAllClubNames().execute(function(resp){
+                if(resp.items){
+                    $scope.allClubNames = resp.items;
+                    $scope.disabledVar = false;
+                    for(var i = 0; i < $scope.allClubNames.length; i++){
+                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
+                    }
+                }
+                $scope.$apply();
+            })
+        })
+        
+    $scope.$watch('clubName', function(value) {
+        if($scope.allClubNames){
+            if(!contains( $scope.allClubNames, value)){
+                $scope.disabledVar = false;
+                $scope.disabledMessageVar = true;
+            }else{
+                $scope.disabledVar = true;
+                $scope.disabledMessageVar = false;
+            }
+        }
+   });
+   
+   var contains = function(list, value){
+       for (var i = list.length; i--; ) {
+           if(list[i].toLowerCase() === value.toLowerCase()){
+               return true;
+           }
+       }
+       return false;
+   }
+})
+
 app.controller('addCompetitorController', function ($scope, $rootScope, $state) {
     
     // GLOBAL CONSTANTS
@@ -615,6 +733,47 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
             )   
         }
     }
+})
+
+app.controller('addUserController', function($scope, Gapi) {
+    
+    $scope.disabledVar = true;
+    
+    Gapi.load()
+        .then(function () { 
+            console.log("addUserController")
+            gapi.client.api.getAllClubNames().execute(function(resp){
+                if(resp.items){
+                    $scope.allClubNames = resp.items;
+                    $scope.disabledVar = false;
+                    for(var i = 0; i < $scope.allClubNames.length; i++){
+                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
+                    }
+                }
+                $scope.$apply();
+            })
+        })
+        
+    $scope.$watch('clubName', function(value) {
+        if($scope.allClubNames){
+            if(!contains( $scope.allClubNames, value)){
+                $scope.disabledVar = false;
+                $scope.disabledMessageVar = true;
+            }else{
+                $scope.disabledVar = true;
+                $scope.disabledMessageVar = false;
+            }
+        }
+   });
+   
+   var contains = function(list, value){
+       for (var i = list.length; i--; ) {
+           if(list[i].toLowerCase() === value.toLowerCase()){
+               return true;
+           }
+       }
+       return false;
+   }
 })
 
 app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal, $timeout, $filter, ngTableParams) {
@@ -1365,6 +1524,130 @@ app.controller('editCompetitorController', function ($scope, $rootScope, $state,
     }
 })
 
+
+app.controller('recorderController', function ($scope, $stateParams, ngTableParams, Gapi, $filter) {
+    
+    // State params
+    $scope.event = $stateParams.event;
+    $scope.level = $stateParams.level;
+    
+    // init data
+    $scope.data = [];
+    
+    console.log($scope.event);
+    console.log($scope.level);
+    
+    // int Table
+    $scope.tableParamsRecord = new ngTableParams({
+        page: 1,            // show first page
+        count: 20,          // count per page
+        sorting: {
+            name: 'asc'     // initial sorting
+        },
+        filter: {
+
+        }
+    }, {
+        counts: [5,10,25,50],
+        total: 0,
+        getData: function($defer, params) {
+            params.total($scope.data.length);
+            
+            var filteredData = params.filter() ?
+                    $filter('filter')($scope.data, params.filter()) :
+                    $scope.data;
+            
+            var orderedData = params.sorting() ?
+                $filter('orderBy')(filteredData, params.orderBy()) :
+                $scope.data;
+                
+            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+        }
+    });
+    $scope.tableParamsRecord.settings().$scope = $scope;
+    
+    
+    // Get members
+    Gapi.load().then(function () { 
+        gapi.client.api.getAllClubs().execute(function(resp){
+            
+            // iterate through clubs 
+            for (var i = resp.items.length; i--; ) {
+                
+                var club = resp.items[i];
+                if(club.members){
+                    for (var j = club.members.length; j--; ) {
+                        
+                        if(isInEvent(club.members[j], $scope.event, $scope.level) ){
+                            console.log(club.members[j]);
+                            club.members[j].club=club.name;
+                            $scope.data.push(club.members[j]);
+                        }
+                        
+                    }
+                }
+                
+            }
+            $scope.loadingVar = false;
+            $scope.tableParamsRecord.reload();
+            $scope.$apply();
+        })
+    });
+
+    var isInEvent = function (member, event, level) {
+        var bool = false;
+        
+        switch(event) {
+            case TRAMPOLINE:
+                
+                if(member.trampolineLevel === level){
+                    bool = true;
+                }
+                
+                break;
+            case SYNCRO:
+                
+                if(member.trampolineSyncLevel === level){
+                    bool = true;
+                }
+                
+                break;
+            case TUMBLING:
+                
+                if(member.tumblingLevel === level){
+                    bool = true;
+                }
+                
+                break;
+            case DMT:
+                
+                if(member.dmtLevel === level){
+                    bool = true;
+                }
+                
+                break;
+            default:
+        }   
+        
+        return bool;
+    }
+    
+    // Sort out whos doing said event
+    
+    $scope.getEventMembers = function(event, level) {
+        
+    }
+    
+    $scope.setMemberScore = function() {
+        
+    }
+    
+    var TRAMPOLINE = 'trampoline';
+    var SYNCRO = 'syncro';
+    var TUMBLING = 'tumbling';
+    var DMT = 'dmt';
+    
+})
 app.controller('LoginModalCtrl', function ($scope, UsersApi, $cookieStore,$rootScope) {
 
     this.cancel = function () {
@@ -1415,6 +1698,14 @@ app.service('loginModal', function ($modal, $rootScope, $cookieStore) {
 })
 app.controller('loginNavController', function ($scope, $state, loginModal, $rootScope, $cookieStore) {
 
+    var _Club = 1;
+    var _CommISTO = 2;
+    var _ScoreKeeper = 3;
+    
+    var _ClubText = "Club";
+    var _CommISTOText = "CommISTO";
+    var _ScoreKeeperText = "ScoreKeeper";
+
     $scope.logOut = function () {
         $rootScope.currentUser = null;
         $cookieStore.remove('istoUserId');
@@ -1432,6 +1723,25 @@ app.controller('loginNavController', function ($scope, $state, loginModal, $root
             })
     }
     
+    $scope.getUserType = function (User) {
+        var tmp = '';
+        if(User !== 'undefined' && User.userType !== 'undefined'){
+            switch(User.userType) {
+                case _Club:
+                    tmp = _ClubText;
+                    break;
+                case _CommISTO:
+                    tmp = _CommISTOText;
+                    break;
+                case _ScoreKeeper:
+                    tmp = _ScoreKeeperText;
+                    break;
+                default:
+                    tmp = '';
+            }
+        }
+        return tmp;
+    }
 })
 app.service('UsersApi', function ($modal, $rootScope) {
 
@@ -1465,6 +1775,18 @@ app.controller('defaultHistoryController', function ($scope, $http) {
             $scope.history = res.data;
         });
 })
+app.controller("scheduleController", function($scope, $http) {
+    $http.get(scheduleJson).then(function(res){
+           $scope.daysData = res.data;
+    });
+})
+
+app.controller("scheduleController", function($scope, $http) {
+    $http.get(scheduleJson).then(function(res){
+           $scope.daysData = res.data;
+    });
+})
+
 app.controller('sponsorController', function($scope, $http) {
     $http.get(sponsorJson)
         .then(function(res){
@@ -1536,20 +1858,6 @@ app.controller('competitionController', function($scope, $stateParams, $http) {
         return total;
     }
     
-})
-
-app.controller("scheduleController", function($scope, $http) {
-    $http.get(scheduleJson).then(function(res){
-           console.log(res);
-           $scope.daysData = res.data;
-    });
-})
-
-app.controller("socialController", function($scope, $http) {
-    $http.get(socialJson).then(function(res){
-           console.log(res);
-           $scope.socialData = res.data;
-    });
 })
 app.controller("tariffController", function ($scope, $http) {
 
