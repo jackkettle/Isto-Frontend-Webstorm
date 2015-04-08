@@ -2583,3 +2583,6 @@ span.text-change {
 .center-block {
   margin: 0 auto;
 }
+.hidden {
+  display: hidden;
+}

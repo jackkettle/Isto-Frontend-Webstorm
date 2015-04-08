@@ -17,6 +17,9 @@
             <h3 class="text-primary text-center capitalize">{{ event }}</h3>
             <h4 class="text-primary text-center capitalize" ng-controller="commonFunctionsController" ng-if="isNumeric(level)">Level - {{ level }}</h4>
             <h4 class="text-primary text-center capitalize" ng-controller="commonFunctionsController" ng-if="!isNumeric(level)">{{ level }}</h4>
+            <div>
+                <button ng-click="refreshScores(data, event)">Refresh scores</button>
+            </div>
             <hr>
             
             <div class="col-md-12"> 
@@ -28,6 +31,7 @@
                         </td>
                         <td data-title="'Name'">
                             <span>{{user.name}}</span>
+                            <span class="hidden">{{user.key.id}}</span>
                         </td>
                         
                         
@@ -56,7 +60,7 @@
                                 <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.set.judge5" /></div>
                             </td>
                             <td data-title="'Set'" width="200">
-                                <span ng-if="!user.$edit">{{user.trampolinescore.set.total}}</span>
+                                <span>{{user.trampolinescore.set.total}}</span>
                             </td>
                             
                             <td data-title="'J1'" width="200">
@@ -84,7 +88,7 @@
                                 <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.tariff" /></div>
                             </td>
                             <td data-title="'Vol'" width="200">
-                                <span ng-if="!user.$edit">{{user.trampolinescore.vol.total}}</span>
+                                <span>{{user.trampolinescore.vol.total}}</span>
                             </td>
                             
                         </div>
@@ -103,7 +107,7 @@
                         
                         <td data-title="'Actions'" width="200">
                             <a ng-if="!user.$edit" href="" class="btn btn-default btn-xs" ng-click="user.$edit = true">Edit</a>
-                            <a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="user.$edit = false">Save</a>
+                            <a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="user.$edit = false; setMemberScore(user, event)">Save</a>
                         </td>
                     </tr>
                 </table>

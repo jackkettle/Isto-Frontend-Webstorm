@@ -7,9 +7,6 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
     // init data
     $scope.data = [];
     
-    console.log($scope.event);
-    console.log($scope.level);
-    
     // int Table
     $scope.tableParamsRecord = new ngTableParams({
         page: 1,            // show first page
@@ -52,7 +49,6 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                     for (var j = club.members.length; j--; ) {
                         
                         if(isInEvent(club.members[j], $scope.event, $scope.level) ){
-                            console.log(club.members[j]);
                             club.members[j].club=club.name;
                             $scope.data.push(club.members[j]);
                         }
@@ -61,6 +57,7 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                 }
                 
             }
+            
             $scope.loadingVar = false;
             $scope.tableParamsRecord.reload();
             $scope.$apply();
@@ -74,13 +71,6 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
             case TRAMPOLINE:
                 
                 if(member.trampolineLevel === level){
-                    bool = true;
-                }
-                
-                break;
-            case SYNCRO:
-                
-                if(member.trampolineSyncLevel === level){
                     bool = true;
                 }
                 
@@ -105,19 +95,130 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
         return bool;
     }
     
-    // Sort out whos doing said event
-    
-    $scope.getEventMembers = function(event, level) {
-        
+    $scope.refreshScores = function(data, event){
+        console.log("Refreshing scores...");
+        angular.forEach(data, function(user) {
+            $scope.getScore(user.key.id, event, user);
+        });
     }
     
-    $scope.setMemberScore = function() {
+    $scope.getScore = function(userId, event, user) {
+        console.log("getScore");
         
+        gapi.client.api.getScores({
+            "userId": userId,
+            "eventName": event
+        }).execute(function(resp){
+            if(resp.scores){
+                console.log(resp);
+                if(event === TRAMPOLINE && resp.scores){
+                    user.trampolinescore = {};
+                    user.trampolinescore.set = {};
+                    user.trampolinescore.set.judge1 = getByOrder(1, resp.scores);
+                    user.trampolinescore.set.judge2 = getByOrder(2, resp.scores);
+                    user.trampolinescore.set.judge3 = getByOrder(3, resp.scores);
+                    user.trampolinescore.set.judge4 = getByOrder(4, resp.scores);
+                    user.trampolinescore.set.judge5 = getByOrder(5, resp.scores);
+                    user.trampolinescore.vol = {};
+                    user.trampolinescore.vol.judge1 = getByOrder(6, resp.scores);
+                    user.trampolinescore.vol.judge2 = getByOrder(7, resp.scores);
+                    user.trampolinescore.vol.judge3 = getByOrder(8, resp.scores);
+                    user.trampolinescore.vol.judge4 = getByOrder(9, resp.scores);
+                    user.trampolinescore.vol.judge5 = getByOrder(10, resp.scores);
+                    user.trampolinescore.vol.tariff = getByOrder(11, resp.scores);
+                }else if(event === "tumbling"){
+                    
+                }else if(event === "dmt"){
+                    
+                }
+            }
+        })
+        $scope.$apply();
     }
+    
+    $scope.setMemberScore = function(user, event) {
+        
+        console.log(event);
+        console.log(user);
+        
+        if(event === TRAMPOLINE){
+            
+            var scores = [];
+            scores.push({
+                "score": user.trampolinescore.set.judge1,
+                "order": 1
+            });
+            scores.push({
+                "score": user.trampolinescore.set.judge2,
+                "order": 2
+            });
+            scores.push({
+                "score": user.trampolinescore.set.judge3,
+                "order": 3
+            });
+            scores.push({
+                "score": user.trampolinescore.set.judge4,
+                "order": 4
+            });
+            scores.push({
+                "score": user.trampolinescore.set.judge5,
+                "order": 5
+            });
+            scores.push({
+                "score": user.trampolinescore.vol.judge1,
+                "order": 6
+            });
+            scores.push({
+                "score": user.trampolinescore.vol.judge2,
+                "order": 7
+            });
+            scores.push({
+                "score": user.trampolinescore.vol.judge3,
+                "order": 8
+            });
+            scores.push({
+                "score": user.trampolinescore.vol.judge4,
+                "order": 9
+            });
+            scores.push({
+                "score": user.trampolinescore.vol.judge5,
+                "order": 10
+            });
+            scores.push({
+                "score": user.trampolinescore.vol.tariff,
+                "order": 11
+            });
+    
+            gapi.client.api.setScores({
+                "userId": user.key.id,
+                "eventName": event,
+                "scores": scores
+            }).execute(function(resp){
+                if(resp.scores){
+                    console.log(resp);   
+                }
+            })
+    
+    
+        }else if(event === TUMBLING){
+            
+        }else if(event === DMT){
+            
+        }
+            
+    }
+    
     
     var TRAMPOLINE = 'trampoline';
-    var SYNCRO = 'syncro';
     var TUMBLING = 'tumbling';
     var DMT = 'dmt';
     
 })
+
+function getByOrder(order, scores) {
+    for(var i = 0; i < scores.length; i++){
+        if(scores[i].order = order){
+            return scores[i].score;
+        }
+    }
+}
