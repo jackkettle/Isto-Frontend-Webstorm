@@ -1,4 +1,4 @@
-app.controller('recorderController', function ($scope, $stateParams, ngTableParams, Gapi, $filter) {
+app.controller('recorderController', function ($scope, $stateParams, ngTableParams, Gapi, $filter, $timeout) {
     
     // State params
     $scope.event = $stateParams.event;
@@ -50,6 +50,11 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                         
                         if(isInEvent(club.members[j], $scope.event, $scope.level) ){
                             club.members[j].club=club.name;
+                            var userId =  club.members[j].key.id;
+                            var userParentId = club.members[j].key.parent.id;
+                            var event = $scope.event;
+                            var user = club.members[j];
+                            $scope.getScore(userId, userParentId, event, user);
                             $scope.data.push(club.members[j]);
                         }
                         
@@ -57,10 +62,11 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                 }
                 
             }
-            
-            $scope.loadingVar = false;
-            $scope.tableParamsRecord.reload();
-            $scope.$apply();
+            $timeout(function() {
+                $scope.loadingVar = false;
+                $scope.tableParamsRecord.reload();
+                $scope.$apply();
+            }, 500);
         })
     });
 
@@ -98,19 +104,19 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
     $scope.refreshScores = function(data, event){
         console.log("Refreshing scores...");
         angular.forEach(data, function(user) {
-            $scope.getScore(user.key.id, event, user);
+            $scope.getScore(user.key.id, user.key.parent.id, event, user);
         });
     }
     
-    $scope.getScore = function(userId, event, user) {
+    $scope.getScore = function(userId, userParentId, event, user) {
         console.log("getScore");
         
         gapi.client.api.getScores({
             "userId": userId,
+            "userParentId": userParentId,
             "eventName": event
         }).execute(function(resp){
             if(resp.scores){
-                console.log(resp);
                 if(event === TRAMPOLINE && resp.scores){
                     user.trampolinescore = {};
                     user.trampolinescore.set = {};
@@ -133,7 +139,9 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                 }
             }
         })
-        $scope.$apply();
+        $timeout(function() {
+            $scope.$apply();
+        }, 100);
     }
     
     $scope.setMemberScore = function(user, event) {
@@ -191,6 +199,7 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
     
             gapi.client.api.setScores({
                 "userId": user.key.id,
+                "userParentId": user.key.parent.id,
                 "eventName": event,
                 "scores": scores
             }).execute(function(resp){
@@ -198,8 +207,7 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                     console.log(resp);   
                 }
             })
-    
-    
+
         }else if(event === TUMBLING){
             
         }else if(event === DMT){
@@ -217,7 +225,7 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
 
 function getByOrder(order, scores) {
     for(var i = 0; i < scores.length; i++){
-        if(scores[i].order = order){
+        if(scores[i].order === order){
             return scores[i].score;
         }
     }
