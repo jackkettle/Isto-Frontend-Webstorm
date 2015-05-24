@@ -37,4 +37,11 @@ app.controller('addUserController', function($scope, Gapi) {
        }
        return false;
    }
+   
+    $scope.addUser = function(name, password, club, type){
+        gapi.client.api.addUser({Name: name, Password: password, Club: club, Type: type}).execute(function(resp){
+            console.log("User added " + name + ", " + password + ", " + club + ", " + type);
+            $state.go("dashboard");
+        })
+    }
 })

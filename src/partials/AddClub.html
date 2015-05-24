@@ -22,10 +22,10 @@
             <div class="col-md-12 margin-bottom-20"> 
                 <form class="col-md-6 col-md-offset-3" >
                     <div class="col-md-9">
-                    <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="Trinity"/>
+                        <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="Trinity"/>
                     </div>
                     <div class="col-md-3">
-                    <input class="col-md-12" type="submit" ng-disabled="disabledVar" value="Submit"/>
+                        <input class="col-md-12" type="submit" ng-disabled="disabledVar" ng-click="addClub(clubName)" value="Submit"/>
                     </div>
                 </form>
             </div>

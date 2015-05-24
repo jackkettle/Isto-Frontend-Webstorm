@@ -1,4 +1,4 @@
-app.controller('addClubController', function($scope, Gapi) {
+app.controller('addClubController', function($scope, Gapi, $state) {
     
     $scope.disabledVar = true;
     
@@ -29,12 +29,19 @@ app.controller('addClubController', function($scope, Gapi) {
         }
    });
    
-   var contains = function(list, value){
+    var contains = function(list, value){
        for (var i = list.length; i--; ) {
            if(list[i].toLowerCase() === value.toLowerCase()){
                return true;
            }
        }
        return false;
-   }
+    }
+   
+    $scope.addClub = function(club){
+        gapi.client.api.addClub({Name: club}).execute(function(resp){
+            console.log("Club added " + club)
+            $state.go("dashboard");
+        })
+    }
 })

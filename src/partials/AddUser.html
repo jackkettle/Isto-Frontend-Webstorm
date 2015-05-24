@@ -27,7 +27,7 @@
                             User name
                         </div>
                         <div class="col-md-7">
-                            <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="username"/>
+                            <input class="col-md-12" type="text" name="username" ng-model="username" placeholder="username"/>
                         </div>
                     </div>
                     
@@ -36,7 +36,7 @@
                             User password
                         </div>
                         <div class="col-md-7">
-                            <input class="col-md-12" type="password" name="clubName" ng-model="password" placeholder="password"/>
+                            <input class="col-md-12" type="password" name="password" ng-model="password" placeholder="password"/>
                         </div>
                     </div>
                    
@@ -47,7 +47,7 @@
                         <div class="col-md-7">
                             <select 
                                 class="form-element" 
-                                ng-model="clubSelectValue" >
+                                ng-model="clubName" >
                                 <option ng-repeat="clubName in allClubNames | orderBy:'toString()'">{{ clubName }}</option>
                             </select>
                         </div>
@@ -58,12 +58,16 @@
                             User type
                         </div>
                         <div class="col-md-7">
-                            <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="3"/>
+                            <input class="col-md-12" type="text" name="usertype" ng-model="usertype" placeholder="3"/>
                         </div>
                     </div>
                     
                     <div class="col-md-12 margin-top-20">
-                        <input class="col-md-4 col-md-offset-3" type="submit" ng-disabled="disabledVar" value="Submit"/>
+                        <input class="col-md-4 col-md-offset-3" 
+                            type="submit" 
+                            ng-disabled="disabledVar" 
+                            ng-click="addUser(username, password, clubName, usertype)" 
+                            value="Submit"/>
                     </div>
                 </form>
             </div>

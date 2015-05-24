@@ -396,7 +396,7 @@ $(document).ready(function(){
     });
 
 });
-app.controller('addClubController', function($scope, Gapi) {
+app.controller('addClubController', function($scope, Gapi, $state) {
     
     $scope.disabledVar = true;
     
@@ -427,14 +427,21 @@ app.controller('addClubController', function($scope, Gapi) {
         }
    });
    
-   var contains = function(list, value){
+    var contains = function(list, value){
        for (var i = list.length; i--; ) {
            if(list[i].toLowerCase() === value.toLowerCase()){
                return true;
            }
        }
        return false;
-   }
+    }
+   
+    $scope.addClub = function(club){
+        gapi.client.api.addClub({Name: club}).execute(function(resp){
+            console.log("Club added " + club)
+            $state.go("dashboard");
+        })
+    }
 })
 
 app.controller('addCompetitorController', function ($scope, $rootScope, $state) {
@@ -797,6 +804,13 @@ app.controller('addUserController', function($scope, Gapi) {
        }
        return false;
    }
+   
+    $scope.addUser = function(name, password, club, type){
+        gapi.client.api.addUser({Name: name, Password: password, Club: club, Type: type}).execute(function(resp){
+            console.log("User added " + name + ", " + password + ", " + club + ", " + type);
+            $state.go("dashboard");
+        })
+    }
 })
 
 app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal, $timeout, $filter, ngTableParams) {
