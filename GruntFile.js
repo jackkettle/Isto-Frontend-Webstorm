@@ -40,12 +40,35 @@ module.exports = function (grunt) {
             }
         },
         
+        karma: {  
+          unit: {
+            options: {
+              frameworks: ['jasmine'],
+              singleRun: true,
+              browsers: ['PhantomJS'],
+              files: [
+                'src/vendor/js/jquery-1.10.2.min.js',
+                'src/bower_components/angular/angular.min.js',
+                'src/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                'src/bower_components/angular-cookies/angular-cookies.min.js',
+                'src/bower_components/angular-mocks/angular-mocks.js',
+                'src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                'src/bower_components/ng-table/dist/ng-table.min.js',
+                'src/bower_components/file-saver/FileSaver.min.js',
+                'src/js/dest/main.min.js',
+                'https://apis.google.com/js/client.js',
+                'src/js/test/**/*.js'
+              ]
+            }
+          }
+        },
+        
         ftpush: {
             build: {
                 auth: {
                     host: 'ftp1.reg365.net',
                     "username": "isto.ie",
-                    "password": "kannah4evs"
+                    "password": "******"
                 },
                 simple: true,
                 src: 'src/',
@@ -75,6 +98,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-ftpush');
 
     // The dev task will be used during development

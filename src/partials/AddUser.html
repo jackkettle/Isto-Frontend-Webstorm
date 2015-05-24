@@ -1,31 +1,69 @@
 <section>
     <header class="wrap-title">
         <div class="container">
-            <h1 class="page-title">Add Club</h1>
+            <h1 class="page-title">Add User</h1>
 
             <ol class="breadcrumb hidden-xs">
                 <li><a href="#/">Home</a></li>
-                <li><a href="#/events">Events</a></li>
-                <li class="active">Record</li>
+                <li><a href="#/events">Dashboard</a></li>
+                <li class="active">Add User</li>
             </ol>
         </div>
     </header>
     
     <div class="container">
-        <div class="admin-dash col-md-12 margin-top-15 mid-height">
+        <div class="admin-dash col-md-12 15 large-height">
             <h3 class="text-primary text-center capitalize">Add Club</h3>
             <hr>
             
             <p class="text-center">
-                Ensure the club you are creating does not already existing
+                User type (1-CommISTO, 2-Club, 3-Scorekeeper)
             </p>
             <div class="col-md-12 margin-bottom-20"> 
                 <form class="col-md-6 col-md-offset-3" >
-                    <div class="col-md-9">
-                    <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="Trinity"/>
+                    
+                    <div class="col-md-12 margin-top-10">
+                        <div class="col-md-5">
+                            User name
+                        </div>
+                        <div class="col-md-7">
+                            <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="username"/>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                    <input class="col-md-12" type="submit" ng-disabled="disabledVar" value="Submit"/>
+                    
+                    <div class="col-md-12 margin-top-10">
+                        <div class="col-md-5">
+                            User password
+                        </div>
+                        <div class="col-md-7">
+                            <input class="col-md-12" type="password" name="clubName" ng-model="password" placeholder="password"/>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-12 margin-top-10">
+                        <div class="col-md-5">
+                            Club name
+                        </div>
+                        <div class="col-md-7">
+                            <select 
+                                class="form-element" 
+                                ng-model="clubSelectValue" >
+                                <option ng-repeat="clubName in allClubNames | orderBy:'toString()'">{{ clubName }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 margin-top-10">
+                        <div class="col-md-5">
+                            User type
+                        </div>
+                        <div class="col-md-7">
+                            <input class="col-md-12" type="text" name="clubName" ng-model="clubName" placeholder="3"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 margin-top-20">
+                        <input class="col-md-4 col-md-offset-3" type="submit" ng-disabled="disabledVar" value="Submit"/>
                     </div>
                 </form>
             </div>

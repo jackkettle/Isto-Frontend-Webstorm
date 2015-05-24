@@ -37,13 +37,6 @@
       ga('create', 'UA-58153456-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
-    <script>
-        function OnLoadCallback(argument) {
-            var ROOT="https://1-dot-bamboo-depth-694.appspot.com/_ah/api";
-            gapi.client.load('api', 'v1', null, ROOT);
-        }
-    </script>
 </head>
 
 <body>
@@ -232,6 +225,7 @@
 
 
 <!-- Scripts -->
+<script src="js/dev/gapiConfig.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
 <script src="vendor/js/jquery-1.10.2.min.js"></script>
 <script src="vendor/js/jquery.cookie.js"></script>

@@ -1,0 +1,43 @@
+<section>
+    <header class="wrap-title">
+        <div class="container">
+            <h1 class="page-title">Delete User</h1>
+
+            <ol class="breadcrumb hidden-xs">
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/dashboard">Dashboard</a></li>
+                <li class="active">Delete User</li>
+            </ol>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="admin-dash col-md-12 margin-top-15 mid-height">
+            <h3 class="text-primary text-center capitalize">Delete User</h3>
+            <hr>
+            
+            <p class="text-center">
+                Once you delete a user, there is no way to recover it. Ensure this is what you want.
+            </p>
+            <div class="col-md-12 margin-bottom-20">
+                <form class="col-md-6 col-md-offset-3" >
+                    <div class="col-md-9">
+                        <select 
+                            class="form-element" 
+                            ng-model="clubSelectValue" >
+                            <option>Scorekeeper-DCU</option>
+                            <option>Scorekeeper-Trinity</option>
+                            <option>Scorekeeper-Gmit</option>
+                            <option>Scorekeeper-UCC</option>
+                            <option>Scorekeeper-Hull</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="col-md-12" type="submit" ng-disabled="disabledVar" value="Submit"/>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>

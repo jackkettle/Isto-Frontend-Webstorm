@@ -18,13 +18,14 @@
             <h4 class="text-primary text-center capitalize" ng-controller="commonFunctionsController" ng-if="isNumeric(level)">Level - {{ level }}</h4>
             <h4 class="text-primary text-center capitalize" ng-controller="commonFunctionsController" ng-if="!isNumeric(level)">{{ level }}</h4>
             <div>
-                <button ng-click="refreshScores(data, event)">Refresh scores</button>
+                <button ng-init="refreshed=false" ng-disabled="refreshed" ng-click="refreshScores(data, event)">Refresh scores</button>
+                <button ng-click="downloadAsCsvTrampoline(event + '-' + level)">Download CSV</button>
             </div>
             <hr>
             
             <div class="col-md-12"> 
                 
-                <table ng-table="tableParamsRecord" class="table">
+                <table ng-table="tableParamsRecord" class="table" id="exportable">
                     <tr ng-repeat="user in $data">
                         <td data-title="'Club'">
                             <span>{{user.club}}</span>
@@ -40,56 +41,62 @@
                         
                         <!-- Trampoline -->
                         <div>
-                            <td data-title="'J1'" width="200">
+                            <td data-title="'J 1'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.set.judge1}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.set.judge1" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.set.judge1" /></div>
                             </td>
-                            <td data-title="'J2'" width="200">
+                            <td data-title="'J 2'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.set.judge2}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.set.judge2" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.set.judge2" /></div>
                             </td>
-                            <td data-title="'J3'" width="200">
+                            <td data-title="'J 3'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.set.judge3}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.set.judge3" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.set.judge3" /></div>
                             </td>
-                            <td data-title="'J4'" width="200">
+                            <td data-title="'J 4'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.set.judge4}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.set.judge4" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.set.judge4" /></div>
                             </td>
-                            <td data-title="'J5'" width="200">
+                            <td data-title="'J 5'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.set.judge5}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.set.judge5" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.set.judge5" /></div>
                             </td>
                             <td data-title="'Set'" width="200">
-                                <span>{{user.trampolinescore.set.total}}</span>
+                                <span ng-bind="user.trampolinescore.set.total"></span>
                             </td>
                             
-                            <td data-title="'J1'" width="200">
+                            <td data-title="'J 1'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.vol.judge1}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.judge1" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.vol.judge1" /></div>
                             </td>
-                            <td data-title="'J2'" width="200">
+                            <td data-title="'J 2'" width="200" class="edit cell">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.vol.judge2}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.judge2" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.vol.judge2" /></div>
                             </td>
-                            <td data-title="'J3'" width="200">
+                            <td data-title="'J 3'" width="200" class="edit cell">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.vol.judge3}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.judge3" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.vol.judge3" /></div>
                             </td>
-                            <td data-title="'J4'" width="200">
+                            <td data-title="'J 4'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.vol.judge4}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.judge4" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.vol.judge4" /></div>
                             </td>
-                            <td data-title="'J5'" width="200">
+                            <td data-title="'J 5'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.vol.judge5}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.judge5" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.vol.judge5" /></div>
                             </td>
                             <td data-title="'Tariff'" width="200">
                                 <span ng-if="!user.$edit">{{user.trampolinescore.vol.tariff}}</span>
-                                <div ng-if="user.$edit"><input class="form-control" type="text" ng-model="user.trampolinescore.vol.tariff" /></div>
+                                <div ng-if="user.$edit"><input class="form-control form-control-custom" type="text" ng-model="user.trampolinescore.vol.tariff" /></div>
                             </td>
                             <td data-title="'Vol'" width="200">
-                                <span>{{user.trampolinescore.vol.total}}</span>
+                                <span ng-bind="user.trampolinescore.vol.total"></span>
+                            </td>
+                            <td data-title="'Total'" width="200">
+                                <span ng-bind="user.trampolinescore.total"></span>
+                            </td>
+                            <td data-title="'Rank'" width="200">
+                                <span ng-bind="member.trampolinescore.rank"></span>
                             </td>
                             
                         </div>
@@ -106,7 +113,7 @@
                         
                         <!-- !!!!!! Judging cells end !!!!!! -->
                         
-                        <td data-title="'Actions'" width="200">
+                        <td data-title="''" width="200">
                             <a ng-if="!user.$edit" href="" class="btn btn-default btn-xs" ng-click="user.$edit = true">Edit</a>
                             <a ng-if="user.$edit" href="" class="btn btn-primary btn-xs" ng-click="user.$edit = false; setMemberScore(user, event)">Save</a>
                         </td>
@@ -114,9 +121,9 @@
                 </table>
                 
                 <div class="col-md-12 margin-bottom-20">
-                        <span class="text-center aligncenter">
-                            <i ng-init="loadingVar = true" ng-show="loadingVar" class="fa fa-4x fa-circle-o-notch fa-spin"></i>
-                        </span>
+                    <span class="text-center aligncenter">
+                        <i ng-init="loadingVar = true" ng-show="loadingVar" class="fa fa-4x fa-circle-o-notch fa-spin"></i>
+                    </span>
                 </div>
                 
             </div>

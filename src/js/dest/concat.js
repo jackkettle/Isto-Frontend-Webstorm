@@ -104,7 +104,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
 
         })
-
+        
         .state('dashboard.add', {
             url: "/add",
             views: {
@@ -135,12 +135,32 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         
+        .state('dashboard.deleteClub', {
+            url: "/deleteclub",
+            views: {
+                "@": {
+                    templateUrl: "partials/deleteClub.html",
+                    controller: "deleteClubController"
+                }
+            }
+        })
+        
         .state('dashboard.addUser', {
             url: "/adduser",
             views: {
                 "@": {
                     templateUrl: "partials/AddUser.html",
                     controller: "addUserController"
+                }
+            }
+        })
+        
+        .state('dashboard.deleteUser', {
+            url: "/deleteUser",
+            views: {
+                "@": {
+                    templateUrl: "partials/deleteUser.html",
+                    controller: "deleteUserController"
                 }
             }
         })
@@ -164,12 +184,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: "partials/record.html",
                     controller: "recorderController"
                 }
-            },
-            data: {
-                requireLogin: true // this property will apply to all children of 'app'
             }
         })
-
+        
+        .state('events.results', {
+            url: "/results",
+            views: {
+                "@": {
+                    templateUrl: "partials/results.html",
+                    controller: "resultsController"
+                }
+            }
+        })
 })
 
 // Catch 401 errors when trying to view restrcited pages
@@ -287,14 +313,11 @@ app.factory('Gapi', function($timeout, $q) {
     return {
         load: function load() {
             if (typeof gapi.client === 'undefined') {
-                console.log("gapi.client");
                 return $timeout(load, 500);
             } else if (typeof gapi.client.api === 'undefined') {
-                console.log("gapi.client.api");
                 return $timeout(load, 500); 
             } else{
                 return $timeout(function() {
-                    console.log("Api loaded");
                 }, 500);
             }
         },
@@ -1181,6 +1204,25 @@ app.controller('apiClubController', function($scope, Gapi, $rootScope, $modal, $
 
 
 
+app.controller('deleteClubController', function($scope, Gapi) {
+    
+    Gapi.load()
+        .then(function () { 
+            console.log("deleteClubController")
+            gapi.client.api.getAllClubNames().execute(function(resp){
+                if(resp.items){
+                    console.log(resp);
+                    $scope.allClubNames = resp.items;
+                    $scope.disabledVar = false;
+                    for(var i = 0; i < $scope.allClubNames.length; i++){
+                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
+                    }
+                }
+                $scope.$apply();
+            })
+        })
+})
+
 app.controller('deleteMemberModalController', function ($scope, $state, clubName, id, name) {
     
     
@@ -1211,6 +1253,66 @@ app.controller('deleteMemberModalController', function ($scope, $state, clubName
     }
     
 })
+app.controller('deleteUserController', function($scope, Gapi) {
+    
+    Gapi.load()
+        .then(function () { 
+            console.log("deleteClubController")
+            gapi.client.api.getAllClubNames().execute(function(resp){
+                if(resp.items){
+                    console.log(resp);
+                    $scope.allClubNames = resp.items;
+                    $scope.disabledVar = false;
+                    for(var i = 0; i < $scope.allClubNames.length; i++){
+                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
+                    }
+                }
+                $scope.$apply();
+            })
+        })
+})
+
+app.controller('deleteUserController', function($scope, Gapi) {
+    
+    $scope.disabledVar = true;
+    
+    Gapi.load()
+        .then(function () { 
+            console.log("deleteUserController")
+            gapi.client.api.getAllClubNames().execute(function(resp){
+                if(resp.items){
+                    $scope.allClubNames = resp.items;
+                    $scope.disabledVar = false;
+                    for(var i = 0; i < $scope.allClubNames.length; i++){
+                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
+                    }
+                }
+                $scope.$apply();
+            })
+        })
+        
+    $scope.$watch('clubName', function(value) {
+        if($scope.allClubNames){
+            if(!contains( $scope.allClubNames, value)){
+                $scope.disabledVar = false;
+                $scope.disabledMessageVar = true;
+            }else{
+                $scope.disabledVar = true;
+                $scope.disabledMessageVar = false;
+            }
+        }
+   });
+   
+   var contains = function(list, value){
+       for (var i = list.length; i--; ) {
+           if(list[i].toLowerCase() === value.toLowerCase()){
+               return true;
+           }
+       }
+       return false;
+   }
+})
+
 app.controller('editCompetitorController', function ($scope, $rootScope, $state, $stateParams, $timeout) {
     
     // GLOBAL CONSTANTS
@@ -1525,7 +1627,11 @@ app.controller('editCompetitorController', function ($scope, $rootScope, $state,
 })
 
 
-app.controller('recorderController', function ($scope, $stateParams, ngTableParams, Gapi, $filter, $timeout) {
+app.controller('recorderController', function ($scope, $stateParams, ngTableParams, Gapi, $filter, $timeout, $q) {
+    
+    var TRAMPOLINE = 'trampoline';
+    var TUMBLING = 'tumbling';
+    var DMT = 'dmt';
     
     // State params
     $scope.event = $stateParams.event;
@@ -1569,31 +1675,49 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
         gapi.client.api.getAllClubs().execute(function(resp){
             
             // iterate through clubs 
-            for (var i = resp.items.length; i--; ) {
-                
-                var club = resp.items[i];
+            angular.forEach(resp.items, function(club) {
                 if(club.members){
-                    for (var j = club.members.length; j--; ) {
-                        
-                        if(isInEvent(club.members[j], $scope.event, $scope.level) ){
-                            club.members[j].club=club.name;
-                            var userId =  club.members[j].key.id;
-                            var userParentId = club.members[j].key.parent.id;
-                            var event = $scope.event;
-                            var user = club.members[j];
-                            $scope.getScore(userId, userParentId, event, user);
-                            $scope.data.push(club.members[j]);
+                    angular.forEach(club.members, function(member) {
+                        if(isInEvent(member, $scope.event, $scope.level) ){
+                        	
+                        	var userId =  member.key.id;
+                        	var userParentId = member.key.parent.id;
+                        	var event = $scope.event;
+                        	var user = member;
+                        	
+                        	// Proptype users
+                        	member.club=club.name;
+                        	(function(member) {
+                                $scope.getScore(userId, userParentId, event, member).then(function () {
+                                if(member.trampolinescore){
+                                    member.trampolinescore.set.total = $scope.getUserSetScore(member);
+                            		member.trampolinescore.vol.total = $scope.getUserVolScore(member);
+                            		member.trampolinescore.total = $scope.getUserTotalScore(member);
+                            		$scope.data.push(member);
+                                }else{
+                                    $scope.data.push(member);   
+                                }
+                                
+                        	})
+                            })(member);
                         }
-                        
-                    }
+                    })
                 }
-                
-            }
+            });
+
             $timeout(function() {
+                
+                
+                angular.forEach($scope.data, function(member) {
+                     if(member.trampolinescore && member.trampolinescore.total){
+                        member.trampolinescore.rank = getRank(member.trampolinescore.total, $scope.data);
+                     }
+                })
+                
                 $scope.loadingVar = false;
                 $scope.tableParamsRecord.reload();
                 $scope.$apply();
-            }, 500);
+            }, 4000);
         })
     });
 
@@ -1628,19 +1752,186 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
         return bool;
     }
     
-    $scope.refreshScores = function(data, event){
-        console.log("Refreshing scores...");
-        angular.forEach(data, function(user) {
-            $scope.getScore(user.key.id, user.key.parent.id, event, user);
+    $scope.getSetScore = function(setArray){
+        
+        
+        var largest = Math.max.apply(Math, setArray);
+        var smallest = Math.min.apply(Math, setArray);
+        
+        var sum = setArray.reduce(function(previousValue, currentValue, index, array) {
+            return previousValue + currentValue;
         });
+        
+        var setScore = sum - (largest + smallest);
+        
+        return parseFloat(setScore.toFixed(1));
+    }
+    
+    $scope.getVolScore = function (volArray, tariffScore){
+        
+        var volScore = $scope.getSetScore(volArray) + tariffScore;
+        return parseFloat(volScore.toFixed(1));
+        
+    }
+    
+    $scope.getUserSetScore = function(user){
+        
+        if(!user.trampolinescore){
+            return 0;
+        }else if(!user.trampolinescore.set){
+            return 0;
+        }
+        
+        var setArray = [
+            parseFloat(user.trampolinescore.set.judge1),
+            parseFloat(user.trampolinescore.set.judge2),
+            parseFloat(user.trampolinescore.set.judge3),
+            parseFloat(user.trampolinescore.set.judge4),
+            parseFloat(user.trampolinescore.set.judge5)
+        ]
+        
+        return $scope.getSetScore(setArray);
+        
+    }
+    
+    $scope.getUserVolScore = function (user){
+        
+        if(!user.trampolinescore){
+            return 0;
+        }else if(!user.trampolinescore.vol){
+            return 0;
+        }
+        
+        
+        var volArray = [
+            parseFloat(user.trampolinescore.vol.judge1),
+            parseFloat(user.trampolinescore.vol.judge2),
+            parseFloat(user.trampolinescore.vol.judge3),
+            parseFloat(user.trampolinescore.vol.judge4),
+            parseFloat(user.trampolinescore.vol.judge5)
+        ]
+        var total = $scope.getVolScore(volArray, parseFloat(user.trampolinescore.vol.tariff))
+        return total.toFixed(1);
+        
+    }
+    
+    $scope.getUserTotalScore = function (user){
+        var a = parseFloat($scope.getUserSetScore(user))
+        var b = parseFloat($scope.getUserVolScore(user))
+        var total = a + b;
+        return total.toFixed(1);
+        
+    }
+    
+    $scope.getRank = function(member, members){
+        if(member.trampolinescore && member.trampolinescore.total){
+            getRank(member.trampolinescore.total);
+        }
+    }
+
+    
+    $scope.downloadAsCsvTrampoline = function (filename) {
+        console.log("downloadAsCsv");
+        var header = "index,club,name,J1,J2,J3,J4,J5,Set,J1,J2,J3,J4,J5,Tarif,Vol,Total,Rank\n";
+        var csvData = header;
+        // populate csv var
+        var i = 1;
+        angular.forEach($scope.data, function(user) {
+            // build each row
+            var row = "";
+            row += i + ",";
+            
+            row += user.club + ",";
+            row += user.name + ",";
+            
+            if(user.trampolinescore){
+                if(user.trampolinescore.set){
+                    row += user.trampolinescore.set.judge1 + ",";
+                    row += user.trampolinescore.set.judge2 + ",";
+                    row += user.trampolinescore.set.judge3 + ",";
+                    row += user.trampolinescore.set.judge4 + ",";
+                    row += user.trampolinescore.set.judge5 + ",";
+                    row += $scope.getUserSetScore(user) + ",";
+                    
+                }else{
+                    row += "0,0,0,0,0,0,";
+                }
+                if(user.trampolinescore.vol){
+                    row += user.trampolinescore.vol.judge1 + ",";
+                    row += user.trampolinescore.vol.judge2 + ",";
+                    row += user.trampolinescore.vol.judge3 + ",";
+                    row += user.trampolinescore.vol.judge4 + ",";
+                    row += user.trampolinescore.vol.judge5 + ",";
+                    row += user.trampolinescore.vol.tariff + ",";
+                    row += $scope.getUserVolScore(user) + ",";
+                }
+                else{
+                     row += "0,0,0,0,0,0,";
+                }
+                var total = parseFloat($scope.getUserSetScore(user)) + parseFloat($scope.getUserVolScore(user));
+                if(total){
+                    row += total + ",";
+                }else{
+                    row += "0,";
+                }
+            }
+            else{
+                row += "0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+            }
+            row += "0" // rank
+
+            row += "\n";
+            
+            csvData += row;
+            i++
+        });
+        console.log(csvData);
+        var blob = new Blob([csvData], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, filename+'.csv');
+
+    }
+    
+    $scope.refreshScores = function(data, event){
+        $scope.refreshed=true;
+        console.log("Refreshing scores...");
+        angular.forEach(data, function(member) {
+            $scope.getScore(member.key.id, member.key.parent.id, event, member)
+                .then(function () {
+                    if(member.trampolinescore){
+                        member.trampolinescore.set.total = $scope.getUserSetScore(member);
+                		member.trampolinescore.vol.total = $scope.getUserVolScore(member);
+                		member.trampolinescore.total = $scope.getUserTotalScore(member);
+                    }
+                });
+        });
+        $scope.refreshed=false;
+    }
+    
+    $scope.refreshScore = function(member){
+        $scope.getScore(member.key.id, member.key.parent.id, event, member)
+            .then(function () {
+                if(member.trampolinescore){
+                    member.trampolinescore.set.total = $scope.getUserSetScore(member);
+            		member.trampolinescore.vol.total = $scope.getUserVolScore(member);
+            		member.trampolinescore.total = $scope.getUserTotalScore(member);
+            		member.trampolinescore.rank = getRank(member.trampolinescore.total, $scope.data);
+                }
+        });
+
     }
     
     $scope.getScore = function(userId, userParentId, event, user) {
         console.log("getScore");
         
+        var deferred = $q.defer();
+        
         gapi.client.api.getScores({
             "userId": userId,
             "userParentId": userParentId,
+            "userName" : user.name,
+    		"userClub" : user.club,
             "eventName": event
         }).execute(function(resp){
             if(resp.scores){
@@ -1664,17 +1955,16 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
                 }else if(event === "dmt"){
                     
                 }
+            }else{
+                
             }
+            deferred.resolve();
         })
-        $timeout(function() {
-            $scope.$apply();
-        }, 100);
+        
+        return deferred.promise;
     }
     
     $scope.setMemberScore = function(user, event) {
-        
-        console.log(event);
-        console.log(user);
         
         if(event === TRAMPOLINE){
             
@@ -1727,6 +2017,8 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
             gapi.client.api.setScores({
                 "userId": user.key.id,
                 "userParentId": user.key.parent.id,
+                "userName" : user.name,
+    		    "userClub" : user.club,
                 "eventName": event,
                 "scores": scores
             }).execute(function(resp){
@@ -1740,13 +2032,8 @@ app.controller('recorderController', function ($scope, $stateParams, ngTablePara
         }else if(event === DMT){
             
         }
-            
+        $scope.refreshScore(user, event);
     }
-    
-    
-    var TRAMPOLINE = 'trampoline';
-    var TUMBLING = 'tumbling';
-    var DMT = 'dmt';
     
 })
 
@@ -1756,6 +2043,41 @@ function getByOrder(order, scores) {
             return scores[i].score;
         }
     }
+}
+
+function getRank(score, members) {
+    
+    console.log("--------------");
+    console.log("Get rank");
+    
+    var totalScores = []
+    angular.forEach(members, function(member) {
+        if(member.trampolinescore && member.trampolinescore.total){
+            totalScores.push(member.trampolinescore.total)
+        }
+    })
+    
+    totalScores.sort();
+    var value = totalScores.indexOf(score);
+    console.log(value);
+    console.log("--------------");
+    if(value == -1){
+        return 0;
+    }else{
+        return value;
+    }
+    
+}
+
+
+app.controller('resultsController', function ($scope, $stateParams, ngTableParams, Gapi, $filter, $timeout, $q) {
+    
+})
+
+
+function OnLoadCallback() {
+    var ROOT="https://1-dot-bamboo-depth-694.appspot.com/_ah/api";
+    gapi.client.load('api', 'v1', null, ROOT);
 }
 app.controller('LoginModalCtrl', function ($scope, UsersApi, $cookieStore,$rootScope) {
 

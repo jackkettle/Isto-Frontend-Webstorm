@@ -104,7 +104,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
 
         })
-
+        
         .state('dashboard.add', {
             url: "/add",
             views: {
@@ -135,12 +135,32 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         
+        .state('dashboard.deleteClub', {
+            url: "/deleteclub",
+            views: {
+                "@": {
+                    templateUrl: "partials/deleteClub.html",
+                    controller: "deleteClubController"
+                }
+            }
+        })
+        
         .state('dashboard.addUser', {
             url: "/adduser",
             views: {
                 "@": {
                     templateUrl: "partials/AddUser.html",
                     controller: "addUserController"
+                }
+            }
+        })
+        
+        .state('dashboard.deleteUser', {
+            url: "/deleteUser",
+            views: {
+                "@": {
+                    templateUrl: "partials/deleteUser.html",
+                    controller: "deleteUserController"
                 }
             }
         })
@@ -164,12 +184,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: "partials/record.html",
                     controller: "recorderController"
                 }
-            },
-            data: {
-                requireLogin: true // this property will apply to all children of 'app'
             }
         })
-
+        
+        .state('events.results', {
+            url: "/results",
+            views: {
+                "@": {
+                    templateUrl: "partials/results.html",
+                    controller: "resultsController"
+                }
+            }
+        })
 })
 
 // Catch 401 errors when trying to view restrcited pages
