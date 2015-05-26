@@ -7,7 +7,7 @@ app.service('UsersApi', function ($modal, $rootScope) {
             Password: password
         }
             
-        var user = gapi.client.api.login(details);
+        var user = gapi.client.api.loginHash(details);
         return user;
     }
 })

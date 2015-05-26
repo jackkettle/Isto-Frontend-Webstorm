@@ -24,16 +24,12 @@
                     <div class="col-md-9">
                         <select 
                             class="form-element" 
-                            ng-model="clubSelectValue" >
-                            <option>Scorekeeper-DCU</option>
-                            <option>Scorekeeper-Trinity</option>
-                            <option>Scorekeeper-Gmit</option>
-                            <option>Scorekeeper-UCC</option>
-                            <option>Scorekeeper-Hull</option>
+                            ng-model="userName" >
+                            <option ng-repeat="clubName in allUserNames | orderBy:'toString()'">{{ clubName }}</option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <input class="col-md-12" type="submit" ng-disabled="disabledVar" value="Submit"/>
+                        <input class="col-md-12" type="submit" ng-disabled="disabledVar" ng-click="deleteUser(userName)" value="Submit"/>
                     </div>
                 </form>
             </div>

@@ -15,4 +15,12 @@ app.controller('deleteClubController', function($scope, Gapi) {
                 $scope.$apply();
             })
         })
+        
+    $scope.deleteClub = function(name){
+        console.log("Deleting club " + name);
+        gapi.client.api.deleteClub({Club: name}).execute(function(resp){
+            $state.go("dashboard");
+        })
+    }
+    
 })

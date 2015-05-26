@@ -765,28 +765,33 @@ app.controller('addCompetitorController', function ($scope, $rootScope, $state) 
     }
 })
 
-app.controller('addUserController', function($scope, Gapi) {
+app.controller('addUserController', function($scope, Gapi, $state) {
     
     $scope.disabledVar = true;
     
     Gapi.load()
         .then(function () { 
             console.log("addUserController")
+            gapi.client.api.getAllUserNames().execute(function(resp){
+                if(resp.items){
+                    console.log(resp);
+                    $scope.allUserNames = resp.items;
+                    $scope.disabledVar = false;
+                }
+                $scope.$apply();
+            })
             gapi.client.api.getAllClubNames().execute(function(resp){
                 if(resp.items){
                     $scope.allClubNames = resp.items;
                     $scope.disabledVar = false;
-                    for(var i = 0; i < $scope.allClubNames.length; i++){
-                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
-                    }
                 }
                 $scope.$apply();
             })
         })
         
-    $scope.$watch('clubName', function(value) {
-        if($scope.allClubNames){
-            if(!contains( $scope.allClubNames, value)){
+    $scope.$watch('username', function(value) {
+        if($scope.allUserNames){
+            if(!contains( $scope.allUserNames, value)){
                 $scope.disabledVar = false;
                 $scope.disabledMessageVar = true;
             }else{
@@ -1235,6 +1240,14 @@ app.controller('deleteClubController', function($scope, Gapi) {
                 $scope.$apply();
             })
         })
+        
+    $scope.deleteClub = function(name){
+        console.log("Deleting club " + name);
+        gapi.client.api.deleteClub({Club: name}).execute(function(resp){
+            $state.go("dashboard");
+        })
+    }
+    
 })
 
 app.controller('deleteMemberModalController', function ($scope, $state, clubName, id, name) {
@@ -1267,64 +1280,27 @@ app.controller('deleteMemberModalController', function ($scope, $state, clubName
     }
     
 })
-app.controller('deleteUserController', function($scope, Gapi) {
+app.controller('deleteUserController', function($scope, Gapi, $state) {
     
     Gapi.load()
         .then(function () { 
-            console.log("deleteClubController")
-            gapi.client.api.getAllClubNames().execute(function(resp){
+            console.log("addUserController")
+            gapi.client.api.getAllUserNames().execute(function(resp){
                 if(resp.items){
                     console.log(resp);
-                    $scope.allClubNames = resp.items;
+                    $scope.allUserNames = resp.items;
                     $scope.disabledVar = false;
-                    for(var i = 0; i < $scope.allClubNames.length; i++){
-                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
-                    }
-                }
-                $scope.$apply();
-            })
-        })
-})
-
-app.controller('deleteUserController', function($scope, Gapi) {
-    
-    $scope.disabledVar = true;
-    
-    Gapi.load()
-        .then(function () { 
-            console.log("deleteUserController")
-            gapi.client.api.getAllClubNames().execute(function(resp){
-                if(resp.items){
-                    $scope.allClubNames = resp.items;
-                    $scope.disabledVar = false;
-                    for(var i = 0; i < $scope.allClubNames.length; i++){
-                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
-                    }
                 }
                 $scope.$apply();
             })
         })
         
-    $scope.$watch('clubName', function(value) {
-        if($scope.allClubNames){
-            if(!contains( $scope.allClubNames, value)){
-                $scope.disabledVar = false;
-                $scope.disabledMessageVar = true;
-            }else{
-                $scope.disabledVar = true;
-                $scope.disabledMessageVar = false;
-            }
-        }
-   });
-   
-   var contains = function(list, value){
-       for (var i = list.length; i--; ) {
-           if(list[i].toLowerCase() === value.toLowerCase()){
-               return true;
-           }
-       }
-       return false;
-   }
+    $scope.deleteUser = function(name){
+        console.log("Deleting name " + name);
+        gapi.client.api.deleteUser({Name: name}).execute(function(resp){
+            $state.go("dashboard");
+        })
+    }
 })
 
 app.controller('editCompetitorController', function ($scope, $rootScope, $state, $stateParams, $timeout) {
@@ -2086,6 +2062,27 @@ function getRank(score, members) {
 
 app.controller('resultsController', function ($scope, $stateParams, ngTableParams, Gapi, $filter, $timeout, $q) {
     
+    
+    Gapi.load()
+        .then(function () { 
+            console.log("resultsController")
+            gapi.client.api.getWinningScores({event: "trampoline"}).execute(function(resp){
+                if(resp.items){
+                    $scope.trampolineScores = resp.items;
+                    console.log(resp.items);
+                    $scope.level1 = resp.items.slice(0,3);
+                    $scope.level2 = resp.items.slice(3,7);
+                    $scope.level3 = resp.items.slice(7,11);
+                    $scope.level4 = resp.items.slice(11,15);
+                    $scope.level5 = resp.items.slice(15,19);
+                    $scope.level6 = resp.items.slice(19,23);
+                    $scope.disabledVar = false;
+                    
+                    console.log($scope.level1);
+                }
+                $scope.$apply();
+            })
+        })
 })
 
 
@@ -2197,7 +2194,7 @@ app.service('UsersApi', function ($modal, $rootScope) {
             Password: password
         }
             
-        var user = gapi.client.api.login(details);
+        var user = gapi.client.api.loginHash(details);
         return user;
     }
 })

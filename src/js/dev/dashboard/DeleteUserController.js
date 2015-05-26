@@ -1,18 +1,22 @@
-app.controller('deleteUserController', function($scope, Gapi) {
+app.controller('deleteUserController', function($scope, Gapi, $state) {
     
     Gapi.load()
         .then(function () { 
-            console.log("deleteClubController")
-            gapi.client.api.getAllClubNames().execute(function(resp){
+            console.log("addUserController")
+            gapi.client.api.getAllUserNames().execute(function(resp){
                 if(resp.items){
                     console.log(resp);
-                    $scope.allClubNames = resp.items;
+                    $scope.allUserNames = resp.items;
                     $scope.disabledVar = false;
-                    for(var i = 0; i < $scope.allClubNames.length; i++){
-                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
-                    }
                 }
                 $scope.$apply();
             })
         })
+        
+    $scope.deleteUser = function(name){
+        console.log("Deleting name " + name);
+        gapi.client.api.deleteUser({Name: name}).execute(function(resp){
+            $state.go("dashboard");
+        })
+    }
 })

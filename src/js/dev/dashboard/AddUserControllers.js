@@ -1,25 +1,30 @@
-app.controller('addUserController', function($scope, Gapi) {
+app.controller('addUserController', function($scope, Gapi, $state) {
     
     $scope.disabledVar = true;
     
     Gapi.load()
         .then(function () { 
             console.log("addUserController")
+            gapi.client.api.getAllUserNames().execute(function(resp){
+                if(resp.items){
+                    console.log(resp);
+                    $scope.allUserNames = resp.items;
+                    $scope.disabledVar = false;
+                }
+                $scope.$apply();
+            })
             gapi.client.api.getAllClubNames().execute(function(resp){
                 if(resp.items){
                     $scope.allClubNames = resp.items;
                     $scope.disabledVar = false;
-                    for(var i = 0; i < $scope.allClubNames.length; i++){
-                        $scope.allClubNames[i] = $scope.allClubNames[i].toLowerCase();
-                    }
                 }
                 $scope.$apply();
             })
         })
         
-    $scope.$watch('clubName', function(value) {
-        if($scope.allClubNames){
-            if(!contains( $scope.allClubNames, value)){
+    $scope.$watch('username', function(value) {
+        if($scope.allUserNames){
+            if(!contains( $scope.allUserNames, value)){
                 $scope.disabledVar = false;
                 $scope.disabledMessageVar = true;
             }else{
