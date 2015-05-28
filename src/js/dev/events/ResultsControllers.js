@@ -9,11 +9,11 @@ app.controller('resultsController', function ($scope, $stateParams, ngTableParam
                     $scope.trampolineScores = resp.items;
                     console.log(resp.items);
                     $scope.level1 = resp.items.slice(0,3);
-                    $scope.level2 = resp.items.slice(3,7);
-                    $scope.level3 = resp.items.slice(7,11);
-                    $scope.level4 = resp.items.slice(11,15);
-                    $scope.level5 = resp.items.slice(15,19);
-                    $scope.level6 = resp.items.slice(19,23);
+                    $scope.level2 = resp.items.slice(3,6);
+                    $scope.level3 = resp.items.slice(6,9);
+                    $scope.level4 = resp.items.slice(9,12);
+                    $scope.level5 = resp.items.slice(12,15);
+                    $scope.level6 = resp.items.slice(15,18);
                     $scope.disabledVar = false;
                     
                     console.log($scope.level1);

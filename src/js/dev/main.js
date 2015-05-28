@@ -100,7 +100,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: "/dashboard",
             templateUrl: "partials/dashboard.1.html",
             data: {
-                requireLogin: true // this property will apply to all children of 'app'
+                requireLogin: true, // this property will apply to all children of 'app'
+                userTypes: [1,2]
             }
 
         })
@@ -173,7 +174,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             },
             data: {
-                requireLogin: true // this property will apply to all children of 'app'
+                requireLogin: true,
+                userTypes: [2,3]
             }
         })
         
@@ -194,6 +196,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: "partials/results.html",
                     controller: "resultsController"
                 }
+            },
+            data: {
+                userTypes: [2]
             }
         })
 })
@@ -226,7 +231,6 @@ app.config(function ($httpProvider) {
                         deferred.resolve( $http(rejection.config) );
                     })
                     .catch(function () {
-                        $state.go('home');
                         deferred.reject(rejection);
                     });
                 return deferred.promise;
@@ -235,7 +239,7 @@ app.config(function ($httpProvider) {
     })
 })
 
-app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
+app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore, $location) {
 
 
     $rootScope.trampLevels = [
@@ -263,6 +267,7 @@ app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         
         var requireLogin = toState.data.requireLogin;
+        var userTypes = toState.data.userTypes;
         
         if($cookieStore.get('istoUserId')){
             
@@ -278,6 +283,13 @@ app.run(function ($rootScope, $state, $injector, loginModal,$cookieStore) {
                 userType : userTypeCookie
             };
             
+        }
+        if(userTypes){
+            var check = userTypes.indexOf($rootScope.currentUser.userType);
+            if(check === -1){
+                event.preventDefault();
+                $state.go('home');
+            }
         }
         if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
             event.preventDefault();
