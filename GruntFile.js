@@ -68,7 +68,7 @@ module.exports = function (grunt) {
                 auth: {
                     host: 'ftp1.reg365.net',
                     "username": "isto.ie",
-                    "password": "kannah4evs"
+                    "password": ""
                 },
                 simple: true,
                 src: 'src/',
